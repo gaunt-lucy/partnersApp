@@ -8,12 +8,16 @@ def index():
 	collabs = [
 		{
 			'name': 'University of Lyon',
+			'type': 'Student exchange',
+			'level': 'Undergraduate',
 			'city': 'Lyon',
 			'country':'France',
 			'contact': {'username': 'Conor'}
 		},
 		{
 			'name': 'McGill University',
+			'type': 'Student exchange',
+			'level': 'Undergraduate',
 			'city': 'Montreal',
 			'country':'Canada',
 			'contact': {'username': 'Clare'}

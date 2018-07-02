@@ -1,0 +1,16 @@
+<html>
+
+	<head>
+		{% if title %}
+		<title>{{ title }} - Partnership Portal</title>
+		{% else %}
+		<title>Welcome to the University Partnership Portal</title>
+		{% endif %}
+	</head>
+
+	<body>
+		<div>Partnerhship Portal: <a href="/index">Home</a></div>
+		<hr>
+		{% block content %}{% endblock %}
+	</body>
+</html>
