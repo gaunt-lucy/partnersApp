@@ -1,0 +1,17 @@
+<html>
+	<head>
+		{% if title %}
+		<title>{{ title }} - Partnership Portal</title>
+		{% else %}
+		<title>Welcome to the University Partnership Portal</title>
+		{% endif %}
+	</head>
+	<body>
+		<h1>Hello, {{ user.username }}! Welcome to the Portal.</h1>
+		{% for collab in collabs %}
+		<div><p><b>{{ collab.contact.username }} created a new partnership:</b>
+			<br>Name: {{ collab.name }}
+			<br>Location: {{ collab.city }}, {{ collab.country }}</p></div>
+		{% endfor %}
+	</body>
+</html>
