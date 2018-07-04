@@ -1,14 +1,8 @@
 {% extends "base.html" %}
 
-{% block content %}
-	<h1>Hello, {{ user.username }}! Welcome to the Portal.</h1>
-	<h2>Partnership updates in your region or activity of interest</h2>
-
-	{% for collab in collabs %} <!-- for loop to display every object in list -->
-	<div><p><b>{{ collab.contact.username }} created a new partnership:</b>
-		<br>Name: {{ collab.name }}
-		<br>Location: {{ collab.city }}, {{ collab.country }}
-		<br>Type: {{ collab.type }} - {{ collab.level }}</p></div>
-	{% endfor %}
-	
+{% block app_content %}
+	<h1>Hello, {{ current_user.userid }}! Welcome to the Portal.</h1>
+	<h2><a href="{{ url_for('dashboard', userid=current_user.userid) }}">View your partnership dashboard</a></h2>
+	<body>
+		<a href="{{ url_for('newpartner') }}">Add new partner</a>
 {% endblock %}

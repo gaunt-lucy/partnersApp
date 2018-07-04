@@ -2,7 +2,7 @@
 <!-- template for login form takes a 'form' object instatiated from the LoginForm class -->
 <!-- form object is passed to the template by the login view function -->
 
-{% block content %}
+{% block app_content %}
 	<h1>Log in</h1>
 	<form action="" method="post" novalidate><!-- <form> element is a container for the web form -->
 		{{ form.hidden_tag() }} <!-- hidden tag works with secret key to catch CSRF attacks -->
@@ -23,4 +23,6 @@
 		<p>{{ form.remember() }} {{form.remember.label }}</p>
 		<p>{{ form.submit() }}</p>
 	</form>
+	<hr>
+	<p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
 {% endblock %}

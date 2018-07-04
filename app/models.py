@@ -3,9 +3,6 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash #password hash function provided by Werkzeug package (Flask dependency)
 from flask_login import UserMixin #implements required methods and properties for flask_login to work with the User model
 
-@login.user_loader
-def load_user(id):
-	return User.query.get(int(id))
 
 class User(UserMixin, db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -23,15 +20,20 @@ class User(UserMixin, db.Model):
 	def check_password(self, password):
 		return check_password_hash(self.passwordhash, password)
 
+	@login.user_loader
+	def load_user(id):
+		return User.query.get(int(id))
+
 class Partner(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String(64), index=True, unique=True)
+	name = db.Column(db.String(80), index=True, unique=True)
+	offname = db.Column(db.String(80), index=True)
 	ptype = db.Column(db.String(128))
 	city = db.Column(db.String(128))
 	country = db.Column(db.String(128))
-	contact = db.Column(db.String(128))
+	contact = db.Column(db.String(64))
 	owner = db.Column(db.Integer, db.ForeignKey('user.id'))
-	#created_date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+	created_date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
 	def __repr__(self):
 		return '<Partner: {}>'.format(self.name)
