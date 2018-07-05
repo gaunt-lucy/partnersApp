@@ -4,5 +4,7 @@
 	<h1>Hello, {{ current_user.userid }}! Welcome to the Portal.</h1>
 	<h2><a href="{{ url_for('dashboard', userid=current_user.userid) }}">View your partnership dashboard</a></h2>
 	<body>
-		<a href="{{ url_for('newpartner') }}">Add new partner</a>
+		<br><a href="{{ url_for('newpartner') }}">Add new partner</a>
+		<br><a href="{{ url_for('addagree') }}">Add agreement</a>
+		<br><a href="{{ url_for('addagree') }}">Add mobility data</a>
 {% endblock %}

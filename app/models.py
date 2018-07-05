@@ -1,5 +1,5 @@
 from app import db, login
-from datetime import datetime
+from datetime import datetime, date
 from werkzeug.security import generate_password_hash, check_password_hash #password hash function provided by Werkzeug package (Flask dependency)
 from flask_login import UserMixin #implements required methods and properties for flask_login to work with the User model
 
@@ -34,6 +34,18 @@ class Partner(db.Model):
 	contact = db.Column(db.String(64))
 	owner = db.Column(db.Integer, db.ForeignKey('user.id'))
 	created_date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+	agreement = db.relationship('Agreement', backref='partner_org', lazy='dynamic')
 
 	def __repr__(self):
 		return '<Partner: {}>'.format(self.name)
+
+class Agreement(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	partner = db.Column(db.Integer, db.ForeignKey('partner.id'))
+	atype = db.Column(db.String(64))
+	level = db.Column(db.String(64))
+	start_date = db.Column(db.Date, index=True)
+	end_date = db.Column(db.DateTime, index=True)
+
+	def __repr__(self):
+		return '<Agreement no: {}>'.format(self.id)

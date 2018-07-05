@@ -1,13 +1,13 @@
 from app import app, db
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, session
 from werkzeug.urls import url_parse
 #rendering function imported from Jinja2 template engine (bundled w/ Flask)
 #flash imported to flash messages
 #redirect imported to facilitate user redirects given certain conditions
 
-from app.forms import LoginForm, RegistrationForm, NewPartnerForm #import the form classes
+from app.forms import LoginForm, RegistrationForm, NewPartnerForm, AddAgreementForm, EnterMobility #import the form classes
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Partner
+from app.models import User, Partner, Agreement
 
 @app.route('/')#using python deocorators to create function callback to URL route
 @app.route('/index')
@@ -102,29 +102,38 @@ def dashboard(userid):
 	user = User.query.filter_by(userid=userid).first_or_404()
 	collabs = [
 		{
-			'name': 'University of Lyon',
-			'type': 'Student exchange',
-			'level': 'Undergraduate',
-			'city': 'Lyon',
-			'country':'France',
-			'contact': {'userid': 'Conor'}
-		},
-		{
 			'name': 'McGill University',
-			'type': 'Student exchange',
-			'level': 'Undergraduate',
+			'offname': 'McGill University',
+			'id': 12,
+			'ptype': 'University',
 			'city': 'Montreal',
 			'country':'Canada',
-			'contact': {'userid': 'Clare'}
+			'contact': {'userid': 'Clare Herbert'},
+			'owner': 'Richard Jones',
+			'created_date': '01 September 2012'
+		},
+		{
+			'name': 'University of Lyon',
+			'offname': 'Université de Lyon',
+			'id': 13,
+			'ptype': 'University',
+			'city': 'Lyon',
+			'country':'France',
+			'contact': {'userid': 'Laura Smith'},
+			'owner': 'Julia Dawson',
+			'created_date': '01 September 2011'
 		},
 
 			{
-			'name': 'University of Texas at Austin',
-			'type': 'Student exchange',
-			'level': 'Postgraduate',
-			'city': 'Austin',
+			'name': 'UTexas Austin',
+			'offname': 'University of Texas at Austin',
+			'id': 14,
+			'ptype': 'University',
+			'city': 'Austin, Texas',
 			'country':'USA',
-			'contact': {'userid': 'Richard'}
+			'contact': {'userid': 'Angela Vaughn'},
+			'owner': 'Lucy Gaunt',
+			'created_date': '01 September 2009'
 		}
 		]
 	return render_template('dashboard.html', user=user, collabs=collabs)
@@ -144,4 +153,43 @@ def partner():
 			{'id': 'MCGI04', 'atype': 'Research MOU', 'status': 'Active'}]
 
 
-	return render_template('partner.html', collab=collab,agrees=agrees)
+	return render_template('partner.html', collab=collab, agrees=agrees)
+
+@app.route('/addagree', methods=['GET', 'POST'])
+def addagree():
+	partners = Partner.query.all()
+	options = [(str(p.id), p.name) for p in partners]
+	# pts = [(1, 'Hogwarts School of Witchcraft and Wizardry'), (2, 'University of Pennsylvania'), ('3', 'Mollie Grant')]
+
+	form = AddAgreementForm(request.form)
+	form.selectPartner.choices = options
+
+	if form.validate_on_submit():
+		p = Partner.query.filter_by(id=form.selectPartner.data).first()
+
+		agreement = Agreement(partner=p.id, atype=form.atype.data, start_date=form.startdate.data, end_date=form.enddate.data)
+		db.session.add(agreement)
+		db.session.commit()
+		
+		return redirect(url_for('testview'))
+
+	return render_template('addagree.html', form=form)
+
+
+@app.route('/testview')
+def testview():
+		
+	return render_template('testview.html')
+
+@app.route('/addmobility', methods=['GET', 'POST'])
+def addmobility():
+
+	form = EnterMobility()
+
+	partner = 'University of California'
+	atype = 'Student exchange'
+
+	if form.validate_on_submit():
+		return redirect(url_for('testview'))
+
+	return render_template('addmobility.html', form=form, partner=partner, atype=atype)

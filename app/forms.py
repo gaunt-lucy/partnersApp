@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, FloatField, ValidationError
 from wtforms.validators import DataRequired, Email, EqualTo
-from app.models import User
+from wtforms.fields.html5 import DateField
+from app.models import User, Partner
 
 class LoginForm(FlaskForm):
 	userid = StringField('User ID', validators=[DataRequired()])
@@ -54,4 +55,44 @@ class NewPartnerForm(FlaskForm):
 	city = StringField('Town/city', validators=[DataRequired()])
 	submit = SubmitField('Add new partner')
 
+class AddAgreementForm(FlaskForm):
+	# partners = Partner.query.all()
+	# name = []
+	# ids = []
+	# for p in partners:
+	# 	name.append(p.name)
+	# 	ids.append(str(p.id))
+	# partners = zip(ids, name)
 
+
+	typechoices = [('STUX', 'Student exchange'), ('STAX', 'Staff exchange'), \
+	('RESE', 'Research collaboration'), ('GOVE', 'Government organisation'), \
+	('ERAS', 'Erasmus student exchange'), ('ERST', 'Erasmus staff exchange')]
+
+	selectPartner = SelectField(u'Partner organisation', validators=[DataRequired()])
+	atype = SelectField(u'Agreement type', choices=typechoices, validators=[DataRequired()])
+	startdate = DateField(u'Select start date')
+	enddate = DateField(u'Select end date')
+	submit = SubmitField('Add new agreement')
+
+class EnterMobility(FlaskForm):
+	typechoices = [('STUX', 'Student exchange'), ('STAX', 'Staff exchange'), \
+	('RESE', 'Research collaboration'), ('GOVE', 'Government organisation'), \
+	('ERAS', 'Erasmus student exchange'), ('ERST', 'Erasmus staff exchange')]
+
+	yearoption = [('2010', '2010/11'), ('2011', '2011/12'), ('2012', '2012/13'), ('2013', '2013/14'), ('2014', '2014/15'), \
+	('2015', '2015/16'), ('2016', '2016/17'), ('2017', '2017/18'), ('2018', '2018/19')]
+
+	typelevel = [('UG', 'Undergraduate'), ('PGT', 'Postgraduate Taught'), ('PGR', 'Postgraduate Research'), \
+	('ACS', 'Academic staff'), ('PSS', 'Professional services staff')]
+
+	def validate_total(form, field):
+		if field.data%0.5 != 0:
+			raise ValidationError('Partial mobilities may not be more or less than 0.5FTE - please adjust total.')
+
+	mobilitytype = SelectField(u'Agreement type', choices=typechoices, validators=[DataRequired()])
+	academicyear = SelectField(u'Select session', choices=yearoption, validators=[DataRequired()])
+	level = SelectField(u'Select type/level', choices=typelevel, validators=[DataRequired()])
+	totalmobs = FloatField(u'Enter total mobilities (in FTE)', validators=[DataRequired(), validate_total])
+
+	submit = SubmitField('Add mobilities')

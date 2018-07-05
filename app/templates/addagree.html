@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+	<h2>Add new agreement</h2>
+	<form action="" method="post">
+		{{ form.hidden_tag() }}
+		<p>
+			{{ form.selectPartner.label }}<br>
+			{{ form.selectPartner }}<br>
+			{% for error in form.selectPartner.errors %}
+			<span style="color: red;">[{{ error }}]</span>
+			{% endfor %}
+		</p>
+		<p>
+			{{ form.atype.label }}<br>
+			{{ form.atype }}<br>
+			{% for error in form.atype.errors %}
+			<span style="color: red;">[{{ error }}]</span>
+			{% endfor %}
+		</p>
+		<p>
+			{{ form.startdate.label }}<br>
+			{{ form.startdate }}<br>
+			{% for error in form.startdate.errors %}
+			<span style="colour: red;">[{{ error }}]</span>
+			{% endfor %}
+		</p>
+		<p>
+			{{ form.enddate.label }}<br>
+			{{ form.enddate }}<br>
+			{% for error in form.enddate.errors %}
+			<span style="colour: red;">[{{ error }}]</span>
+			{% endfor %}
+		</p>
+
+		<p>{{ form.submit() }}</p>
+		
+	</form>
+{% endblock %}
+

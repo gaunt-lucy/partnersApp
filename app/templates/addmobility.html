@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+	<h2>Input mobility details for {{ partner }} - {{ atype }}</h2>
+	<form action="" method="post">
+		{{ form.hidden_tag() }}
+		<p>
+			{{ form.mobilitytype.label }}<br>
+			{{ form.mobilitytype }}<br>
+			{% for error in form.mobilitytype.errors %}
+			<span style="color: red;">[{{ error }}]</span>
+			{% endfor %}
+		</p>
+		<p>
+			{{ form.academicyear.label }}<br>
+			{{ form.academicyear }}<br>
+			{% for error in form.academicyear.errors %}
+			<span style="color: red;">[{{ error }}]</span>
+			{% endfor %}
+		</p>
+		<p>
+			{{ form.level.label }}<br>
+			{{ form.level }}<br>
+			{% for error in form.level.errors %}
+			<span style="colour: red;">[{{ error }}]</span>
+			{% endfor %}
+		</p>
+		<p>
+			{{ form.totalmobs.label }}<br>
+			{{ form.totalmobs(size=28) }}<br>
+			{% for error in form.totalmobs.errors %}
+			<span style="colour: red;">[{{ error }}]</span>
+			{% endfor %}
+		</p>
+
+		<p>{{ form.submit() }}</p>
+		
+	</form>
+{% endblock %}
+

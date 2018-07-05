@@ -6,9 +6,9 @@
 
 	{% for collab in collabs %} <!-- for loop to display every object in list -->
 	<div><p><b>{{ collab.contact.userid }} created a new partnership:</b>
-		<br>Name: {{ collab.name }}
+		<br>Name: <a href="{{ url_for('partner') }}">{{ collab.name }}</a>
 		<br>Location: {{ collab.city }}, {{ collab.country }}
-		<br>Type: {{ collab.type }} - {{ collab.level }}</p></div>
+		<br>Type: {{ collab.ptype }}</p></div>
 	{% endfor %}
 
 {% endblock %}
