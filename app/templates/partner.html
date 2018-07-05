@@ -5,19 +5,19 @@
 	<head>
 	</head>
 
-	<h1>Official Partnership Record - {{ collab.name }}</h1>
-	<h3><i>Official name: {{ collab.offname }}</i></h3>
+	<h1>Official Partnership Record - {{ partner.name }}</h1>
+	<h3><i>Official name: {{ partner.offname }}</i></h3>
 	<body>
 		<div class="container-fluid">
         <!-- Example row of columns -->
         <div class="row">
           <div class="col-md-2">
             <h2>Key information</h2>
-			<br><b>Location:</b> {{ collab.city }}, {{ collab.country }}
-			<br><b>Owner:</b> {{ collab.owner }}
-			<br><b>Primary contact:</b> {{ collab.contact.userid }}
-			<br><b>Type:</b> {{ collab.ptype }}
-			<br><b>Date established:</b> {{ collab.created_date }} </p>
+			<br><b>Location:</b> {{ partner.city }}, {{ partner.country }}
+			<br><b>Owner:</b> {{ partner.owner }}
+			<br><b>Primary contact:</b> {{ partner.contact.userid }}
+			<br><b>Type:</b> {{ partner.ptype }}
+			<br><b>Date established:</b> {{ partner.created_date }} </p>
             <a class="btn btn-secondary" href="#" role="button">Edit details &raquo;</a>
           </div>
           <div class="col-md-4">

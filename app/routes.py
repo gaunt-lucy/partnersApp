@@ -104,7 +104,7 @@ def dashboard(userid):
 		{
 			'name': 'McGill University',
 			'offname': 'McGill University',
-			'id': 12,
+			'id': '29',
 			'ptype': 'University',
 			'city': 'Montreal',
 			'country':'Canada',
@@ -115,7 +115,7 @@ def dashboard(userid):
 		{
 			'name': 'University of Lyon',
 			'offname': 'Université de Lyon',
-			'id': 13,
+			'id': '30',
 			'ptype': 'University',
 			'city': 'Lyon',
 			'country':'France',
@@ -127,7 +127,7 @@ def dashboard(userid):
 			{
 			'name': 'UTexas Austin',
 			'offname': 'University of Texas at Austin',
-			'id': 14,
+			'id': '31',
 			'ptype': 'University',
 			'city': 'Austin, Texas',
 			'country':'USA',
@@ -138,22 +138,71 @@ def dashboard(userid):
 		]
 	return render_template('dashboard.html', user=user, collabs=collabs)
 
-@app.route('/partner')
-def partner():
-	collab = {'name': 'McGill University',
+@app.route('/partner/<id>')
+def partner(id):
+	partner = Partner.query.filter_by(id=id).first_or_404()
+
+	McGill = {'name': 'McGill University',
 			'offname': 'McGill University',
+			'id': 12,
 			'ptype': 'University',
 			'city': 'Montreal',
 			'country':'Canada',
-			'contact': {'userid': 'Clare Amie'},
+			'contact': {'userid': 'Clare Herbert'},
 			'owner': 'Richard Jones',
-			'created_date': '01 September 2012'} 
+			'created_date': '01 September 2012'}
+
+	Lyon = {'name': 'University of Lyon',
+			'offname': 'Université de Lyon',
+			'id': 13,
+			'ptype': 'University',
+			'city': 'Lyon',
+			'country':'France',
+			'contact': {'userid': 'Laura Smith'},
+			'owner': 'Julia Dawson',
+			'created_date': '01 September 2011'}
+
+	collab = {'name': 'McGill University',
+			'offname': 'McGill University',
+			'id': 12,
+			'ptype': 'University',
+			'city': 'Montreal',
+			'country':'Canada',
+			'contact': {'userid': 'Clare Herbert'},
+			'owner': 'Richard Jones',
+			'created_date': '01 September 2012'}
+		# {
+		# 	'name': 'University of Lyon',
+		# 	'offname': 'Université de Lyon',
+		# 	'id': 13,
+		# 	'ptype': 'University',
+		# 	'city': 'Lyon',
+		# 	'country':'France',
+		# 	'contact': {'userid': 'Laura Smith'},
+		# 	'owner': 'Julia Dawson',
+		# 	'created_date': '01 September 2011'
+		# },
+
+		# 	{
+		# 	'name': 'UTexas Austin',
+		# 	'offname': 'University of Texas at Austin',
+		# 	'id': 14,
+		# 	'ptype': 'University',
+		# 	'city': 'Austin, Texas',
+		# 	'country':'USA',
+		# 	'contact': {'userid': 'Angela Vaughn'},
+		# 	'owner': 'Lucy Gaunt',
+		# 	'created_date': '01 September 2009'
+		# }
+		# ]
+	#current_partner = collabs.id
+
 	agrees = [{'id': 'MCGI01', 'atype': 'Student exchange', 'status': 'Active'},
 			{'id': 'MCGI02', 'atype': 'Dual degree', 'status': 'Active'},
 			{'id': 'MCGI04', 'atype': 'Research MOU', 'status': 'Active'}]
 
 
-	return render_template('partner.html', collab=collab, agrees=agrees)
+	return render_template('partner.html', collab=collab, agrees=agrees, partner=partner)
 
 @app.route('/addagree', methods=['GET', 'POST'])
 def addagree():
