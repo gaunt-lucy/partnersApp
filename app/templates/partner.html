@@ -53,6 +53,35 @@
 			
 			</div>
           	
+          	<div class="col-md-4">
+            <h2>Visit details</h2>
+
+            {% if agrees %}
+            <table class="table">
+			  <thead>
+			    <tr>
+			      	<th scope="col">Date</th>
+			      	<th scope="col">Type</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	{% for v in visits %}
+			    <tr>
+			    	<th scope="row">{{ v.date }}</th>
+			    	<td>{{ v.vtype }}</td>
+			    </tr>
+			    {% endfor %}
+			  </tbody>
+			</table>
+			<p><a class="btn btn-secondary" href="{{ url_for('visitdetails', id=partner.id) }}" role="button">View all visit details &raquo;</a>
+			<br><a class="btn btn-secondary" href="{{ url_for('addvisit', id=partner.id) }}" role="button">Add a visit report &raquo;</a></p>
+			{% else %}
+			<br>
+			<p>There are no active agreements with this organisation.</p>
+			<p><a class="btn btn-secondary" href="{{ url_for('addagree', id=partner.id) }}" role="button">Add a new agreement &raquo;</a></p>
+			{% endif %}
+			
+			</div>
 
           	<div class="col-md-4">
             <h2>Mobility data</h2>

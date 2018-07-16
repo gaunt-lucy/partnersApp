@@ -144,11 +144,12 @@ def partner(id):
 
 	user = User.query.filter_by(id=partner.owner).first_or_404()
 
-
 	agrees = Agreement.query.filter_by(partner=partner.id).all()
 
+	visits = Visit.query.filter_by(partner=partner.id).all()
 
-	return render_template('partner.html', agrees=agrees, partner=partner, user=user)
+
+	return render_template('partner.html', agrees=agrees, partner=partner, user=user, visits=visits)
 
 @app.route('/addagree/<id>', methods=['GET', 'POST'])
 def addagree(id):
@@ -219,3 +220,12 @@ def addvisit(id):
 		return redirect(url_for('partner', id=partner.id)) 
 
 	return render_template('addvisit.html', form=form, partner=partner)
+
+@app.route('/visitdetails/<id>')
+def visitdetails(id):
+
+	partner = Partner.query.filter_by(id=id).first_or_404()
+
+	visits = Visit.query.filter_by(partner=partner.id).all()
+
+	return render_template('visitdetails.html', visits=visits, partner=partner)
