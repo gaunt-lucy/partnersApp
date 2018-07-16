@@ -1,28 +1,29 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-	<h2>Add new agreement for {{ partner.offname }}</h2>
+	<title> Add visit </title>
+	<h2>Add new visit for {{ partner.offname }}</h2>
 	<form action="" method="post">
 		{{ form.hidden_tag() }}
 
 		<p>
-			{{ form.atype.label }}<br>
-			{{ form.atype }}<br>
-			{% for error in form.atype.errors %}
+			{{ form.vtype.label }}<br>
+			{{ form.vtype }}<br>
+			{% for error in form.vtype.errors %}
 			<span style="color: red;">[{{ error }}]</span>
 			{% endfor %}
 		</p>
 		<p>
-			{{ form.startdate.label }}<br>
-			{{ form.startdate }}<br>
-			{% for error in form.startdate.errors %}
+			{{ form.date.label }}<br>
+			{{ form.date }}<br>
+			{% for error in form.date.errors %}
 			<span style="colour: red;">[{{ error }}]</span>
 			{% endfor %}
 		</p>
 		<p>
-			{{ form.enddate.label }}<br>
-			{{ form.enddate }}<br>
-			{% for error in form.enddate.errors %}
+			{{ form.report.label }}<br>
+			{{ form.report(size=60, maxlength=500) }}<br>
+			{% for error in form.report.errors %}
 			<span style="colour: red;">[{{ error }}]</span>
 			{% endfor %}
 		</p>

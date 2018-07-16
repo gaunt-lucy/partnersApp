@@ -65,11 +65,11 @@ class AddAgreementForm(FlaskForm):
 	# partners = zip(ids, name)
 
 
-	typechoices = [('STUX', 'Student exchange'), ('STAX', 'Staff exchange'), \
+	typechoices = [('Student exchange', 'Student exchange'), ('STAX', 'Staff exchange'), \
 	('RESE', 'Research collaboration'), ('GOVE', 'Government organisation'), \
 	('ERAS', 'Erasmus student exchange'), ('ERST', 'Erasmus staff exchange')]
 
-	selectPartner = SelectField(u'Partner organisation', validators=[DataRequired()])
+	#selectPartner = SelectField(u'Partner organisation', validators=[DataRequired()])
 	atype = SelectField(u'Agreement type', choices=typechoices, validators=[DataRequired()])
 	startdate = DateField(u'Select start date')
 	enddate = DateField(u'Select end date')
@@ -96,3 +96,14 @@ class EnterMobility(FlaskForm):
 	totalmobs = FloatField(u'Enter total mobilities (in FTE)', validators=[DataRequired(), validate_total])
 
 	submit = SubmitField('Add mobilities')
+
+class AddVisit(FlaskForm):
+	typechoices = [('Research', 'Research (inc. conferences)'), ('Monitoring', 'Mobility monitoring'), \
+	('Institutional', 'Institutional visit'), ('Other', 'Other')]
+
+	date = DateField('Add visit date', validators=[DataRequired()])
+	vtype = SelectField(u'Visit type', choices=typechoices, validators=[DataRequired()])
+	#leadcontact = StringField('Lead contact name', validators=[DataRequired()])
+	report = StringField('Visit report', validators=[DataRequired()])
+
+	submit = SubmitField('Add report')

@@ -5,9 +5,9 @@ from werkzeug.urls import url_parse
 #flash imported to flash messages
 #redirect imported to facilitate user redirects given certain conditions
 
-from app.forms import LoginForm, RegistrationForm, NewPartnerForm, AddAgreementForm, EnterMobility #import the form classes
+from app.forms import AddVisit, LoginForm, RegistrationForm, NewPartnerForm, AddAgreementForm, EnterMobility #import the form classes
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Partner, Agreement
+from app.models import User, Partner, Agreement, Visit
 
 @app.route('/')#using python deocorators to create function callback to URL route
 @app.route('/index')
@@ -104,7 +104,7 @@ def dashboard(userid):
 		{
 			'name': 'McGill University',
 			'offname': 'McGill University',
-			'id': '29',
+			'id': '3',
 			'ptype': 'University',
 			'city': 'Montreal',
 			'country':'Canada',
@@ -115,7 +115,7 @@ def dashboard(userid):
 		{
 			'name': 'University of Lyon',
 			'offname': 'Université de Lyon',
-			'id': '30',
+			'id': '5',
 			'ptype': 'University',
 			'city': 'Lyon',
 			'country':'France',
@@ -127,7 +127,7 @@ def dashboard(userid):
 			{
 			'name': 'UTexas Austin',
 			'offname': 'University of Texas at Austin',
-			'id': '31',
+			'id': '6',
 			'ptype': 'University',
 			'city': 'Austin, Texas',
 			'country':'USA',
@@ -142,79 +142,29 @@ def dashboard(userid):
 def partner(id):
 	partner = Partner.query.filter_by(id=id).first_or_404()
 
-	McGill = {'name': 'McGill University',
-			'offname': 'McGill University',
-			'id': 12,
-			'ptype': 'University',
-			'city': 'Montreal',
-			'country':'Canada',
-			'contact': {'userid': 'Clare Herbert'},
-			'owner': 'Richard Jones',
-			'created_date': '01 September 2012'}
-
-	Lyon = {'name': 'University of Lyon',
-			'offname': 'Université de Lyon',
-			'id': 13,
-			'ptype': 'University',
-			'city': 'Lyon',
-			'country':'France',
-			'contact': {'userid': 'Laura Smith'},
-			'owner': 'Julia Dawson',
-			'created_date': '01 September 2011'}
-
-	collab = {'name': 'McGill University',
-			'offname': 'McGill University',
-			'id': 12,
-			'ptype': 'University',
-			'city': 'Montreal',
-			'country':'Canada',
-			'contact': {'userid': 'Clare Herbert'},
-			'owner': 'Richard Jones',
-			'created_date': '01 September 2012'}
-		# {
-		# 	'name': 'University of Lyon',
-		# 	'offname': 'Université de Lyon',
-		# 	'id': 13,
-		# 	'ptype': 'University',
-		# 	'city': 'Lyon',
-		# 	'country':'France',
-		# 	'contact': {'userid': 'Laura Smith'},
-		# 	'owner': 'Julia Dawson',
-		# 	'created_date': '01 September 2011'
-		# },
-
-		# 	{
-		# 	'name': 'UTexas Austin',
-		# 	'offname': 'University of Texas at Austin',
-		# 	'id': 14,
-		# 	'ptype': 'University',
-		# 	'city': 'Austin, Texas',
-		# 	'country':'USA',
-		# 	'contact': {'userid': 'Angela Vaughn'},
-		# 	'owner': 'Lucy Gaunt',
-		# 	'created_date': '01 September 2009'
-		# }
-		# ]
-	#current_partner = collabs.id
-
-	agrees = [{'id': 'MCGI01', 'atype': 'Student exchange', 'status': 'Active'},
-			{'id': 'MCGI02', 'atype': 'Dual degree', 'status': 'Active'},
-			{'id': 'MCGI04', 'atype': 'Research MOU', 'status': 'Active'}]
+	user = User.query.filter_by(id=partner.owner).first_or_404()
 
 
-	return render_template('partner.html', collab=collab, agrees=agrees, partner=partner)
+	agrees = Agreement.query.filter_by(partner=partner.id).all()
 
-@app.route('/addagree', methods=['GET', 'POST'])
-def addagree():
+
+	return render_template('partner.html', agrees=agrees, partner=partner, user=user)
+
+@app.route('/addagree/<id>', methods=['GET', 'POST'])
+def addagree(id):
+
+	partner = Partner.query.filter_by(id=id).first_or_404()
+
 	partners = Partner.query.all()
 	options = [(str(p.id), p.name) for p in partners]
 	# pts = [(1, 'Hogwarts School of Witchcraft and Wizardry'), (2, 'University of Pennsylvania'), ('3', 'Mollie Grant')]
 
 	form = AddAgreementForm(request.form)
-	form.selectPartner.choices = options
+	#form.selectPartner.choices = options
 
 	if form.validate_on_submit():
-		p = Partner.query.filter_by(id=form.selectPartner.data).first()
+		#p = Partner.query.filter_by(id=form.selectPartner.data).first()
+		p = Partner.query.filter_by(id=id).first()
 
 		agreement = Agreement(partner=p.id, atype=form.atype.data, start_date=form.startdate.data, end_date=form.enddate.data)
 		db.session.add(agreement)
@@ -222,8 +172,16 @@ def addagree():
 		
 		return redirect(url_for('testview'))
 
-	return render_template('addagree.html', form=form)
+	return render_template('addagree.html', form=form, partner=partner)
 
+@app.route('/agreementdetails/<id>')
+def viewagrees(id):
+
+	partner = Partner.query.filter_by(id=id).first_or_404()
+
+	agrees = Agreement.query.filter_by(partner=partner.id).all()
+
+	return render_template('agreementdetails.html', agrees=agrees, partner=partner)
 
 @app.route('/testview')
 def testview():
@@ -242,3 +200,22 @@ def addmobility():
 		return redirect(url_for('testview'))
 
 	return render_template('addmobility.html', form=form, partner=partner, atype=atype)
+
+
+@app.route('/addvisit/<id>', methods=['GET', 'POST'])
+def addvisit(id):
+
+	partner = Partner.query.filter_by(id=id).first_or_404()
+
+	form = AddVisit()
+
+	if form.validate_on_submit():
+		p = Partner.query.filter_by(id=id).first()
+
+		visit = Visit(partner=p.id, vtype=form.vtype.data, date=form.date.data, report=form.report.data)
+		db.session.add(visit)
+		db.session.commit()
+		
+		return redirect(url_for('partner', id=partner.id)) 
+
+	return render_template('addvisit.html', form=form, partner=partner)

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+	<head>
+	<h1>Official Partnership Record - {{ partner.name }}</h1>
+	<h3><i>Official name: {{ partner.offname }}</i></h3>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+        	<h2>Agreement details</h2>
+            <table class="table">
+				<thead>
+				<tr>
+			    	<th scope="col">#</th>
+			    	<th scope="col">Type</th>
+			    	<th scope="col">Start</th>
+			    	<th scope="col">End</th>
+			    </tr>
+				</thead>
+				<tbody>
+			  	{% for a in agrees %}
+			    <tr>
+			    	<th scope="row">{{ a.id }}</th>
+			    	<td>{{ a.atype }}</td>
+			     	<td>{{ a.start_date }}</td>
+			     	<td>{{ a.end_date }}</td>
+			     	
+				</tr>
+			    {% endfor %}
+				</tbody>
+			</table>
+			<p><a class="btn btn-secondary" href="#" role="button">Agreement details &raquo;</a></p>
+			</div>
+	</body>
+
+	{% for collab in collabs %} <!-- for loop to display every object in list -->
+	<div><p><b>{{ collab.contact.userid }} created a new partnership:</b>
+		<br>Name: <a href="{{ url_for('partner', id=collab.id) }}">{{ collab.name }}</a>
+		<br>Location: {{ collab.city }}, {{ collab.country }}
+		<br>Type: {{ collab.ptype }}</p></div>
+	{% endfor %}
+
+{% endblock %}

@@ -35,6 +35,7 @@ class Partner(db.Model):
 	owner = db.Column(db.Integer, db.ForeignKey('user.id'))
 	created_date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 	agreement = db.relationship('Agreement', backref='partner_org', lazy='dynamic')
+	visit = db.relationship('Visit', backref='visit_ref', lazy='dynamic')
 
 	def __repr__(self):
 		return '<Partner: {}>'.format(self.name)
@@ -45,7 +46,17 @@ class Agreement(db.Model):
 	atype = db.Column(db.String(64))
 	level = db.Column(db.String(64))
 	start_date = db.Column(db.Date, index=True)
-	end_date = db.Column(db.DateTime, index=True)
+	end_date = db.Column(db.Date, index=True)
 
 	def __repr__(self):
 		return '<Agreement no: {}>'.format(self.id)
+
+class Visit(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	partner = db.Column(db.Integer, db.ForeignKey('partner.id'))
+	vtype = db.Column(db.String(64))
+	date = db.Column(db.Date, index=True)
+	report = db.Column(db.String(500))
+
+	def __repr__(self):
+		return '<Visit report no: {}'.format(self.id)
