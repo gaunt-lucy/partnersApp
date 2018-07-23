@@ -17,7 +17,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url_for('index') }}">Global Database</a>
+                <a class="navbar-brand" rel="home" href="{{ url_for('index') }}" title="Home">
+                <img style="max-width:100px; margin-top: -7px;"src="https://image.ibb.co/mCLfGy/logo.png">
+                </a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
@@ -37,6 +39,11 @@
 {% endblock %}
 
 {% block content %}
+    <head>
+        <style>
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+        </style>
+    </head>
     <div class="container-fluid">
 
         {% with messages = get_flashed_messages() %}

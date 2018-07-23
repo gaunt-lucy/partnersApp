@@ -43,6 +43,10 @@ def index():
 		]
 	return render_template('index.html', title='Home', collabs=collabs)
 
+@app.route('/landing')
+def landing():
+	return render_template('landing.html')
+
 @app.route('/login', methods=['GET', 'POST']) #GET and POST tell browser what to do with data
 def login():
 	if current_user.is_authenticated:

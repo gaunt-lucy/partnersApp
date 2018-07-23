@@ -56,7 +56,7 @@
           	<div class="col-md-4">
             <h2>Visit details</h2>
 
-            {% if agrees %}
+            {% if visits %}
             <table class="table">
 			  <thead>
 			    <tr>
@@ -77,8 +77,8 @@
 			<br><a class="btn btn-secondary" href="{{ url_for('addvisit', id=partner.id) }}" role="button">Add a visit report &raquo;</a></p>
 			{% else %}
 			<br>
-			<p>There are no active agreements with this organisation.</p>
-			<p><a class="btn btn-secondary" href="{{ url_for('addagree', id=partner.id) }}" role="button">Add a new agreement &raquo;</a></p>
+			<p>No visits have been recorded with this organisation.</p>
+			<p><a class="btn btn-secondary" href="{{ url_for('addvisit', id=partner.id) }}" role="button">Add a new agreement &raquo;</a></p>
 			{% endif %}
 			
 			</div>

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+	<div class="jumbotron">
+	  <h1 class="display-4">Welcome to UCL UniGO - your window on the world.</h1>
+	  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+	  <hr class="my-4">
+	  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+	  <p class="lead">
+	    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+	  </p>
+	</div>
+	{
+    background-image: url("/img/your-image.jpg");
+    background-color: #17234E;
+    margin-bottom: 0;`enter code here`
+    min-height: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+	<h1></h1>
+	<h2>Welcome {{ current_user.userid }}<a href="{{ url_for('dashboard', userid=current_user.userid) }}">: View your partnership dashboard</a></h2>
+	<body>
+		<br><a href="{{ url_for('newpartner') }}">Add new partner</a>
+	
+
+{% endblock %}
