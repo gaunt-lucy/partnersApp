@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block app_content %}
+	<header class="index-header" style="background-image:url(https://ibb.co/kcQEB8)">
+		
 	<h1>UCL Global Partnership Portal</h1>
 	<h2>Welcome {{ current_user.userid }}<a href="{{ url_for('dashboard', userid=current_user.userid) }}">: View your partnership dashboard</a></h2>
 	<body>

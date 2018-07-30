@@ -7,12 +7,15 @@ from flask_login import UserMixin #implements required methods and properties fo
 class User(UserMixin, db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	userid = db.Column(db.String(64), index=True, unique=True)
+	fname = db.Column(db.String(64), index=True)
+	sname = db.Column(db.String(64), index=True)
 	email = db.Column(db.String(120), index=True, unique=True)
+	#role = db.Column(db.Integer, db.ForeignKey('role.id'))
 	passwordhash = db.Column(db.String(128))
 	collabs = db.relationship('Partner', backref='col_owner', lazy='dynamic')
 
 	def __repr__(self):
-		return '<User {}>'.format(self.userid)
+		return '<User {}>'.format(self.fname)
 
 	def set_password(self, password):
 		self.passwordhash = generate_password_hash(password)
@@ -55,8 +58,35 @@ class Visit(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	partner = db.Column(db.Integer, db.ForeignKey('partner.id'))
 	vtype = db.Column(db.String(64))
-	date = db.Column(db.Date, index=True)
-	report = db.Column(db.String(500))
+	start_date = db.Column(db.Date, index=True)
+	end_date = db.Column(db.Date, index=True)
+	status = db.Column(db.String)
+	report = db.relationship('Report', backref='visit_report', lazy='dynamic')
 
 	def __repr__(self):
-		return '<Visit report no: {}'.format(self.id)
+		return '<Visit report no: {}>'.format(self.id)
+
+# class Role(db.Model):
+# 	id = db.Column(db.Integer, primary_key=True)
+# 	name = db.Column(db.String(64), unique=True)
+# 	desc = db.Column(db.String(240))
+# 	permissions = db.Column(db.Integer)
+# 	users = db.relationship('User', backref='role', lazy='dynamic')
+
+# 	def __repr__(self):
+# 		return '<Role: {}>'.format(self.name)
+
+# class Permission:
+# 	CREATE_PARTNER = 0x01
+# 	EDIT_PARTNER = 0x02
+# 	ADD_COLLAB = 0x04
+
+
+class Report(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	content = db.Column(db.String)
+	visit_id = db.Column(db.Integer, db.ForeignKey('visit.id'))
+
+	def __repr__(self):
+		return '<Report: {}>'.format(self.content)
+	

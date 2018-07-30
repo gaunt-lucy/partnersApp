@@ -5,7 +5,7 @@ from werkzeug.urls import url_parse
 #flash imported to flash messages
 #redirect imported to facilitate user redirects given certain conditions
 
-from app.forms import AddVisit, LoginForm, RegistrationForm, NewPartnerForm, AddAgreementForm, EnterMobility #import the form classes
+from app.forms import SearchForm, AddVisit, LoginForm, RegistrationForm, NewPartnerForm, AddAgreementForm, EnterMobility #import the form classes
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Partner, Agreement, Visit
 
@@ -78,7 +78,8 @@ def register():
 		return redirect(url_for('index'))
 	form = RegistrationForm()
 	if form.validate_on_submit():
-		user = User(userid=form.userid.data, email=form.email.data)
+		#user = User(userid=form.userid.data, email=form.email.data)
+		user = User(userid=form.email.data, fname=form.fname.data, sname=form.sname.data, email=form.email.data)
 		user.set_password(form.password.data)
 		db.session.add(user)
 		db.session.commit()
@@ -108,7 +109,7 @@ def dashboard(userid):
 		{
 			'name': 'McGill University',
 			'offname': 'McGill University',
-			'id': '3',
+			'id': '1',
 			'ptype': 'University',
 			'city': 'Montreal',
 			'country':'Canada',
@@ -119,7 +120,7 @@ def dashboard(userid):
 		{
 			'name': 'University of Lyon',
 			'offname': 'Université de Lyon',
-			'id': '5',
+			'id': '2',
 			'ptype': 'University',
 			'city': 'Lyon',
 			'country':'France',
@@ -131,7 +132,7 @@ def dashboard(userid):
 			{
 			'name': 'UTexas Austin',
 			'offname': 'University of Texas at Austin',
-			'id': '6',
+			'id': '3',
 			'ptype': 'University',
 			'city': 'Austin, Texas',
 			'country':'USA',
@@ -140,6 +141,8 @@ def dashboard(userid):
 			'created_date': '01 September 2009'
 		}
 		]
+
+
 	return render_template('dashboard.html', user=user, collabs=collabs)
 
 @app.route('/partner/<id>')
@@ -162,13 +165,11 @@ def addagree(id):
 
 	partners = Partner.query.all()
 	options = [(str(p.id), p.name) for p in partners]
-	# pts = [(1, 'Hogwarts School of Witchcraft and Wizardry'), (2, 'University of Pennsylvania'), ('3', 'Mollie Grant')]
 
 	form = AddAgreementForm(request.form)
 	#form.selectPartner.choices = options
 
 	if form.validate_on_submit():
-		#p = Partner.query.filter_by(id=form.selectPartner.data).first()
 		p = Partner.query.filter_by(id=id).first()
 
 		agreement = Agreement(partner=p.id, atype=form.atype.data, start_date=form.startdate.data, end_date=form.enddate.data)
@@ -233,3 +234,52 @@ def visitdetails(id):
 	visits = Visit.query.filter_by(partner=partner.id).all()
 
 	return render_template('visitdetails.html', visits=visits, partner=partner)
+
+
+## pack up a list of partners to be saved as user session value
+def serialise(partners):
+		ids = []
+		for partner in partners:
+			ids.append(partner.id)
+
+		return ids
+
+## unpack up a list of partners from ids saved in user session value
+def deserialise(ids):
+	partners = []
+	for i in ids: 
+		partners.append(Partner.query.filter_by(id=i).first())
+
+	return partners
+
+@app.route('/search', methods=['GET', 'POST'])
+@login_required
+def search():
+	form = SearchForm()
+	wildcard = '%'
+
+	if form.validate_on_submit():
+		partners = Partner.query.filter(Partner.name.like(wildcard+form.text_search.data+wildcard)).all()
+		session['partners'] = serialise(partners)
+
+		return redirect(url_for('results'))
+
+	return render_template('search.html', form=form)
+
+@app.route('/results', methods=['GET', 'POST'])
+@login_required
+def results():
+
+	form = SearchForm()
+	wildcard = '%'
+	partners = deserialise(session['partners'])
+
+	if form.validate_on_submit():
+		partners = Partner.query.filter(Partner.name.like(wildcard+form.text_search.data+wildcard)).all()
+		session['partners'] = serialise(partners)
+
+		return redirect(url_for('results'))
+
+		
+	return render_template('results.html', form=form, partners=partners)
+

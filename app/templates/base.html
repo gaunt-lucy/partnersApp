@@ -2,10 +2,10 @@
 
 {% block title %}
 	{% if title %}
-		<title> {{ title }} - Partnership Portal</title>
-		{% else %}
-		<title> Welcome to the University Partnership Portal</title>
-		{% endif %}
+		{{ title }} - Partnership Portal
+	{% else %}
+		<title>Welcome to the University Partnership Portal</title>
+	{% endif %}
 {% endblock %}
 {% block navbar %}
 	<nav class="navbar navbar-default">
@@ -31,6 +31,7 @@
                     {% else %}
                     <li><a href="{{ url_for('dashboard', userid=current_user.userid) }}">Dashboard</a></li>
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    <li><a href="#">Logged in as {{ current_user.sname }}, {{ current_user.fname }}</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -39,11 +40,6 @@
 {% endblock %}
 
 {% block content %}
-    <head>
-        <style>
-        @import url('https://fonts.googleapis.com/css?family=Open+Sans');
-        </style>
-    </head>
     <div class="container-fluid">
 
         {% with messages = get_flashed_messages() %}

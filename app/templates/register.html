@@ -4,10 +4,24 @@
 	<h1>Register</h1>
 	<form action="" method="post">
 		{{ form.hidden_tag() }}
-		<p>
+<!-- 		<p>
 			{{ form.userid.label }}<br>
 			{{ form.userid(size=32) }}<br>
 			{% for error in form.userid.errors %}
+			<span style="color: red;">[{{ error }}]</span>
+			{% endfor %}
+		</p> -->
+		<p>
+			{{ form.fname.label }}<br>
+			{{ form.fname(size=32) }}<br>
+			{% for error in form.fname.errors %}
+			<span style="color: red;">[{{ error }}]</span>
+			{% endfor %}
+		</p>
+		<p>
+			{{ form.sname.label }}<br>
+			{{ form.sname(size=32) }}<br>
+			{% for error in form.sname.errors %}
 			<span style="color: red;">[{{ error }}]</span>
 			{% endfor %}
 		</p>
