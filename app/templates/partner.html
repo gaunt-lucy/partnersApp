@@ -60,21 +60,23 @@
             <table class="table">
 			  <thead>
 			    <tr>
-			      	<th scope="col">Date</th>
+			      	<th scope="col">Start Date</th>
+			      	<th scope="col">End Date</th>
 			      	<th scope="col">Type</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			  	{% for v in visits %}
 			    <tr>
-			    	<th scope="row">{{ v.date }}</th>
+			    	<th scope="row">{{ v.start_date }}</th>
+			    	<td>{{ v.end_date }}</td>
 			    	<td>{{ v.vtype }}</td>
 			    </tr>
 			    {% endfor %}
 			  </tbody>
 			</table>
 			<p><a class="btn btn-secondary" href="{{ url_for('visitdetails', id=partner.id) }}" role="button">View all visit details &raquo;</a>
-			<br><a class="btn btn-secondary" href="{{ url_for('addvisit', id=partner.id) }}" role="button">Add a visit report &raquo;</a></p>
+			<br><a class="btn btn-secondary" href="{{ url_for('addvisit', id=partner.id) }}" role="button">Add a visit &raquo;</a></p>
 			{% else %}
 			<br>
 			<p>No visits have been recorded with this organisation.</p>

@@ -1,21 +1,15 @@
 {% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
 <!-- template for login form takes a 'form' object instatiated from the LoginForm class -->
 <!-- form object is passed to the template by the login view function -->
 
 {% block app_content %}
 	
 	<h1>Search for a partner</h1>
-	<form action="" method="post" novalidate><!-- <form> element is a container for the web form -->
-		{{ form.hidden_tag() }} <!-- hidden tag works with secret key to catch CSRF attacks -->
-
-		<p>
-			{{ form.text_search.label }}<br>
-			{{ form.text_search }}
-			{% for error in form.text_search.errors %} <!-- logic to display errors in form validation -->
-			<span style="color: red;">[{{ error }}]</span>
-			{% endfor %}
-		</p>
-		<p>{{ form.search() }}</p>
-	</form>
+    <div class="row">
+        <div class="col-md-4">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
 	<hr>
 {% endblock %}

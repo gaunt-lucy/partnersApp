@@ -1,20 +1,17 @@
 {% extends "base.html" %}
 
+
 {% block app_content %}
+	<body background="https://i.imgur.com/E9E1A4e.jpg">
 	<div class="jumbotron">
 	  <h1 class="display-4">Welcome to UCL UniGO - your window on the world.</h1>
 	  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
 	  <hr class="my-4">
 	  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
 	  <p class="lead">
-	    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+	    <a class="btn btn-primary btn-lg" href="{{ url_for('login') }}" role="button">Log in</a>
 	  </p>
 	</div>
-
-	<h1></h1>
-	<h2>Welcome {{ current_user.userid }}<a href="{{ url_for('dashboard', userid=current_user.userid) }}">: View your partnership dashboard</a></h2>
-	<body>
-		<br><a href="{{ url_for('newpartner') }}">Add new partner</a>
-	
+	</body>
 
 {% endblock %}

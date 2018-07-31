@@ -5,47 +5,22 @@ from werkzeug.urls import url_parse
 #flash imported to flash messages
 #redirect imported to facilitate user redirects given certain conditions
 
-from app.forms import SearchForm, AddVisit, LoginForm, RegistrationForm, NewPartnerForm, AddAgreementForm, EnterMobility #import the form classes
+from app.forms import SearchForm, AddVisit, LoginForm, RegistrationForm, NewPartnerForm, AddAgreementForm, EnterMobility, AddVisitReport#import the form classes
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Partner, Agreement, Visit
+from app.models import User, Partner, Agreement, Visit, Report
+
+@app.route('/landing')
+def landing():
+	return render_template('landing.html')
 
 @app.route('/')#using python deocorators to create function callback to URL route
 @app.route('/index')
 @login_required
 def index():
-	#user = {'userid': 'Lucy'} #fake objects for testing
-	collabs = [
-		{
-			'name': 'University of Lyon',
-			'type': 'Student exchange',
-			'level': 'Undergraduate',
-			'city': 'Lyon',
-			'country':'France',
-			'contact': {'userid': 'Conor'}
-		},
-		{
-			'name': 'McGill University',
-			'type': 'Student exchange',
-			'level': 'Undergraduate',
-			'city': 'Montreal',
-			'country':'Canada',
-			'contact': {'userid': 'Clare'}
-		},
 
-			{
-			'name': 'University of Texas at Austin',
-			'type': 'Student exchange',
-			'level': 'Postgraduate',
-			'city': 'Austin',
-			'country':'USA',
-			'contact': {'userid': 'Richard'}
-		}
-		]
-	return render_template('index.html', title='Home', collabs=collabs)
+	return render_template('index.html', title='Home')
 
-@app.route('/landing')
-def landing():
-	return render_template('landing.html')
+
 
 @app.route('/login', methods=['GET', 'POST']) #GET and POST tell browser what to do with data
 def login():
@@ -143,7 +118,7 @@ def dashboard(userid):
 		]
 
 
-	return render_template('dashboard.html', user=user, collabs=collabs)
+	return render_template('dashboard.html', title='Dashboard', user=user, collabs=collabs)
 
 @app.route('/partner/<id>')
 def partner(id):
@@ -218,7 +193,7 @@ def addvisit(id):
 	if form.validate_on_submit():
 		p = Partner.query.filter_by(id=id).first()
 
-		visit = Visit(partner=p.id, vtype=form.vtype.data, date=form.date.data, report=form.report.data)
+		visit = Visit(partner=p.id, vtype=form.vtype.data, start_date=form.start_date.data, end_date=form.end_date.data)
 		db.session.add(visit)
 		db.session.commit()
 		
@@ -233,7 +208,9 @@ def visitdetails(id):
 
 	visits = Visit.query.filter_by(partner=partner.id).all()
 
-	return render_template('visitdetails.html', visits=visits, partner=partner)
+	reports = Report.query.filter_by(visit_id=id).all()
+
+	return render_template('visitdetails.html', visits=visits, partner=partner, reports=reports)
 
 
 ## pack up a list of partners to be saved as user session value
@@ -283,3 +260,20 @@ def results():
 		
 	return render_template('results.html', form=form, partners=partners)
 
+@app.route('/addreport/<id>', methods=['GET', 'POST'])
+@login_required
+def addreport(id):
+
+	form = AddVisitReport()
+
+	visit = Visit.query.filter_by(id=id).first()
+
+	partner = Partner.query.filter_by(id=visit.partner).first()
+
+	# if form.validate_on_submit():
+	# 	report = Report(content=form.report.data, visit_id=id)
+	# 	db.session.add(report)
+	# 	db.session.commit()
+	# 	redirect (url_for('visitdetails', id=id))
+
+	return render_template('addreport.html', form=form, visit=visit, partner=partner)

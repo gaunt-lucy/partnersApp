@@ -1,12 +1,13 @@
 {% extends 'bootstrap/base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block title %}
-	{% if title %}
-		{{ title }} - Partnership Portal
-	{% else %}
-		<title>Welcome to the University Partnership Portal</title>
-	{% endif %}
+	{% if title %}{{ title }} - UniGO {% else %}Welcome to UCL UniGO{% endif %}
 {% endblock %}
+{% block favicon %}
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+{% endblock %}
+
 {% block navbar %}
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
@@ -30,6 +31,7 @@
                     <li><a href="{{ url_for('login') }}">Login</a></li>
                     {% else %}
                     <li><a href="{{ url_for('dashboard', userid=current_user.userid) }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('search', userid=current_user.userid) }}">Search</a></li>
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
                     <li><a href="#">Logged in as {{ current_user.sname }}, {{ current_user.fname }}</a></li>
                     {% endif %}

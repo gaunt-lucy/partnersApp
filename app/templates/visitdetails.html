@@ -2,34 +2,41 @@
 
 {% block app_content %}
 	<head>
-	<h1>Official Partnership Record - {{ partner.name }}</h1>
-	<h3><i>Official name: {{ partner.offname }}</i></h3>
+	<h1>Partner Visit Record - {{ partner.name }}</h1>
+
 	</head>
 
 	<body>
 		<div class="container-fluid">
-        	<h2>Vist details</h2>
+        	<h3>Visit details</h3>
             <table class="table">
 				<thead>
 				<tr>
-					<th scope="col">Date</th>
+					<th scope="col">#</th>
+			      	<th scope="col">Start</th>
+			      	<th scope="col">End</th>
 			      	<th scope="col">Type</th>
-			      	<th scope="col">Report</th>
-			      	<th scope="col">Edit</th>
+			      	<th scope="col">Reports</th>
+
 			    </tr>
 				</thead>
 				<tbody>
 			  	{% for v in visits %}
 			    <tr>
-					<th scope="row">{{ v.date }}</th>
+					<th scope="row">{{ v.id }}</th>
+					<td>{{ v.start_date }}</td>
+					<td>{{ v.end_date }}</td>
 			    	<td>{{ v.vtype }}</td>
-			     	<td>{{ v.report }}</td>	
-			     	<td><a href="">Edit report</td>
+			    	{% if reports %}
+			     	<td><a href="">View reports</td>
+			     	{% else %}
+			     	<td><a href="{{ url_for('addreport', id=v.id) }}">Add reports</td>
+			     	{% endif %}
 				</tr>
 			    {% endfor %}
 				</tbody>
 			</table>
-			<p><a class="btn btn-secondary" href="#" role="button">Agreement details &raquo;</a></p>
+			<p><a class="btn btn-secondary" href="{{ url_for('partner', id=partner.id)}}" role="button">Return to partner &raquo;</a></p>
 			</div>
 	</body>
 

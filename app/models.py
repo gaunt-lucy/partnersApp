@@ -66,21 +66,6 @@ class Visit(db.Model):
 	def __repr__(self):
 		return '<Visit report no: {}>'.format(self.id)
 
-# class Role(db.Model):
-# 	id = db.Column(db.Integer, primary_key=True)
-# 	name = db.Column(db.String(64), unique=True)
-# 	desc = db.Column(db.String(240))
-# 	permissions = db.Column(db.Integer)
-# 	users = db.relationship('User', backref='role', lazy='dynamic')
-
-# 	def __repr__(self):
-# 		return '<Role: {}>'.format(self.name)
-
-# class Permission:
-# 	CREATE_PARTNER = 0x01
-# 	EDIT_PARTNER = 0x02
-# 	ADD_COLLAB = 0x04
-
 
 class Report(db.Model):
 	id = db.Column(db.Integer, primary_key=True)

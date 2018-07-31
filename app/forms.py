@@ -141,6 +141,12 @@ class AddVisit(FlaskForm):
 
 	submit = SubmitField('Add visit')
 
+class AddVisitReport(FlaskForm):
+
+	report = StringField('Enter visit report')
+
+	submit = SubmitField('Add visit')
+
 class SearchForm(FlaskForm):
 	typechoices = [('',''),('HEI', 'University'), ('NGO', 'Non-government organisation'), ('RES', 'Research centre'), ('GOV', 'Government organisation')]
 	countrychoices = [('',''),('AF', 'Afghanistan'), ('AX', 'Aland Islands'), ('AL', 'Albania'), ('DZ', 'Algeria'), \
