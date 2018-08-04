@@ -5,7 +5,7 @@ from werkzeug.urls import url_parse
 #flash imported to flash messages
 #redirect imported to facilitate user redirects given certain conditions
 
-from app.forms import SearchForm, AddVisit, LoginForm, RegistrationForm, NewPartnerForm, AddAgreementForm, EnterMobility, AddVisitReport#import the form classes
+from app.forms import BrowseForm, SearchForm, AddVisit, LoginForm, RegistrationForm, NewPartnerForm, AddAgreementForm, EnterMobility, AddVisitReport#import the form classes
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Partner, Agreement, Visit, Report
 
@@ -51,15 +51,19 @@ def logout():
 def register():
 	if current_user.is_authenticated:
 		return redirect(url_for('index'))
+
 	form = RegistrationForm()
+
 	if form.validate_on_submit():
 		#user = User(userid=form.userid.data, email=form.email.data)
-		user = User(userid=form.email.data, fname=form.fname.data, sname=form.sname.data, email=form.email.data)
+		userid = (form.sname.data+form.fname.data[0]).lower()
+		user = User(userid=userid, email=form.email.data, fname=form.fname.data, sname=form.sname.data)
 		user.set_password(form.password.data)
 		db.session.add(user)
 		db.session.commit()
 		flash('User registration successful.')
 		return redirect(url_for('login'))
+
 	return render_template('register.html', title='Register', form=form)
 
 @app.route('/newpartner', methods=['GET', 'POST'])
@@ -236,10 +240,11 @@ def search():
 	wildcard = '%'
 
 	if form.validate_on_submit():
-		partners = Partner.query.filter(Partner.name.like(wildcard+form.text_search.data+wildcard)).all()
-		session['partners'] = serialise(partners)
+		if form.text_search.data:
+			partners = Partner.query.filter(Partner.name.like(wildcard+form.text_search.data+wildcard)).all()
+			session['partners'] = serialise(partners)
 
-		return redirect(url_for('results'))
+			return redirect(url_for('results'))
 
 	return render_template('search.html', form=form)
 

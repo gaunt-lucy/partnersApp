@@ -17,7 +17,7 @@
 		</p>
 		<p>{{ form.search() }}</p>
 	</form>
-
+	<br><a class="btn btn-secondary" href="{{ url_for('search') }}" role="button">&laquo; Return to search</a></p>
 	<hr>
 
 	{% if partners %}
@@ -36,9 +36,7 @@
 			    	<th scope="row">{{ p.id }}</th>
 			     	<td>{{ p.ptype }}</td>
 			     	<td>{{ p.name }}</td>
-					<td>{{ p.offname
-
-					 }}</td>
+					<td>{{ p.offname }}</td>
 				</tr>
 			    {% endfor %}
 			  </tbody>
