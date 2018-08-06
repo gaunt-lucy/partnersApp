@@ -1,5 +1,51 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-<h1> Welcome. </h1>
+	<head>
+		<style type="text/css">
+			body {
+				background-image: url("https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7857ea46fded9c0fcb5b65b9a20a41d9&auto=format&fit=crop&w=1741&q=80");
+				height: 100%;
+				background-size: cover;
+			    background-position: center;
+			    background-repeat: no-repeat;
+			    color: white;
+			    padding-top: 20px
+				}
+			#main-container {
+				padding-top: 20px;
+			}
+
+		</style>
+	</head>
+
+<div class="container" id="main-container">
+	<div class="row">
+		<div class="col-md-6">
+			<center>
+				<img src="https://s19.postimg.cc/yu8ntqo1f/magnifier-tool-on-earth-globe.png" width="200" height="200" align="middle">
+				<br>
+				<br>
+				<p><button type="button" class="btn btn-primary" href="{{ url_for('search') }}">Find a partner</button></p>
+			</center>
+		</div>
+		<div class="col-md-6">
+			<center>
+				<img src="https://s19.postimg.cc/41bcpehnn/edit-_1.png" width="200" height="200" align="middle">
+				<br>
+				<br>
+				<p><button type="button" class="btn btn-primary" href="{{ url_for('newpartner') }}">Add a partner</button></p>
+			</center>
+		</div>
+<!-- 		<div class="col-md-4">
+			<center>
+				<img src="https://s19.postimg.cc/kb1is8n5v/create.png" width="200" height="200" align="middle">
+				<p><h3>Go to the Global Website<h3></p>
+			</center>
+		</div> -->
+<!-- 		<div class="col-md-4">
+			<img src="https://s19.postimg.cc/bhamauaeb/reports.png" width="200" height "200">
+		</div> -->
+	</div>
+</div>
 {% endblock %}

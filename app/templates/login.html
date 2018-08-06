@@ -3,13 +3,56 @@
 <!-- form object is passed to the template by the login view function -->
 
 {% block app_content %}
+
+	<head>
+		<style type="text/css">
+
+			#cont {
+			    border-radius: 25px;
+			    background: rgba(255, 255, 255, 0.6);
+			    padding: 20px; 
+			    height: 100%;
+
+			}
+
+			body {
+				background-image: url("https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7857ea46fded9c0fcb5b65b9a20a41d9&auto=format&fit=crop&w=1741&q=80");
+				height: 100%;
+				background-size: cover;
+			    background-position: center;
+			    background-repeat: no-repeat;
+				}
+			div.centera {
+			    float: left;
+			    right: -5%; 
+			    position: relative;
+			}
+			div.centerb {
+			    float: left; 
+			    right: 50%;  
+			    position: relative;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<div class="container" id="cont">
+        		<div class="row align-items-center justify-content-center">
+        			<div class="col-md-10">
+						<div class="centera">
+						    <h2>Log in</h2>
+						    <div class="form">{{ wtf.quick_form(form) }}</div>
+						</div>
+       				</div>
+    			</div>
+				<hr>
+			<p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
+		</div>
+	</body>
+
 	
-	<h1>Log in</h1>
-    <div class="row">
-        <div class="col-md-4">
-            {{ wtf.quick_form(form) }}
-        </div>
-    </div>
-	<hr>
-	<p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
 {% endblock %}
+
+
+And centering contents:

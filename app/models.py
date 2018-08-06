@@ -37,6 +37,8 @@ class Partner(db.Model):
 	contact = db.Column(db.String(64))
 	owner = db.Column(db.Integer, db.ForeignKey('user.id'))
 	created_date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+	last_updated = db.Column(db.Date, index=True)
+	updated_by = db.Column(db.Integer)
 	agreement = db.relationship('Agreement', backref='partner_org', lazy='dynamic')
 	visit = db.relationship('Visit', backref='visit_ref', lazy='dynamic')
 

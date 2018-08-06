@@ -1,25 +1,32 @@
 from app import app, db
+from datetime import datetime, date
 from flask import render_template, flash, redirect, url_for, request, session
 from werkzeug.urls import url_parse
 #rendering function imported from Jinja2 template engine (bundled w/ Flask)
 #flash imported to flash messages
 #redirect imported to facilitate user redirects given certain conditions
 
-from app.forms import BrowseForm, SearchForm, AddVisit, LoginForm, RegistrationForm, NewPartnerForm, AddAgreementForm, EnterMobility, AddVisitReport#import the form classes
+from app.forms import EditPartnerForm, BrowseForm, SearchForm, AddVisit, LoginForm, RegistrationForm, NewPartnerForm, AddAgreementForm, EnterMobility, AddVisitReport#import the form classes
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Partner, Agreement, Visit, Report
 
+@app.route('/')#using python deocorators to create function callback to URL route
 @app.route('/landing')
 def landing():
+	if current_user.is_authenticated:
+		return redirect(url_for('index'))
 	return render_template('landing.html')
 
-@app.route('/')#using python deocorators to create function callback to URL route
+@app.route('/testindex')
+def testindex():
+
+	return render_template('testindex.html', title='Home')
+
 @app.route('/index')
 @login_required
 def index():
 
 	return render_template('index.html', title='Home')
-
 
 
 @app.route('/login', methods=['GET', 'POST']) #GET and POST tell browser what to do with data
@@ -55,7 +62,7 @@ def register():
 	form = RegistrationForm()
 
 	if form.validate_on_submit():
-		#user = User(userid=form.userid.data, email=form.email.data)
+
 		userid = (form.sname.data+form.fname.data[0]).lower()
 		user = User(userid=userid, email=form.email.data, fname=form.fname.data, sname=form.sname.data)
 		user.set_password(form.password.data)
@@ -275,10 +282,32 @@ def addreport(id):
 
 	partner = Partner.query.filter_by(id=visit.partner).first()
 
-	# if form.validate_on_submit():
-	# 	report = Report(content=form.report.data, visit_id=id)
-	# 	db.session.add(report)
-	# 	db.session.commit()
-	# 	redirect (url_for('visitdetails', id=id))
 
 	return render_template('addreport.html', form=form, visit=visit, partner=partner)
+
+@app.route('/editpartner/<id>', methods=['GET', 'POST'])
+@login_required
+def editpartner(id):
+
+	form = EditPartnerForm()
+	partner = Partner.query.filter_by(id=id).first_or_404()
+
+	if form.validate_on_submit():
+		partner.name = form.name.data
+		partner.offname = form.offname.data
+		partner.ptype = form.ptype.data
+		partner.country = form.country.data
+		partner.city = form.city.data
+		partner.last_updated = date.utcnow
+		db.session.add(partner)
+		db.session.commit()
+		flash ('Partner details updated.')
+		return redirect(url_for('partner', id=id))
+
+	form.name.data = partner.name
+	form.offname.data = partner.offname
+	form.ptype.data = partner.ptype
+	form.country.data = partner.country
+	form.city.data = partner.city
+
+	return render_template('editpartner.html', form=form)

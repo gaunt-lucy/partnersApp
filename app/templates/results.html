@@ -3,48 +3,71 @@
 <!-- form object is passed to the template by the login view function -->
 
 {% block app_content %}
+
+	<head>
+		<style type="text/css">
+			#searchbar {
+				background: rgba(255, 255, 255, 0.7);
+				padding-bottom: 20px;
+			}
+
+			#results {
+				background: rgba(255, 255, 255, 0.9);
+				padding-bottom: 20px;
+			}
+
+			body {
+				height: 100%;
+			    background-position: center;
+			    background-repeat: no-repeat;
+			    background-size: cover;
+			}
+
+
+		</style>
+	</head>
+	<div class="container-fluid" id="searchbar">
+		<h1>Search for a partner</h1>
+    	<div class="row">
+        	<div class="col-md-4">
+            	{{ wtf.quick_form(form) }}
+        	</div>
+    	</div>
+    </div>
+    <hr>
+    <div class="container-fluid" id="results">
+    	<div class="row">
+        	<div class="col-md-12">
+        		{% if partners %}
+	            <table class="table table-striped">
+				  <thead>
+				    <tr>
+				      <th scope="col">#</th>
+				      <th scope="col">Type</th>
+				      <th scope="col">Name</th>
+				      <th scope="col">Official Name</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	{% for p in partners %}
+				    <tr>
+				    	<th scope="row">{{ p.id }}</th>
+				     	<td>{{ p.ptype }}</td>
+				     	<td><a href="{{ url_for('partner', id=p.id) }}">{{ p.name }}</a></td>
+						<td>{{ p.offname }}</td>
+					</tr>
+				    {% endfor %}
+				  </tbody>
+				</table>
+				{% else %}
+				<br>
+				<p>There are no partners that meet your search criteria.</p>
+				{% endif %}
+        	</div>
+    	</div>
+    </div>
 	
-	<h1>Search for a partner</h1>
-	<form action="" method="post" novalidate><!-- <form> element is a container for the web form -->
-		{{ form.hidden_tag() }} <!-- hidden tag works with secret key to catch CSRF attacks -->
 
-		<p>
-			{{ form.text_search.label }}<br>
-			{{ form.text_search }}
-			{% for error in form.text_search.errors %} <!-- logic to display errors in form validation -->
-			<span style="color: red;">[{{ error }}]</span>
-			{% endfor %}
-		</p>
-		<p>{{ form.search() }}</p>
-	</form>
-	<br><a class="btn btn-secondary" href="{{ url_for('search') }}" role="button">&laquo; Return to search</a></p>
-	<hr>
-
-	{% if partners %}
-            <table class="table">
-			  <thead>
-			    <tr>
-			      <th scope="col">#</th>
-			      <th scope="col">Type</th>
-			      <th scope="col">Name</th>
-			      <th scope="col">Official Name</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			  	{% for p in partners %}
-			    <tr>
-			    	<th scope="row">{{ p.id }}</th>
-			     	<td>{{ p.ptype }}</td>
-			     	<td>{{ p.name }}</td>
-					<td>{{ p.offname }}</td>
-				</tr>
-			    {% endfor %}
-			  </tbody>
-			</table>
-			{% else %}
-			<br>
-			<p>There are no partners that meet your search criteria.</p>
-			{% endif %}
 <!-- Edit this pagination block -->
 	<nav aria-label="Page navigation example">
   		<ul class="pagination">

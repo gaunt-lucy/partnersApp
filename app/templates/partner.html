@@ -3,22 +3,44 @@
 {% block app_content %}
 
 	<head>
+		<style type="text/css">
+			#partner-container {
+				background: rgba(255, 255, 255, 0.9);
+				padding-bottom: 20px;
+				padding-left: 40px;
+			}
+
+			#results {
+				background: rgba(255, 255, 255, 0.9);
+				padding-bottom: 20px;
+			}
+
+			body {
+				height: 100%;
+			    background-position: center;
+			    background-repeat: no-repeat;
+			    background-size: cover;
+			}
+
+
+		</style>
 	</head>
 
-	<h1>Official Partnership Record - {{ partner.name }}</h1>
-	<h3><i>Official name: {{ partner.offname }}</i></h3>
+
 	<body>
-		<div class="container-fluid">
+		<div class="container-fluid" id="partner-container">
         <div class="row">
-          <div class="col-md-2">
-            <h2>Key information</h2>
-			<br><b>Location:</b> {{ partner.city }}, {{ partner.country }}
-			<br><b>Owner:</b> {{ user.userid }}
-			
-			<br><b>Type:</b> {{ partner.ptype }}
-			<br><b>Date created:</b> {{ partner.created_date }} </p>
-            <a class="btn btn-secondary" href="#" role="button">Edit details &raquo;</a>
-          </div>
+        	<h1>Official Partnership Record - {{ partner.name }}</h1>
+			<h3><i>Official name: {{ partner.offname }}</i></h3>
+          		<div class="col-md-2">
+		            <h2>Key information</h2>
+					<br><b>Location:</b> {{ partner.city }}, {{ partner.country }}
+					<br><b>Owner:</b> {{ user.userid }}
+					
+					<br><b>Type:</b> {{ partner.ptype }}
+					<br><b>Date created:</b> {{ partner.created_date }} </p>
+		            <a class="btn btn-secondary" href="{{ url_for('editpartner', id=partner.id) }}" role="button">Edit details &raquo;</a>
+          		</div>
           <div class="col-md-4">
             <h2>Agreement details</h2>
 
