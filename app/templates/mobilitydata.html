@@ -34,31 +34,28 @@
 	<body>
 		
 		<div class="container-fluid" id="container">
-			<h1>Partner Visit Records - {{ partner.name }}</h1>
-        	<h3>Visit details</h3>
+			<h1>Mobility Data for {{ partner.name }}</h1>
+        	<h3>Mobility details</h3>
             <table class="table table-striped">
 				<thead>
 				<tr>
 					<th scope="col">#</th>
-			      	<th scope="col">Start</th>
-			      	<th scope="col">End</th>
-			      	<th scope="col">Type</th>
-			      	<th scope="col">Reports</th>
-
+					<th scope="col">Academic Year</th>
+			      	<th scope="col">Mobility Type</th>
+			      	<th scope="col">Level</th>
+			      	<th scope="col">Total FTE Inbound</th>
+			      	<th scope="col">Total FTE Outbound</th>
 			    </tr>
 				</thead>
 				<tbody>
-			  	{% for v in visits %}
+			  	{% for m in mobilities %}
 			    <tr>
-					<th scope="row">{{ v.id }}</th>
-					<td>{{ v.start_date }}</td>
-					<td>{{ v.end_date }}</td>
-			    	<td>{{ v.vtype }}</td>
-			    	{% if reports %}
-			     	<td><a class="btn btn-primary btn-small" href="{{ url_for('reportdetails', id=v.id) }}" role="button">View reports &raquo;</a></td>
-			     	{% else %}
-			     	<td><a class="btn btn-primary btn-small" href="{{ url_for('addreport', id=v.id) }}" role="button">Add report &raquo;</a></td>
-			     	{% endif %}
+					<th scope="row">{{ m.id }}</th>
+					<td>{{ m.session }}</td>
+			    	<td>{{ m.mobilitytype }}</td>
+			    	<td>{{ m.level }}</td>
+					<td>{{ m.totalin }}</td>
+			    	<td>{{ m.totalout }}</td>
 				</tr>
 			    {% endfor %}
 				</tbody>

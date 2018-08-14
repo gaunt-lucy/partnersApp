@@ -2,13 +2,16 @@ from app import app, db
 from datetime import datetime, date
 from flask import render_template, flash, redirect, url_for, request, session
 from werkzeug.urls import url_parse
+from flask_sqlalchemy import sqlalchemy
+from sqlalchemy import func
+import json
 #rendering function imported from Jinja2 template engine (bundled w/ Flask)
 #flash imported to flash messages
 #redirect imported to facilitate user redirects given certain conditions
 
 from app.forms import EditPartnerForm, BrowseForm, SearchForm, AddVisit, LoginForm, RegistrationForm, NewPartnerForm, AddAgreementForm, EnterMobility, AddVisitReport#import the form classes
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Partner, Agreement, Visit, Report
+from app.models import User, Partner, Agreement, Visit, Report, Country, OrgType, AgreeType, Mobility
 
 @app.route('/')#using python deocorators to create function callback to URL route
 @app.route('/landing')
@@ -76,7 +79,11 @@ def register():
 @app.route('/newpartner', methods=['GET', 'POST'])
 def newpartner():
 
+	countries = Country.query.all()
+	options = [(str(c.iso), c.name) for c in countries]
+
 	form = NewPartnerForm()
+	form.country.choices = options
 
 	if form.validate_on_submit():
 		partner = Partner(name=form.name.data, offname=form.offname.data, ptype=form.ptype.data, city=form.city.data, owner=current_user.id, country=form.country.data)
@@ -141,8 +148,22 @@ def partner(id):
 
 	visits = Visit.query.filter_by(partner=partner.id).all()
 
+	#mobilities = db.session.query(Mobility.session, Mobility.totalin, Mobility.totalout).group_by(Mobility.session).all()
 
-	return render_template('partner.html', agrees=agrees, partner=partner, user=user, visits=visits)
+	#mobdata = db.session.query(Mobility.session,func.sum(Mobility.totalin), func.sum(Mobility.totalout)).group_by(Mobility.session).all()
+	# data = []
+	# for m in mobdata:
+	#  	#data.append(str(m[0]))
+	#  	data.append(float(m[1]))
+	#  	data.append(float(m[2]))
+	
+	# data.insert(0,'Outbound')
+	# data.insert(0,'Inbound')
+	# data.insert(0,'Year')
+
+	data = [2, 3, 4, 5, 6, 6, 7]
+
+	return render_template('partner.html', agrees=agrees, partner=partner, user=user, visits=visits, data=data)
 
 @app.route('/addagree/<id>', methods=['GET', 'POST'])
 def addagree(id):
@@ -153,7 +174,6 @@ def addagree(id):
 	options = [(str(p.id), p.name) for p in partners]
 
 	form = AddAgreementForm(request.form)
-	#form.selectPartner.choices = options
 
 	if form.validate_on_submit():
 		p = Partner.query.filter_by(id=id).first()
@@ -162,7 +182,7 @@ def addagree(id):
 		db.session.add(agreement)
 		db.session.commit()
 		
-		return redirect(url_for('testview'))
+		return redirect(url_for('partner', id=id))
 
 	return render_template('addagree.html', form=form, partner=partner)
 
@@ -182,17 +202,39 @@ def testview():
 
 @app.route('/addmobility', methods=['GET', 'POST'])
 def addmobility():
+	partner = Partner.query.filter_by(id=1).first_or_404()
+	#if/else for choices
+	agreements = Agreement.query.all()
+	mobtypes = AgreeType.query.all()
+	agreementoptions = [(a.id, (str(a.atype)+': '+str(a.start_date.year)+'-'+str(a.end_date.year))) for a in agreements]
+	mobilityoptions = [(m.code, m.name) for m in mobtypes]
 
 	form = EnterMobility()
-
-	partner = 'University of California'
-	atype = 'Student exchange'
+	form.agreement.choices = agreementoptions
+	form.mobilitytype.choices = mobilityoptions
 
 	if form.validate_on_submit():
-		return redirect(url_for('testview'))
+		mobility = Mobility(mobilitytype=form.mobilitytype.data, partner=partner.id, level=form.level.data,\
+			session=form.session.data, totalin=form.totalin.data, totalout=form.totalout.data)
+		if form.agreement.data:
+			mobility.agreement = form.agreement.data
+		db.session.add(mobility)
+		db.session.commit()
+		flash('Mobility data added')
 
-	return render_template('addmobility.html', form=form, partner=partner, atype=atype)
+		return redirect(url_for('partner', id=partner.id))
 
+	return render_template('addmobility.html', form=form, partner=partner, agreements=agreements)
+
+@app.route('/mobilitydata/<id>')
+def mobilitydata(id):
+	partner = Partner.query.filter_by(id=id).first_or_404()
+	
+	mobilities = Mobility.query.filter_by(partner=id).all()
+
+	agreetypes = AgreeType.query.all()
+
+	return render_template('mobilitydata.html', partner=partner, agreetypes=agreetypes, mobilities=mobilities)
 
 @app.route('/addvisit/<id>', methods=['GET', 'POST'])
 def addvisit(id):
@@ -282,6 +324,12 @@ def addreport(id):
 
 	partner = Partner.query.filter_by(id=visit.partner).first()
 
+	if form.validate_on_submit():
+		report = Report(content=form.report.data, visit_id=id)
+		db.session.add(report)
+		db.session.commit()
+		flash('Visit report added.')
+		return redirect(url_for('visitdetails', id=partner.id))
 
 	return render_template('addreport.html', form=form, visit=visit, partner=partner)
 
@@ -289,7 +337,11 @@ def addreport(id):
 @login_required
 def editpartner(id):
 
+	countries = Country.query.all()
+	options = [(str(c.iso), c.name) for c in countries]
+
 	form = EditPartnerForm()
+	form.country.choices = options
 	partner = Partner.query.filter_by(id=id).first_or_404()
 
 	if form.validate_on_submit():
@@ -298,7 +350,8 @@ def editpartner(id):
 		partner.ptype = form.ptype.data
 		partner.country = form.country.data
 		partner.city = form.city.data
-		partner.last_updated = date.utcnow
+		partner.last_updated = datetime.now().date()
+		partner.updated_by = current_user.id
 		db.session.add(partner)
 		db.session.commit()
 		flash ('Partner details updated.')
@@ -311,3 +364,27 @@ def editpartner(id):
 	form.city.data = partner.city
 
 	return render_template('editpartner.html', form=form)
+
+@app.route('/reportdetails/<id>', methods=['GET', 'POST'])
+@login_required
+def reportdetails(id):
+
+	reports = Report.query.filter_by(visit_id=id).all()
+
+	visit = Visit.query.filter_by(id=id).first()
+
+	partner = Partner.query.filter_by(id=visit.partner).first()
+		
+	return render_template('reportdetails.html', reports=reports, visit=visit, partner=partner)
+
+@app.route('/report/<id>', methods=['GET', 'POST'])
+@login_required
+def viewreport(id):
+
+	report = Report.query.filter_by(id=id).first()
+
+	visit = Visit.query.filter_by(id=report.visit_id).first()
+
+	partner = Partner.query.filter_by(id=visit.partner).first()
+		
+	return render_template('report.html', report=report, visit=visit, partner=partner)

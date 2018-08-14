@@ -22,30 +22,81 @@
 			    background-size: cover;
 			}
 
+			.btn {
+                background-color: #4280B4 ;
+                border-color: #4280B4 ;
+                color: white;
+            }
 
 		</style>
+
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	</head>
 
 
 	<body>
 		<div class="container-fluid" id="partner-container">
         <div class="row">
+        	<div class="col-md-6">
         	<h1>Official Partnership Record - {{ partner.name }}</h1>
 			<h3><i>Official name: {{ partner.offname }}</i></h3>
-          		<div class="col-md-2">
-		            <h2>Key information</h2>
-					<br><b>Location:</b> {{ partner.city }}, {{ partner.country }}
-					<br><b>Owner:</b> {{ user.userid }}
-					
-					<br><b>Type:</b> {{ partner.ptype }}
-					<br><b>Date created:</b> {{ partner.created_date }} </p>
-		            <a class="btn btn-secondary" href="{{ url_for('editpartner', id=partner.id) }}" role="button">Edit details &raquo;</a>
-          		</div>
-          <div class="col-md-4">
+				<h2>Key information</h2>
+				<br>
+					<h4><b>Location:</b> {{ partner.city }}, {{ partner.country }}</h4>
+					<h4><b>Owner:</b> {{ user.sname }}, {{ user.fname }}</h4>
+					<h4><b>Type:</b> {{ partner.ptype }}</h4>
+					<h4><b>Date created:</b> {{ partner.created_date }}</h4>
+					<br>
+			        <p><a class="btn btn-primary btn-lg" href="{{ url_for('editpartner', id=partner.id) }}" role="button">Edit details &raquo;</a></p>
+			</div>
+			<div class="col-md-4">
+            <h2>Mobility data</h2>
+            <div id="chart_div"  style="width: 600px; height: 400px;"></div>
+            <script type='text/javascript'>//<![CDATA[ 
+ 
+				google.load('visualization', '1', {packages: ['corechart', 'bar']});
+				google.setOnLoadCallback(drawBasic);
+				 
+				function drawBasic() {
+				 
+				var data = google.visualization.arrayToDataTable([
+				        ['Currency', 'Inbound','Outbound'],
+				        ['2014', {{data[0]}}, {{data[1]}}],
+				        ['2014', {{data[1]}}, {{data[1]}}],
+				        ['2015', {{data[2]}}, {{data[1]}}],
+				        ['2016', {{data[3]}}, {{data[1]}}]
+				      ]);
+				 
+				      var options = {
+				        title: 'Mobility data overview',
+				        chartArea: {width: '60%'},
+				        hAxis: {
+				          title: '',
+				          minValue: 0
+				        },
+				        vAxis: {
+				          title: ''
+				        }, 
+				        colors: ['#4280B4', '#E6CCBF']
+
+				      };
+				 
+				      var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+				 
+				      chart.draw(data, options);
+				    }
+				//]]>  
+				 
+			</script>
+			<br><br><a class="btn btn-primary btn-lg" href="{{ url_for('mobilitydata', id=partner.id)}}" role="button">View details &raquo;</a>    <a class="btn btn-primary btn-lg" href="{{ url_for('addmobility') }}" role="button">Add mobility data &raquo;</a>
+ 
+        </div>
+    </div>
+        <div class="row">
             <h2>Agreement details</h2>
 
             {% if agrees %}
-            <table class="table">
+            <table class="table table-striped">
 			  <thead>
 			    <tr>
 			      <th scope="col">#</th>
@@ -65,21 +116,22 @@
 			    {% endfor %}
 			  </tbody>
 			</table>
-			<p><a class="btn btn-secondary" href="{{ url_for('viewagrees', id=partner.id) }}" role="button">View all agreement details &raquo;</a>
-			<br><a class="btn btn-secondary" href="{{ url_for('addagree', id=partner.id) }}" role="button">Add a new agreement &raquo;</a></p>
+			<a class="btn btn-primary btn-sm" href="{{ url_for('viewagrees', id=partner.id) }}" role="button">View all agreement details &raquo;</a>  
+			<a class="btn btn-primary btn-sm" href="{{ url_for('addagree', id=partner.id) }}" role="button">Add a new agreement &raquo;</a>
+
 			{% else %}
 			<br>
 			<p>There are no active agreements with this organisation.</p>
-			<p><a class="btn btn-secondary" href="{{ url_for('addagree', id=partner.id) }}" role="button">Add a new agreement &raquo;</a></p>
+			<a class="btn btn-primary btn-sm" href="{{ url_for('addagree', id=partner.id) }}" role="button">Add a new agreement &raquo;</a>
 			{% endif %}
 			
-			</div>
+		</div>
           	
-          	<div class="col-md-4">
+        <div class="row">
             <h2>Visit details</h2>
 
             {% if visits %}
-            <table class="table">
+            <table class="table table-striped">
 			  <thead>
 			    <tr>
 			      	<th scope="col">Start Date</th>
@@ -97,22 +149,17 @@
 			    {% endfor %}
 			  </tbody>
 			</table>
-			<p><a class="btn btn-secondary" href="{{ url_for('visitdetails', id=partner.id) }}" role="button">View all visit details &raquo;</a>
-			<br><a class="btn btn-secondary" href="{{ url_for('addvisit', id=partner.id) }}" role="button">Add a visit &raquo;</a></p>
+			<p><a class="btn btn-primary btn-sm" href="{{ url_for('visitdetails', id=partner.id) }}" role="button">View all visit details &raquo;</a> 
+			<a class="btn btn-primary btn-sm" href="{{ url_for('addvisit', id=partner.id) }}" role="button">Add a visit &raquo;</a></p>
 			{% else %}
 			<br>
 			<p>No visits have been recorded with this organisation.</p>
-			<p><a class="btn btn-secondary" href="{{ url_for('addvisit', id=partner.id) }}" role="button">Add a new agreement &raquo;</a></p>
+			<p><a class="btn btn-primary btn-sm" href="{{ url_for('addvisit', id=partner.id) }}" role="button">Add a visit &raquo;</a></p>
 			{% endif %}
 			
 			</div>
 
-          	<div class="col-md-4">
-            <h2>Mobility data</h2>
-            <iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTef5yGrK_cSzk63ZpbL2lYxWSGO1Rnlhrnz1CpAsUFU_g9HCnzMu8K3dJKFdh1MsvEDdMhdgSIp95Z/pubchart?oid=1044603541&amp;format=interactive"></iframe>
-            <br><a class="btn btn-secondary" href="{{ url_for('addmobility') }}" role="button">Add mobility data &raquo;</a>
-            <br><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a>
-          </div>
+          	
         </div>
 
 	</body>

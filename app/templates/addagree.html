@@ -1,34 +1,35 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-	<h2>Add new agreement for {{ partner.offname }}</h2>
-	<form action="" method="post">
-		{{ form.hidden_tag() }}
 
-		<p>
-			{{ form.atype.label }}<br>
-			{{ form.atype }}<br>
-			{% for error in form.atype.errors %}
-			<span style="color: red;">[{{ error }}]</span>
-			{% endfor %}
-		</p>
-		<p>
-			{{ form.startdate.label }}<br>
-			{{ form.startdate }}<br>
-			{% for error in form.startdate.errors %}
-			<span style="colour: red;">[{{ error }}]</span>
-			{% endfor %}
-		</p>
-		<p>
-			{{ form.enddate.label }}<br>
-			{{ form.enddate }}<br>
-			{% for error in form.enddate.errors %}
-			<span style="colour: red;">[{{ error }}]</span>
-			{% endfor %}
-		</p>
+	<head>
+		<style type="text/css">
+			#container {
+				background: rgba(255, 255, 255, 0.9);
+				padding-bottom: 40px;
+				padding-left: 40px;
+			}
 
-		<p>{{ form.submit() }}</p>
-		
-	</form>
+			body {
+				height: 100%;
+			    background-position: center;
+			    background-repeat: no-repeat;
+			    background-size: cover;
+			}
+
+
+		</style>
+	</head>
+
+	<body>
+		<div class="container-fluid" id="container">
+			<div class="col-md-6">
+				<h2>Add new agreement for {{ partner.offname }}</h2>
+					<br>
+		        	{{ wtf.quick_form(form) }}
+	       	</div>
+    	</div>
+    </body>
+
 {% endblock %}
 

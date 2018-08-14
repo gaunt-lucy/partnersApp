@@ -13,6 +13,11 @@
 				padding-left: 40px;
 			}
 
+			#results {
+				background: rgba(255, 255, 255, 0.9);
+				padding-bottom: 20px;
+			}
+
 			body {
 				height: 100%;
 			    background-position: center;
@@ -26,15 +31,14 @@
 
 	<body>
 		<div class="container-fluid" id="container">
-			<title> Add visit report</title>
-				<h2>New visit report for {{ partner.name }} </h2>
+			<title> View visit report</title>
+				<h2>Visit report for {{ partner.name }} </h2>
 				<br>
 					<h4><b>Visit dates:</b> {{ visit.start_date }} - {{ visit.end_date }}</h4>
 					<h4><b>{{ visit.vtype }} Visit ID:</b>  {{ visit.id }}</h4>
 				<br>
-	        	{{ wtf.quick_form(form) }}
+	        	{{ report.content }}
 	       	</div>
     	</div>
-    </body>
 {% endblock %}
 

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+	
+	<head>
+		<style type="text/css">
+			#container {
+				background: rgba(255, 255, 255, 0.9);
+				padding-bottom: 20px;
+				padding-left: 40px;
+			}
+
+			#results {
+				background: rgba(255, 255, 255, 0.9);
+				padding-bottom: 20px;
+			}
+
+			body {
+				height: 100%;
+			    background-position: center;
+			    background-repeat: no-repeat;
+			    background-size: cover;
+			}
+
+			.btn {
+                background-color: #4280B4 ;
+                border-color: #4280B4 ;
+            }
+
+		</style>
+
+	</head>
+
+	<body>
+		
+		<div class="container-fluid" id="container">
+			<h1>Partner Visit Reports - {{ partner.name }}</h1>
+			<h2>{{ visit.vtype }} Visit ({{ visit.id }}) from <time datetime="{{ visit.start_date }}"> to {{ visit.end_date }}</h2>
+        	
+        	
+
+				{% if reports %}
+				<h3>Completed reports</h3>
+				<br>
+				<td><a class="btn btn-primary btn-small" href="{{ url_for('addreport', id=visit.id) }}" role="button">Add report &raquo;</a></td>
+				<br>
+				<table class="table table-striped">
+				<thead>
+				<tr>
+					<th scope="col">#</th>
+			      	<th scope="col">Author</th>
+			      	<th scope="col">Report details</th>
+
+			    </tr>
+				</thead>
+				<tbody>
+				  	{% for r in reports %}
+				    <tr>
+						<th scope="row">{{ r.id }}</th>
+						<td>{{ r.author }}</td>
+						<td><a href="{{ url_for('viewreport', id=r.id) }}">View report</td>
+				    </tr>
+				   {% endfor %}
+			     {% else %}
+			     <br>
+			     <h3><p><i>There are no reports from this visit yet.</i> <a class="btn btn-primary btn-small" href="{{ url_for('addreport', id=visit.id) }}" role="button">Add report &raquo;</a></p></h3>
+			     
+			     <br>
+			     {% endif %}
+
+			    
+				</tbody>
+			</table>
+			<p><a class="btn btn-primary btn-small" href="{{ url_for('visitdetails', id=visit.id)}}" role="button">&laquo; Return to visits </a></p>
+			</div>
+	</body>
+
+
+{% endblock %}
