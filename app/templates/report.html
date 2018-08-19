@@ -37,7 +37,11 @@
 					<h4><b>Visit dates:</b> {{ visit.start_date }} - {{ visit.end_date }}</h4>
 					<h4><b>{{ visit.vtype }} Visit ID:</b>  {{ visit.id }}</h4>
 				<br>
-	        	{{ report.content }}
+					<div>
+	        			<p style="background-color:white;">{{ report.content }}</p>
+	        		</div>
+	        	<br>
+				<p><a class="btn btn-primary btn-small" href="{{ url_for('reportdetails', id=visit.id)}}" role="button">&laquo; Return to report records for this visit </a></p>
 	       	</div>
     	</div>
 {% endblock %}

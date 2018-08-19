@@ -66,9 +66,9 @@ def register():
 
 	if form.validate_on_submit():
 
-		userid = (form.sname.data+form.fname.data[0]).lower()
-		user = User(userid=userid, email=form.email.data, fname=form.fname.data, sname=form.sname.data)
+		user = User(email=form.email.data, fname=form.fname.data, sname=form.sname.data)
 		user.set_password(form.password.data)
+		user.create_userid(form.fname.data, form.sname.data)
 		db.session.add(user)
 		db.session.commit()
 		flash('User registration successful.')
@@ -94,49 +94,49 @@ def newpartner():
 	
 	return render_template('newpartner.html', title='Add partner', form=form)
 
-@app.route('/dashboard/<userid>')
-@login_required
-def dashboard(userid):
-	user = User.query.filter_by(userid=userid).first_or_404()
-	collabs = [
-		{
-			'name': 'McGill University',
-			'offname': 'McGill University',
-			'id': '1',
-			'ptype': 'University',
-			'city': 'Montreal',
-			'country':'Canada',
-			'contact': {'userid': 'Clare Herbert'},
-			'owner': 'Richard Jones',
-			'created_date': '01 September 2012'
-		},
-		{
-			'name': 'University of Lyon',
-			'offname': 'Université de Lyon',
-			'id': '2',
-			'ptype': 'University',
-			'city': 'Lyon',
-			'country':'France',
-			'contact': {'userid': 'Laura Smith'},
-			'owner': 'Julia Dawson',
-			'created_date': '01 September 2011'
-		},
+# @app.route('/dashboard/<userid>')
+# @login_required
+# def dashboard(userid):
+# 	user = User.query.filter_by(userid=userid).first_or_404()
+# 	collabs = [
+# 		{
+# 			'name': 'McGill University',
+# 			'offname': 'McGill University',
+# 			'id': '1',
+# 			'ptype': 'University',
+# 			'city': 'Montreal',
+# 			'country':'Canada',
+# 			'contact': {'userid': 'Clare Herbert'},
+# 			'owner': 'Richard Jones',
+# 			'created_date': '01 September 2012'
+# 		},
+# 		{
+# 			'name': 'University of Lyon',
+# 			'offname': 'Université de Lyon',
+# 			'id': '2',
+# 			'ptype': 'University',
+# 			'city': 'Lyon',
+# 			'country':'France',
+# 			'contact': {'userid': 'Laura Smith'},
+# 			'owner': 'Julia Dawson',
+# 			'created_date': '01 September 2011'
+# 		},
 
-			{
-			'name': 'UTexas Austin',
-			'offname': 'University of Texas at Austin',
-			'id': '3',
-			'ptype': 'University',
-			'city': 'Austin, Texas',
-			'country':'USA',
-			'contact': {'userid': 'Angela Vaughn'},
-			'owner': 'Lucy Gaunt',
-			'created_date': '01 September 2009'
-		}
-		]
+# 			{
+# 			'name': 'UTexas Austin',
+# 			'offname': 'University of Texas at Austin',
+# 			'id': '3',
+# 			'ptype': 'University',
+# 			'city': 'Austin, Texas',
+# 			'country':'USA',
+# 			'contact': {'userid': 'Angela Vaughn'},
+# 			'owner': 'Lucy Gaunt',
+# 			'created_date': '01 September 2009'
+# 		}
+# 		]
 
 
-	return render_template('dashboard.html', title='Dashboard', user=user, collabs=collabs)
+# 	return render_template('dashboard.html', title='Dashboard', user=user, collabs=collabs)
 
 @app.route('/partner/<id>')
 def partner(id):
@@ -181,7 +181,7 @@ def addagree(id):
 		agreement = Agreement(partner=p.id, atype=form.atype.data, start_date=form.startdate.data, end_date=form.enddate.data)
 		db.session.add(agreement)
 		db.session.commit()
-		
+		flash('Agreement added.')
 		return redirect(url_for('partner', id=id))
 
 	return render_template('addagree.html', form=form, partner=partner)
@@ -249,6 +249,7 @@ def addvisit(id):
 		visit = Visit(partner=p.id, vtype=form.vtype.data, start_date=form.start_date.data, end_date=form.end_date.data)
 		db.session.add(visit)
 		db.session.commit()
+		flash('Visit record added.')
 		
 		return redirect(url_for('partner', id=partner.id)) 
 
@@ -293,7 +294,11 @@ def search():
 			partners = Partner.query.filter(Partner.name.like(wildcard+form.text_search.data+wildcard)).all()
 			session['partners'] = serialise(partners)
 
-			return redirect(url_for('results'))
+		else:
+			partners = Partner.query.all()
+			session['partners'] = serialise(partners)
+
+		return redirect(url_for('results'))
 
 	return render_template('search.html', form=form)
 
@@ -324,8 +329,10 @@ def addreport(id):
 
 	partner = Partner.query.filter_by(id=visit.partner).first()
 
+	author = current_user.sname+', '+current_user.fname
+
 	if form.validate_on_submit():
-		report = Report(content=form.report.data, visit_id=id)
+		report = Report(content=form.report.data, visit_id=id, author=author)
 		db.session.add(report)
 		db.session.commit()
 		flash('Visit report added.')
