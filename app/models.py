@@ -152,7 +152,7 @@ class Partner(db.Model):
 	offname = db.Column(db.String(80), index=True)
 	ptype = db.Column(db.String(128))
 	city = db.Column(db.String(128))
-	country = db.Column(db.String(128))
+	country = db.Column(db.String(128), db.ForeignKey('country.iso'))
 	contact = db.Column(db.String(64))
 	owner = db.Column(db.Integer, db.ForeignKey('user.id'))
 	created_date = db.Column(db.DateTime, index=True, default=datetime.utcnow)

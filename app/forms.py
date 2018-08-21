@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import TextAreaField, StringField, PasswordField, BooleanField, SubmitField, SelectField, FloatField, ValidationError
-from wtforms.validators import DataRequired, Email, EqualTo, Optional
+from wtforms.validators import DataRequired, Email, EqualTo, Optional, InputRequired
 from wtforms.fields.html5 import DateField
 from app.models import User, Partner
 
@@ -68,19 +68,18 @@ class EnterMobility(FlaskForm):
 	yearoption = [('2010', '2010/11'), ('2011', '2011/12'), ('2012', '2012/13'), ('2013', '2013/14'), ('2014', '2014/15'), \
 	('2015', '2015/16'), ('2016', '2016/17'), ('2017', '2017/18'), ('2018', '2018/19')]
 
-	typelevel = [('UG', 'Undergraduate'), ('PGT', 'Postgraduate Taught'), ('PGR', 'Postgraduate Research'), \
-	('ACS', 'Academic staff'), ('PSS', 'Professional services staff')]
+	typelevel = [('Undergraduate', 'Undergraduate'), ('Postgraduate Taught', 'Postgraduate Taught'), ('Postgraduate Research', 'Postgraduate Research'), \
+	('Academic staff', 'Academic staff'), ('Professional services staff', 'Professional services staff')]
 
 	def validate_total(form, field):
 		if field.data%0.5 != 0:
 			raise ValidationError('Partial mobilities may not be more or less than 0.5FTE - please adjust total.')
-
-	mobilitytype = SelectField(u'Mobility type', validators=[DataRequired()])
-	agreement = SelectField(u'Agreement (if relevant)', coerce=int, validators=[Optional()])
 	session = SelectField(u'Select session', choices=yearoption, validators=[DataRequired()])
+	mobilitytype = SelectField(u'Mobility type', validators=[DataRequired()])
+	#agreement = SelectField(u'Agreement (if relevant)', coerce=int, validators=[Optional()])
 	level = SelectField(u'Select type/level', choices=typelevel, validators=[DataRequired()])
-	totalout = FloatField(u'Enter total outbound mobilities (in FTE)', validators=[DataRequired(), validate_total])
-	totalin = FloatField(u'Enter total inbound mobilities (in FTE)', validators=[DataRequired(), validate_total])
+	totalout = FloatField(u'Enter total outbound mobilities (in FTE)', validators=[InputRequired(), validate_total])
+	totalin = FloatField(u'Enter total inbound mobilities (in FTE)', validators=[InputRequired(), validate_total])
 	submit = SubmitField('Add mobilities')
 
 class AddVisit(FlaskForm):

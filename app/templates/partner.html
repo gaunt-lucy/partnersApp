@@ -42,11 +42,15 @@
 			<h3><i>Official name: {{ partner.offname }}</i></h3>
 				<h2>Key information</h2>
 				<br>
-					<h4><b>Location:</b> {{ partner.city }}, {{ partner.country }}</h4>
+					<h4><b>Location:</b> {{ partner.city }}, <a href="{{ url_for('country', iso=country.iso) }}">{{ country.name }}</a></h4>
 					<h4><b>Owner:</b> {{ user.sname }}, {{ user.fname }}</h4>
-					<h4><b>Type:</b> {{ partner.ptype }}</h4>
-					<h4><b>Date created:</b> {{ partner.created_date }}</h4>
+					<h4><b>Type:</b> {{ org.name }}</h4>
+					<h4><b>Date created:</b> {{ partner.created_date.strftime('%d/%m/%Y') }}</h4>
 					<br>
+					<h1>TEST AREA:</h1>
+					<p>LABELS = {{ labels[0] }} - {{ labels[1] }} - {{ labels[2] }} - {{ labels[3] }}</p>
+					<p>VALUES =  {{ data[0] }} - {{ data[1] }} - {{ data[2] }} - {{ data[3] }} {{ data[4] }} - {{ data[5] }} - {{ data[6] }} - {{ data[7] }}</p>
+
 			        <p><a class="btn btn-primary btn-lg" href="{{ url_for('editpartner', id=partner.id) }}" role="button">Edit details &raquo;</a></p>
 			</div>
 			<div class="col-md-4">
@@ -61,10 +65,10 @@
 				 
 				var data = google.visualization.arrayToDataTable([
 				        ['Currency', 'Inbound','Outbound'],
-				        ['2014', {{data[0]}}, {{data[1]}}],
-				        ['2014', {{data[1]}}, {{data[1]}}],
-				        ['2015', {{data[2]}}, {{data[1]}}],
-				        ['2016', {{data[3]}}, {{data[1]}}]
+				        ['{{labels[0]}}', {{data[0]}}, {{data[1]}}],
+				        ['{{labels[1]}}', {{data[2]}}, {{data[3]}}],
+				        ['{{labels[2]}}', {{data[4]}}, {{data[5]}}],
+				        ['{{labels[3]}}', {{data[6]}}, {{data[7]}}]
 				      ]);
 				 
 				      var options = {
@@ -77,7 +81,7 @@
 				        vAxis: {
 				          title: ''
 				        }, 
-				        colors: ['#4280B4', '#E6CCBF']
+				        colors: ['#A35622', '#78ADB4']
 
 				      };
 				 
@@ -88,7 +92,7 @@
 				//]]>  
 				 
 			</script>
-			<br><br><a class="btn btn-primary btn-lg" href="{{ url_for('mobilitydata', id=partner.id)}}" role="button">View details &raquo;</a>    <a class="btn btn-primary btn-lg" href="{{ url_for('addmobility') }}" role="button">Add mobility data &raquo;</a>
+			<br><br><a class="btn btn-primary btn-lg" href="{{ url_for('mobilitydata', id=partner.id)}}" role="button">View details &raquo;</a>    <a class="btn btn-primary btn-lg" href="{{ url_for('addmobility', id=partner.id) }}" role="button">Add mobility data &raquo;</a>
  
         </div>
     </div>
@@ -110,8 +114,8 @@
 			    <tr>
 			    	<th scope="row">{{ a.id }}</th>
 			    	<td>{{ a.atype }}</td>
-			     	<td>{{ a.start_date }}</td>
-			     	<td>{{ a.end_date }}</td>
+			     	<td>{{ a.start_date.strftime('%d/%m/%Y') }}</td>
+			     	<td>{{ a.end_date.strftime('%d/%m/%Y') }}</td>
 				</tr>
 			    {% endfor %}
 			  </tbody>

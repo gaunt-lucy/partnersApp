@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+	<head>
+		<style type="text/css">
+			#partner-container {
+				background: rgba(255, 255, 255, 0.9);
+				padding-bottom: 20px;
+				padding-left: 40px;
+			}
+
+			#results {
+				background: rgba(255, 255, 255, 0.9);
+				padding-bottom: 20px;
+			}
+
+			body {
+				height: 100%;
+			    background-position: center;
+			    background-repeat: no-repeat;
+			    background-size: cover;
+			}
+
+			.btn {
+                background-color: #4280B4 ;
+                border-color: #4280B4 ;
+                color: white;
+            }
+
+            #summary {
+				max-height: 35ch;
+				white-space: pre-line;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+
+		</style>
+
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	</head>
+
+
+	<body>
+		<div class="container-fluid" id="partner-container">
+        <div class="row">
+        	<div class="col-md-6">
+        	<h1>Country summary - {{ country.name }}</h1>
+			
+				<h2>Key information</h2>
+				<br>
+					<h4><b>Total partners:</b> {{ partnertotal }}</h4>
+					<br>
+				<p id="summary"> {{ summary }} </p>
+
+			</div>
+			<div class="col-md-4">
+            <h2>Mobility data</h2>
+            <div id="chart_div"  style="width: 600px; height: 400px;"></div>
+            <script type='text/javascript'>//<![CDATA[ 
+ 
+				google.load('visualization', '1', {packages: ['corechart', 'bar']});
+				google.setOnLoadCallback(drawBasic);
+				 
+				function drawBasic() {
+				 
+				var data = google.visualization.arrayToDataTable([
+				        ['Currency', 'Inbound','Outbound'],
+				        ['{{labels[0]}}', {{data[0]}}, {{data[1]}}],
+				        ['{{labels[1]}}', {{data[2]}}, {{data[3]}}],
+				        ['{{labels[2]}}', {{data[4]}}, {{data[5]}}],
+				        ['{{labels[3]}}', {{data[6]}}, {{data[7]}}]
+				      ]);
+				 
+				      var options = {
+				        title: 'Mobility data overview',
+				        chartArea: {width: '60%'},
+				        hAxis: {
+				          title: '',
+				          minValue: 0
+				        },
+				        vAxis: {
+				          title: ''
+				        }, 
+				        colors: ['#A35622', '#78ADB4']
+
+				      };
+				 
+				      var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+				 
+				      chart.draw(data, options);
+				    }
+				//]]>  
+				 
+			</script>
+			<br><br><a class="btn btn-primary btn-lg" href="#" role="button">View details &raquo;</a>    <a class="btn btn-primary btn-lg" href="#" role="button">Add mobility data &raquo;</a>
+ 
+        </div>
+    </div>
+        <div class="row">
+            <h2>Recently updated partners</h2>
+
+            {% if partners %}
+            <table class="table table-striped">
+			  <thead>
+			    <tr>
+			      <th scope="col">#</th>
+			      <th scope="col">Name</th>
+			      <th scope="col">Official name</th>
+			      <th scope="col">Type</th>
+			      <th scope="col">City</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	{% for p in partners %}
+			    <tr>
+			    	<th scope="row">{{ p.id }}</th>
+			    	<td>{{ p.name }}</td>
+			     	<td>{{ p.offname }}</td>
+			     	<td>{{ p.ptype }}</td>
+			     	<td>{{ p.city }}</td>
+				</tr>
+			    {% endfor %}
+			  </tbody>
+			</table>
+			<a class="btn btn-primary btn-sm" href="#" role="button">View all partner details &raquo;</a>  
+			<a class="btn btn-primary btn-sm" href="{{ url_for('newpartner') }}" role="button">Add a new partner &raquo;</a>
+
+			{% else %}
+			<br>
+			<p>There are no partnerships with organisations in this country.</p>
+			<a class="btn btn-primary btn-sm" href="#" role="button">Add a new partner &raquo;</a>
+			{% endif %}
+			
+		</div>
+          	
+        <div class="row">
+            <h2>Recent visits</h2>
+
+            {% if visits %}
+            <table class="table table-striped">
+			  <thead>
+			    <tr>
+			      	<th scope="col">Partner</th>
+			      	<th scope="col">Type</th>
+			      	<th scope="col">Start Date</th>
+			      	<th scope="col">End Date</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	{% for v in visits %}
+			    <tr>
+			    	<th scope="row">{{ v[0] }}</th>
+			    	<td>{{ v[1] }}</td>
+			    	<td>{{ v[2] }}</td>
+			    	<td>{{ v[3] }}</td>
+			    </tr>
+			    {% endfor %}
+			  </tbody>
+			</table>
+			<p><a class="btn btn-primary btn-sm" href="#" role="button">View all visit details &raquo;</a> 
+			<a class="btn btn-primary btn-sm" href="#" role="button">Add a visit &raquo;</a></p>
+			{% else %}
+			<br>
+			<p>No visits have been recorded to this country.</p>
+			<p><a class="btn btn-primary btn-sm" href="#" role="button">Add a visit &raquo;</a></p>
+			{% endif %}
+			
+			</div>
+
+          	
+        </div>
+
+	</body>
+{% endblock %}

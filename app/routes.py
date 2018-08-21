@@ -1,10 +1,11 @@
 from app import app, db
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from flask import render_template, flash, redirect, url_for, request, session
 from werkzeug.urls import url_parse
 from flask_sqlalchemy import sqlalchemy
-from sqlalchemy import func
+from sqlalchemy import func, or_, desc
 import json
+import wikipedia
 #rendering function imported from Jinja2 template engine (bundled w/ Flask)
 #flash imported to flash messages
 #redirect imported to facilitate user redirects given certain conditions
@@ -94,76 +95,83 @@ def newpartner():
 	
 	return render_template('newpartner.html', title='Add partner', form=form)
 
-# @app.route('/dashboard/<userid>')
-# @login_required
-# def dashboard(userid):
-# 	user = User.query.filter_by(userid=userid).first_or_404()
-# 	collabs = [
-# 		{
-# 			'name': 'McGill University',
-# 			'offname': 'McGill University',
-# 			'id': '1',
-# 			'ptype': 'University',
-# 			'city': 'Montreal',
-# 			'country':'Canada',
-# 			'contact': {'userid': 'Clare Herbert'},
-# 			'owner': 'Richard Jones',
-# 			'created_date': '01 September 2012'
-# 		},
-# 		{
-# 			'name': 'University of Lyon',
-# 			'offname': 'Université de Lyon',
-# 			'id': '2',
-# 			'ptype': 'University',
-# 			'city': 'Lyon',
-# 			'country':'France',
-# 			'contact': {'userid': 'Laura Smith'},
-# 			'owner': 'Julia Dawson',
-# 			'created_date': '01 September 2011'
-# 		},
-
-# 			{
-# 			'name': 'UTexas Austin',
-# 			'offname': 'University of Texas at Austin',
-# 			'id': '3',
-# 			'ptype': 'University',
-# 			'city': 'Austin, Texas',
-# 			'country':'USA',
-# 			'contact': {'userid': 'Angela Vaughn'},
-# 			'owner': 'Lucy Gaunt',
-# 			'created_date': '01 September 2009'
-# 		}
-# 		]
-
-
-# 	return render_template('dashboard.html', title='Dashboard', user=user, collabs=collabs)
 
 @app.route('/partner/<id>')
 def partner(id):
+
 	partner = Partner.query.filter_by(id=id).first_or_404()
-
+	country = Country.query.filter_by(iso=partner.country).first()
+	org = OrgType.query.filter_by(code=partner.ptype).first()
 	user = User.query.filter_by(id=partner.owner).first_or_404()
-
 	agrees = Agreement.query.filter_by(partner=partner.id).all()
-
 	visits = Visit.query.filter_by(partner=partner.id).all()
 
-	#mobilities = db.session.query(Mobility.session, Mobility.totalin, Mobility.totalout).group_by(Mobility.session).all()
+	##get chart data and labels
+	today = datetime.today()
+	t = timedelta(days=365.24)
+	labels = [str(today.year)]
+	for i in range(0,3):
+		labels.append(str((today-t).year))
+		today = today-t
 
-	#mobdata = db.session.query(Mobility.session,func.sum(Mobility.totalin), func.sum(Mobility.totalout)).group_by(Mobility.session).all()
-	# data = []
-	# for m in mobdata:
-	#  	#data.append(str(m[0]))
-	#  	data.append(float(m[1]))
-	#  	data.append(float(m[2]))
-	
-	# data.insert(0,'Outbound')
-	# data.insert(0,'Inbound')
-	# data.insert(0,'Year')
+	labels.reverse()
 
-	data = [2, 3, 4, 5, 6, 6, 7]
+	data = []
+	for l in labels:
+		mobs = Mobility.query.filter_by(partner=partner.id, session=l).all()
+		if not mobs:
+			data.append(0.0)
+			data.append(0.0)
+		else:
+			totalins = db.session.query(func.sum(Mobility.totalin)).filter_by(partner=partner.id, session=l).first()
+			totalouts = db.session.query(func.sum(Mobility.totalout)).filter_by(partner=partner.id, session=l).first()
+			data.append(totalins[0])
+			data.append(totalouts[0])
 
-	return render_template('partner.html', agrees=agrees, partner=partner, user=user, visits=visits, data=data)
+
+	return render_template('partner.html', agrees=agrees, partner=partner, user=user, visits=visits, data=data, labels=labels, country=country, org=org)
+
+@app.route('/country/<iso>')
+def country(iso):
+
+	partners = Partner.query.filter_by(country=iso).order_by(Partner.last_updated.desc()).all()
+	country = Country.query.filter_by(iso=iso).first()
+
+	partnertotal = len(partners)
+	partners = Partner.query.filter_by(country=iso).order_by(Partner.last_updated.desc()).limit(5).all()
+
+	visits = db.session.query(Partner.name, Visit.vtype, Visit.start_date, Visit.end_date).join(Visit).join(Country).filter_by(iso=iso).limit(5).all()
+
+	summary = wikipedia.summary(country.name)
+
+	##get chart data and labels
+	today = datetime.today()
+	t = timedelta(days=365.24)
+	labels = [str(today.year)]
+	for i in range(0,3):
+		labels.append(str((today-t).year))
+		today = today-t
+
+	labels.reverse()
+
+	data = []
+	for l in labels:
+		mobs = mobs = Mobility.query.filter_by(session=l).join(Partner).join(Country).filter_by(iso=iso).all()
+		if not mobs:
+			data.append(0.0)
+			data.append(0.0)
+		else:
+			totalins = db.session.query(func.sum(Mobility.totalin)).filter_by(session=l).join(Partner).join(Country).filter_by(iso=iso).first()
+			totalouts = db.session.query(func.sum(Mobility.totalout)).filter_by(session=l).join(Partner).join(Country).filter_by(iso=iso).first()
+			data.append(totalins[0])
+			data.append(totalouts[0])
+
+	#data = [2,3,4,5,4,3,4,5,4]
+
+	#labels = ['2000', '2001', '2002', '2003']
+
+
+	return render_template('country.html', summary=summary, partners=partners, partnertotal=partnertotal, country=country, visits=visits, data=data, labels=labels)
 
 @app.route('/addagree/<id>', methods=['GET', 'POST'])
 def addagree(id):
@@ -200,24 +208,24 @@ def testview():
 		
 	return render_template('testview.html')
 
-@app.route('/addmobility', methods=['GET', 'POST'])
-def addmobility():
-	partner = Partner.query.filter_by(id=1).first_or_404()
-	#if/else for choices
+@app.route('/addmobility/<id>', methods=['GET', 'POST'])
+def addmobility(id):
+	partner = Partner.query.filter_by(id=id).first_or_404()
+	##if/else for choices
 	agreements = Agreement.query.all()
 	mobtypes = AgreeType.query.all()
 	agreementoptions = [(a.id, (str(a.atype)+': '+str(a.start_date.year)+'-'+str(a.end_date.year))) for a in agreements]
 	mobilityoptions = [(m.code, m.name) for m in mobtypes]
 
 	form = EnterMobility()
-	form.agreement.choices = agreementoptions
+	#form.agreement.choices = agreementoptions
 	form.mobilitytype.choices = mobilityoptions
 
 	if form.validate_on_submit():
 		mobility = Mobility(mobilitytype=form.mobilitytype.data, partner=partner.id, level=form.level.data,\
 			session=form.session.data, totalin=form.totalin.data, totalout=form.totalout.data)
-		if form.agreement.data:
-			mobility.agreement = form.agreement.data
+		#if form.agreement.data:
+			#mobility.agreement = form.agreement.data
 		db.session.add(mobility)
 		db.session.commit()
 		flash('Mobility data added')
@@ -230,7 +238,7 @@ def addmobility():
 def mobilitydata(id):
 	partner = Partner.query.filter_by(id=id).first_or_404()
 	
-	mobilities = Mobility.query.filter_by(partner=id).all()
+	mobilities = Mobility.query.filter_by(partner=id).order_by(Mobility.session).all()
 
 	agreetypes = AgreeType.query.all()
 
@@ -291,7 +299,8 @@ def search():
 
 	if form.validate_on_submit():
 		if form.text_search.data:
-			partners = Partner.query.filter(Partner.name.like(wildcard+form.text_search.data+wildcard)).all()
+			partners = Partner.query.filter((Partner.name.like(wildcard+form.text_search.data+wildcard)) | \
+				(Partner.offname.like(wildcard+form.text_search.data+wildcard))).all()
 			session['partners'] = serialise(partners)
 
 		else:
@@ -311,7 +320,7 @@ def results():
 	partners = deserialise(session['partners'])
 
 	if form.validate_on_submit():
-		partners = Partner.query.filter(Partner.name.like(wildcard+form.text_search.data+wildcard)).all()
+		partners = Partner.query.filter(or_(Partner.name.like(wildcard+form.text_search.data+wildcard)),(Partner.offname.like(wildcard+form.text_search.data+wildcard))).all()
 		session['partners'] = serialise(partners)
 
 		return redirect(url_for('results'))
