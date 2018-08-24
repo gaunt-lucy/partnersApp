@@ -6,6 +6,7 @@ from flask_sqlalchemy import sqlalchemy
 from sqlalchemy import func, or_, desc
 import json
 import wikipedia
+import string
 #rendering function imported from Jinja2 template engine (bundled w/ Flask)
 #flash imported to flash messages
 #redirect imported to facilitate user redirects given certain conditions
@@ -78,6 +79,7 @@ def register():
 	return render_template('register.html', title='Register', form=form)
 
 @app.route('/newpartner', methods=['GET', 'POST'])
+@login_required
 def newpartner():
 
 	countries = Country.query.all()
@@ -97,6 +99,7 @@ def newpartner():
 
 
 @app.route('/partner/<id>')
+@login_required
 def partner(id):
 
 	partner = Partner.query.filter_by(id=id).first_or_404()
@@ -132,6 +135,7 @@ def partner(id):
 	return render_template('partner.html', agrees=agrees, partner=partner, user=user, visits=visits, data=data, labels=labels, country=country, org=org)
 
 @app.route('/country/<iso>')
+@login_required
 def country(iso):
 
 	partners = Partner.query.filter_by(country=iso).order_by(Partner.last_updated.desc()).all()
@@ -174,6 +178,7 @@ def country(iso):
 	return render_template('country.html', summary=summary, partners=partners, partnertotal=partnertotal, country=country, visits=visits, data=data, labels=labels)
 
 @app.route('/addagree/<id>', methods=['GET', 'POST'])
+@login_required
 def addagree(id):
 
 	partner = Partner.query.filter_by(id=id).first_or_404()
@@ -195,6 +200,7 @@ def addagree(id):
 	return render_template('addagree.html', form=form, partner=partner)
 
 @app.route('/agreementdetails/<id>')
+@login_required
 def viewagrees(id):
 
 	partner = Partner.query.filter_by(id=id).first_or_404()
@@ -209,6 +215,7 @@ def testview():
 	return render_template('testview.html')
 
 @app.route('/addmobility/<id>', methods=['GET', 'POST'])
+@login_required
 def addmobility(id):
 	partner = Partner.query.filter_by(id=id).first_or_404()
 	##if/else for choices
@@ -235,6 +242,7 @@ def addmobility(id):
 	return render_template('addmobility.html', form=form, partner=partner, agreements=agreements)
 
 @app.route('/mobilitydata/<id>')
+@login_required
 def mobilitydata(id):
 	partner = Partner.query.filter_by(id=id).first_or_404()
 	
@@ -245,6 +253,7 @@ def mobilitydata(id):
 	return render_template('mobilitydata.html', partner=partner, agreetypes=agreetypes, mobilities=mobilities)
 
 @app.route('/addvisit/<id>', methods=['GET', 'POST'])
+@login_required
 def addvisit(id):
 
 	partner = Partner.query.filter_by(id=id).first_or_404()
@@ -264,6 +273,7 @@ def addvisit(id):
 	return render_template('addvisit.html', form=form, partner=partner)
 
 @app.route('/visitdetails/<id>')
+@login_required
 def visitdetails(id):
 
 	partner = Partner.query.filter_by(id=id).first_or_404()
@@ -404,3 +414,24 @@ def viewreport(id):
 	partner = Partner.query.filter_by(id=visit.partner).first()
 		
 	return render_template('report.html', report=report, visit=visit, partner=partner)
+
+@app.route('/browse-by-country/')
+@login_required
+def browsecountry():
+	alphabet = list(string.ascii_uppercase)
+	countries = []
+
+	for a in alphabet:
+		c = Country.query.filter(Country.name.like(a+'%')).all()
+		countries.append(c)
+
+	ziplist = zip(alphabet, countries)
+
+	return render_template('browse-by-country.html', ziplist=ziplist)
+
+@app.route('/partners/<country>')
+@login_required
+def partners(country):
+	partners = Partner.query.filter_by(country=country).all()
+	country = Country.query.filter_by(iso=country).first_or_404()
+	return render_template('partners.html', partners=partners, country=country)

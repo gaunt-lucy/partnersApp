@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+<!-- template for login form takes a 'form' object instatiated from the LoginForm class -->
+<!-- form object is passed to the template by the login view function -->
+
+{% block app_content %}
+
+	<head>
+		<style type="text/css">
+			#searchbar {
+				background: rgba(255, 255, 255, 0.7);
+				padding-bottom: 20px;
+			}
+
+			#results {
+				background: rgba(255, 255, 255, 0.9);
+				padding-bottom: 20px;
+			}
+
+		</style>
+	</head>
+
+	<body>
+	    <div class="container-fluid" id="results">
+	    	<h1> Partners in {{ country.name }} </h1>
+	    	<div class="row">
+	        	<div class="col-md-12">
+	        		{% if partners %}
+		            <table class="table table-striped">
+					  <thead>
+					    <tr>
+					      <th scope="col">#</th>
+					      <th scope="col">Type</th>
+					      <th scope="col">Name</th>
+					      <th scope="col">Official Name</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  	{% for p in partners %}
+					    <tr>
+					    	<th scope="row">{{ p.id }}</th>
+					     	<td>{{ p.ptype }}</td>
+					     	<td><a href="{{ url_for('partner', id=p.id) }}">{{ p.name }}</a></td>
+							<td>{{ p.offname }}</td>
+						</tr>
+					    {% endfor %}
+					  </tbody>
+					</table>
+					{% else %}
+					<br>
+					<p>There are no partners that meet your search criteria.</p>
+					{% endif %}
+					<p><a class="btn btn-primary btn-small" href="{{ url_for('country', iso=country.iso)}}" role="button">&laquo; Return to country summary </a></p>
+	        	</div>
+	    	</div>
+	    </div>
+	</body>
+
+<!-- Edit this pagination block -->
+	<nav aria-label="Page navigation example">
+  		<ul class="pagination">
+		    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+		    <li class="page-item"><a class="page-link" href="#">1</a></li>
+		    <li class="page-item"><a class="page-link" href="#">2</a></li>
+		    <li class="page-item"><a class="page-link" href="#">3</a></li>
+		    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+	  </ul>
+	</nav>
+{% endblock %}

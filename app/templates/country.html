@@ -123,7 +123,7 @@
 			    {% endfor %}
 			  </tbody>
 			</table>
-			<a class="btn btn-primary btn-sm" href="#" role="button">View all partner details &raquo;</a>  
+			<a class="btn btn-primary btn-sm" href="{{ url_for('partners', country=country.iso)}}" role="button">View all partner details &raquo;</a>  
 			<a class="btn btn-primary btn-sm" href="{{ url_for('newpartner') }}" role="button">Add a new partner &raquo;</a>
 
 			{% else %}

@@ -16,7 +16,7 @@
 				padding-top: 20px;
 				padding-bottom: 20px;
 				border-radius: 25px;
-				background-color: rgba(255, 255, 255, 0.7);
+				
 				width: 70%;
 			}
 
@@ -36,7 +36,7 @@
 
 <div class="container" id="main-container">
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-4">
 			<div class="container" id="inner-container">
 				<center>
 					<a href="{{ url_for('search') }}"><img src="https://s19.postimg.cc/yu8ntqo1f/magnifier-tool-on-earth-globe.png" width="200" height="200" align="middle"></a>
@@ -46,13 +46,23 @@
 				</center>
 			</div>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-4">
 			<div class="container" id="inner-container">
 				<center>
 					<a href="{{ url_for('newpartner') }}"><img src="https://s19.postimg.cc/41bcpehnn/edit-_1.png" width="200" height="200" align="middle"></a>
 					<br>
 					<br>
 					<p><a type="button" class="btn btn-primary" href="{{ url_for('newpartner') }}">Add a partner</a></p>
+				</center>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="container" id="inner-container">
+				<center>
+					<a href="{{ url_for('search') }}"><img src="https://s19.postimg.cc/yu8ntqo1f/magnifier-tool-on-earth-globe.png" width="200" height="200" align="middle"></a>
+					<br>
+					<br>
+					<p><a type="button" class="btn btn-primary" href="{{ url_for('browsecountry') }}">Browse by country</a></p>
 				</center>
 			</div>
 		</div>
@@ -60,14 +70,14 @@
 	<div class="row">
 		<div class="container-fluid" id="pad-container"></div>
 	</div>
-	<div class="row">
+<!-- 	<div class="row">
 		<div class="col-md-6">
 			<div class="container" id="inner-container">
 				<center>
 					<a href="{{ url_for('search') }}"><img src="https://s19.postimg.cc/yu8ntqo1f/magnifier-tool-on-earth-globe.png" width="200" height="200" align="middle"></a>
 					<br>
 					<br>
-					<p><a type="button" class="btn btn-primary" href="{{ url_for('search') }}">Browse by country</a></p>
+					<p><a type="button" class="btn btn-primary" href="{{ url_for('browsecountry') }}">Browse by country</a></p>
 				</center>
 			</div>
 		</div>
@@ -81,6 +91,6 @@
 				</center>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </div>
 {% endblock %}

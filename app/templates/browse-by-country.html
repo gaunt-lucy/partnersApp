@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+	<head>
+		<style type="text/css">
+			body {
+				height: 100%;
+			    background-position: center;
+			    background-repeat: no-repeat;
+			    background-size: cover;
+			}
+
+			#container {
+				background: rgba(255, 255, 255, 0.9);
+				padding-bottom: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container-fluid" id="container">
+			<h1> Browse by country </h1>
+			{% for letter, countrylist in ziplist %} 
+				<h2>{{ letter }} </h2>
+					<table class="table">
+						<thead>
+							<tr>
+				    			<th scope="col"></th>
+				    		</tr>
+						</thead>
+						<tbody>
+							{% for c in countrylist %}
+					    	<tr>
+						    	<th scope="row"><a href="{{ url_for('country', iso=c.iso) }}">{{ c.name }}<a/></th>
+							</tr>
+			    			{% endfor %}	
+						</tbody>
+					</table>
+			{% endfor %} 
+	   </div>
+	</body>
+
+
+{% endblock %}

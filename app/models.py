@@ -2,6 +2,7 @@ from app import db, login
 from datetime import datetime, date
 from werkzeug.security import generate_password_hash, check_password_hash #password hash function provided by Werkzeug package (Flask dependency)
 from flask_login import UserMixin #implements required methods and properties for flask_login to work with the User model
+from random import randint
 
 
 class User(UserMixin, db.Model):
@@ -666,6 +667,19 @@ class Mobility(db.Model):
 	#direction = db.Column(db.String)
 	totalout = db.Column(db.Float)
 	totalin = db.Column(db.Float)
+
+	@staticmethod
+	def insert_mobs():
+		for i in range (0,500):
+			m = Mobility(mobilitytype='STUX', partner=randint(1,417), level='Undergraduate', session=randint(2009,2018), totalout=randint(1,25)*0.5, totalin=randint(1,19)*0.5)
+			db.session.add(m)
+		for i in range (0,200):
+			m = Mobility(mobilitytype='STUX', partner=randint(1,417), level='Postgraduate Taught', session=randint(2009,2018), totalout=randint(1,8)*0.5, totalin=randint(1,8)*0.5)
+			db.session.add(m)
+		for i in range (0,350):
+			m = Mobility(mobilitytype='RESE', partner=randint(1,417), level='Academic staff', session=randint(2009,2018), totalout=randint(1,6)*0.5, totalin=randint(1,9)*0.5)
+			db.session.add(m)
+		db.session.commit()
 
 class Country(db.Model):
 	iso = db.Column(db.String, primary_key=True)
