@@ -1,0 +1,12 @@
+Dear {{ user.fname }},
+
+Welcome to Uniseen University UniGO. You now have access to the global partnership database. 
+
+Your username is: {{ user.userid }}
+You'll need to use this when you log in. 
+
+If you want to change any of your details, log into UniGO and click on your your name in the top menu. 
+
+Kind regards,
+
+UniGO Administrator

@@ -15,7 +15,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.forms import RequestResetPasswordForm, ResetPasswordForm, EditPartnerForm, BrowseForm, SearchForm, AddVisit, \
 					LoginForm, RegistrationForm, NewPartnerForm, AddAgreementForm, EnterMobility, AddVisitReport#import the form classes
 from app.models import User, Partner, Agreement, Visit, Report, Country, OrgType, AgreeType, Mobility
-from app.email import email_password_reset
+from app.email import email_password_reset, welcome_new_user
 
 @app.route('/')#using python deocorators to create function callback to URL route
 @app.route('/landing')
@@ -75,7 +75,8 @@ def register():
 		user.create_userid(form.fname.data, form.sname.data)
 		db.session.add(user)
 		db.session.commit()
-		flash('User registration successful.')
+		welcome_new_user(user)
+		flash('User registration successful. Check your email for your username.')
 		return redirect(url_for('login'))
 
 	return render_template('register.html', title='Register', form=form)

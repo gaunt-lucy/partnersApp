@@ -8,6 +8,11 @@ def send_email(subject, sender, recipients, text_body, html_body):
 	msg.html = html_body
 	mail.send(msg)
 
+def welcome_new_user(user):
+	send_email('Welcome to UniGO', sender=app.config['ADMINS'][0], recipients=[user.email], \
+	text_body=render_template('email/welcome-user.txt', user=user), \
+	html_body=render_template('email/welcome-user.html', user=user))
+
 def email_password_reset(user):
     token = user.get_reset_password_token()
     send_email('Reset your UniGO password', sender=app.config['ADMINS'][0], recipients=[user.email], \
