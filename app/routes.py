@@ -8,6 +8,7 @@ import json
 import wikipedia
 import string
 from flask_login import current_user, login_user, logout_user, login_required
+from random import randint
 #rendering function imported from Jinja2 template engine (bundled w/ Flask)
 #flash imported to flash messages
 #redirect imported to facilitate user redirects given certain conditions
@@ -60,6 +61,14 @@ def login():
 def logout():
 	logout_user()
 	return redirect(url_for('index'))
+	
+@staticmethod
+def checkuniqueuser(userid):
+	check = User.query.filter_by(userid=userid).first()
+	if check == None:
+		return True
+	else: 
+		return False
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -73,6 +82,10 @@ def register():
 		user = User(email=form.email.data, fname=form.fname.data, sname=form.sname.data)
 		user.set_password(form.password.data)
 		user.create_userid(form.fname.data, form.sname.data)
+
+		while checkuniqueuser(user.userid) == False:
+			user.userid = user.userid+str(randint(10,99))
+
 		db.session.add(user)
 		db.session.commit()
 		welcome_new_user(user)
@@ -100,6 +113,7 @@ def resetpassword(token):
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     user = User.verify_reset_password_token(token)
+
     if not user:
         return redirect(url_for('index'))
     form = ResetPasswordForm()
