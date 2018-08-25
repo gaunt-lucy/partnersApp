@@ -78,6 +78,12 @@ def register():
 
 	return render_template('register.html', title='Register', form=form)
 
+@app.route('/profile')
+def profile():
+	users = User.query.all()
+
+	return render_template('profile.html', users=users)
+
 @app.route('/newpartner', methods=['GET', 'POST'])
 @login_required
 def newpartner():
