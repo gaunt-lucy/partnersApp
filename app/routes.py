@@ -61,7 +61,7 @@ def login():
 def logout():
 	logout_user()
 	return redirect(url_for('index'))
-	
+
 @staticmethod
 def checkuniqueuser(userid):
 	check = User.query.filter_by(userid=userid).first()
@@ -363,7 +363,7 @@ def search():
 
 	if form.validate_on_submit():
 		if form.text_search.data:
-			partners = Partner.query.filter((Partner.name.like(wildcard+form.text_search.data+wildcard)) | \
+			partners = Partner.query.filter((Partner.name.ilike(wildcard+form.text_search.data+wildcard)) | \
 				(Partner.offname.like(wildcard+form.text_search.data+wildcard))).all()
 			session['partners'] = serialise(partners)
 
@@ -384,7 +384,8 @@ def results():
 	partners = deserialise(session['partners'])
 
 	if form.validate_on_submit():
-		partners = Partner.query.filter(or_(Partner.name.like(wildcard+form.text_search.data+wildcard)),(Partner.offname.like(wildcard+form.text_search.data+wildcard))).all()
+		partners = Partner.query.filter((Partner.name.ilike(wildcard+form.text_search.data+wildcard)) | \
+				(Partner.offname.like(wildcard+form.text_search.data+wildcard))).all()
 		session['partners'] = serialise(partners)
 
 		return redirect(url_for('results'))
