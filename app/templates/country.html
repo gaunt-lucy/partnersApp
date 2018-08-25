@@ -52,6 +52,7 @@
 					<h4><b>Total partners:</b> {{ partnertotal }}</h4>
 					<br>
 				<p id="summary"> {{ summary }} </p>
+				<p><a href="{{ url }}" target="_blank">Full country article on Wikipedia &raquo;</a></p>
 
 			</div>
 			<div class="col-md-4">
@@ -93,8 +94,7 @@
 				//]]>  
 				 
 			</script>
-			<br><br><a class="btn btn-primary btn-lg" href="#" role="button">View details &raquo;</a>    <a class="btn btn-primary btn-lg" href="#" role="button">Add mobility data &raquo;</a>
- 
+			<br><br><a class="btn btn-primary btn-lg" href="#" role="button">View details &raquo;</a>  
         </div>
     </div>
         <div class="row">
@@ -129,7 +129,6 @@
 			{% else %}
 			<br>
 			<p>There are no partnerships with organisations in this country.</p>
-			<a class="btn btn-primary btn-sm" href="#" role="button">Add a new partner &raquo;</a>
 			{% endif %}
 			
 		</div>
@@ -159,11 +158,9 @@
 			  </tbody>
 			</table>
 			<p><a class="btn btn-primary btn-sm" href="#" role="button">View all visit details &raquo;</a> 
-			<a class="btn btn-primary btn-sm" href="#" role="button">Add a visit &raquo;</a></p>
 			{% else %}
 			<br>
 			<p>No visits have been recorded to this country.</p>
-			<p><a class="btn btn-primary btn-sm" href="#" role="button">Add a visit &raquo;</a></p>
 			{% endif %}
 			
 			</div>

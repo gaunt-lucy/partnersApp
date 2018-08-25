@@ -146,7 +146,9 @@ def country(iso):
 
 	visits = db.session.query(Partner.name, Visit.vtype, Visit.start_date, Visit.end_date).join(Visit).join(Country).filter_by(iso=iso).limit(5).all()
 
-	summary = wikipedia.summary(country.name)
+	wiki = wikipedia.page(country.name)
+	#summary = wikipedia.summary(country.name)
+	#url = wikipedia.url(country.name)
 
 	##get chart data and labels
 	today = datetime.today()
@@ -175,7 +177,7 @@ def country(iso):
 	#labels = ['2000', '2001', '2002', '2003']
 
 
-	return render_template('country.html', summary=summary, partners=partners, partnertotal=partnertotal, country=country, visits=visits, data=data, labels=labels)
+	return render_template('country.html', url=wiki.url, summary=wiki.summary, partners=partners, partnertotal=partnertotal, country=country, visits=visits, data=data, labels=labels)
 
 @app.route('/addagree/<id>', methods=['GET', 'POST'])
 @login_required

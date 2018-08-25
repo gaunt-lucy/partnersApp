@@ -14,6 +14,6 @@ migrate = Migrate(app, db)#initialise migration engine instance
 login = LoginManager(app)
 login.login_view = 'login'
 bootstrap = Bootstrap(app)
-#charts = GoogleCharts(app)
+
 
 from app import routes, models #imported at the bottom to resolve circular import issue
