@@ -150,8 +150,8 @@ class User(UserMixin, db.Model):
 
 class Partner(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String(80), index=True, unique=True)
-	offname = db.Column(db.String(80), index=True)
+	name = db.Column(db.String(200), index=True, unique=True)
+	offname = db.Column(db.String(200), index=True)
 	ptype = db.Column(db.String(128))
 	city = db.Column(db.String(128))
 	country = db.Column(db.String(128), db.ForeignKey('country.iso'))
