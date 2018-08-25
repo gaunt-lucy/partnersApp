@@ -1,5 +1,7 @@
-from app import db, login
+from app import app, db, login
 from datetime import datetime, date
+from time import time
+import jwt
 from werkzeug.security import generate_password_hash, check_password_hash #password hash function provided by Werkzeug package (Flask dependency)
 from flask_login import UserMixin #implements required methods and properties for flask_login to work with the User model
 from random import randint
@@ -28,9 +30,18 @@ class User(UserMixin, db.Model):
 	def create_userid(self, fname, sname):
 		self.userid = (sname+fname[0]).lower()
 
-	# def get_userid(self):
-	# 	newuserid = (sname+fname[0]).lower()
-	# 	return newuserid
+	def get_reset_password_token(self, expires_in=600):
+		return jwt.encode(
+			{'reset_password': self.id, 'exp': time() + expires_in},
+			app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+
+	@staticmethod
+	def verify_reset_password_token(token):
+		try:
+			id = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])['reset_password']
+		except:
+			return
+		return User.query.get(id)
 
 	@staticmethod	
 	def bulk_add_users():

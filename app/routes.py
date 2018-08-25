@@ -7,13 +7,15 @@ from sqlalchemy import func, or_, desc
 import json
 import wikipedia
 import string
+from flask_login import current_user, login_user, logout_user, login_required
 #rendering function imported from Jinja2 template engine (bundled w/ Flask)
 #flash imported to flash messages
 #redirect imported to facilitate user redirects given certain conditions
 
-from app.forms import EditPartnerForm, BrowseForm, SearchForm, AddVisit, LoginForm, RegistrationForm, NewPartnerForm, AddAgreementForm, EnterMobility, AddVisitReport#import the form classes
-from flask_login import current_user, login_user, logout_user, login_required
+from app.forms import RequestResetPasswordForm, ResetPasswordForm, EditPartnerForm, BrowseForm, SearchForm, AddVisit, \
+					LoginForm, RegistrationForm, NewPartnerForm, AddAgreementForm, EnterMobility, AddVisitReport#import the form classes
 from app.models import User, Partner, Agreement, Visit, Report, Country, OrgType, AgreeType, Mobility
+from app.email import email_password_reset
 
 @app.route('/')#using python deocorators to create function callback to URL route
 @app.route('/landing')
@@ -78,11 +80,40 @@ def register():
 
 	return render_template('register.html', title='Register', form=form)
 
+@app.route('/reset-password-request', methods=['GET', 'POST'])
+def resetpasswordrequest():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = RequestResetPasswordForm()
+
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            email_password_reset(user)
+        flash('Reset password email sent.')
+        return redirect(url_for('login'))
+    return render_template('reset-password.html', title='Reset Password', form=form)
+
+@app.route('/reset-password/<token>', methods=['GET', 'POST'])
+def resetpassword(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    user = User.verify_reset_password_token(token)
+    if not user:
+        return redirect(url_for('index'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash('Your password has been reset.')
+        return redirect(url_for('login'))
+    return render_template('reset-password.html', form=form)
+
 @app.route('/profile')
 def profile():
-	users = User.query.all()
+	user = current_user
 
-	return render_template('profile.html', users=users)
+	return render_template('profile.html', user=user)
 
 @app.route('/newpartner', methods=['GET', 'POST'])
 @login_required

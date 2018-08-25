@@ -31,7 +31,7 @@
                     
                     <li><a href="{{ url_for('search', userid=current_user.userid) }}">Search</a></li>
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
-                    <li><a href="#">Logged in as {{ current_user.sname }}, {{ current_user.fname }}</a></li>
+                    <li><a href="{{ url_for('profile') }}">Logged in as {{ current_user.sname }}, {{ current_user.fname }}</a></li>
                     {% endif %}
                 </ul>
             </div>

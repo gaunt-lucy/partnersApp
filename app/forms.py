@@ -29,6 +29,16 @@ class RegistrationForm(FlaskForm):
 		if user is not None:
 			raise ValidationError('Email address is already registered.')
 
+class RequestResetPasswordForm(FlaskForm):
+	email = StringField('Email', validators=[DataRequired(), Email()])
+	submit = SubmitField('Request password reset')
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    password2 = PasswordField(
+        'Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Request Password Reset')
+
 class NewPartnerForm(FlaskForm):
 	typechoices = [('HEI', 'University'), ('NGO', 'Non-government organisation'), ('RES', 'Research centre'), ('GOV', 'Government organisation')]
 

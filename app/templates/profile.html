@@ -10,11 +10,6 @@
 				padding-left: 40px;
 			}
 
-			#results {
-				background: rgba(255, 255, 255, 0.9);
-				padding-bottom: 20px;
-			}
-
 			body {
 				height: 100%;
 			    background-position: center;
@@ -27,44 +22,30 @@
                 border-color: #4280B4 ;
             }
 
+            .borderless td, .borderless th {
+            	border: none;
+            }
+
 		</style>
 
 	</head>
 
 	<body>
-		
 		<div class="container-fluid" id="container">
-			<h1>Displaying all users</h1>
-
-			{% if users %}
-        	<h3>User details</h3>
-            <table class="table table-striped">
-				<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">userid</th>
-			      	<th scope="col">fname</th>
-			      	<th scope="col">sname</th>
-			      	<th scope="col">email</th>
-			    </tr>
-				</thead>
-				<tbody>
-			  	{% for u in users %}
-			    <tr>
-					<th scope="row">{{ u.id }}</th>
-					<td>{{ u.userid }}</td>
-			    	<td>{{ u.fname }}</td>
-			    	<td>{{ u.sname }}</td>
-					<td>{{ u.email }}</td>
-				</tr>
-			    {% endfor %}
-				</tbody>
-			</table>
-			{% else %}
-				<h3><p><i>There are no users recorded in the database.</i>
-			     <br>
-			{% endif %}
+			<h1> Hello, {{ user.fname }}</h1>
+			<div class="row">
+				<table>
+			        <tr valign="top">
+			            <td><img src="/static/avatar.png"></td>
+			            <td>
+			            	<h2> User details </h2>
+							<p><b>Name:</b> {{ user.fname }} {{ user.sname }}</p>
+							<p><b>Userid:</b> {{ user.userid }}</p>
+							<p><b>Email:</b> {{ user.email }}</p>
+						</td>
+			        </tr>
+			   	</table>
 			</div>
+		</div>
 	</body>
-
 {% endblock %}
