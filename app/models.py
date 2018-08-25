@@ -670,13 +670,13 @@ class Mobility(db.Model):
 	@staticmethod
 	def insert_mobs():
 		for i in range (0,500):
-			m = Mobility(mobilitytype='STUX', partner=randint(1,417), level='Undergraduate', session=randint(2009,2018), totalout=randint(1,25)*0.5, totalin=randint(1,19)*0.5)
+			m = Mobility(mobilitytype='STUX', partner=randint(386,794), level='Undergraduate', session=randint(2009,2018), totalout=randint(1,25)*0.5, totalin=randint(1,19)*0.5)
 			db.session.add(m)
 		for i in range (0,200):
-			m = Mobility(mobilitytype='STUX', partner=randint(1,417), level='Postgraduate Taught', session=randint(2009,2018), totalout=randint(1,8)*0.5, totalin=randint(1,8)*0.5)
+			m = Mobility(mobilitytype='STUX', partner=randint(386,794), level='Postgraduate Taught', session=randint(2009,2018), totalout=randint(1,8)*0.5, totalin=randint(1,8)*0.5)
 			db.session.add(m)
 		for i in range (0,350):
-			m = Mobility(mobilitytype='RESE', partner=randint(1,417), level='Academic staff', session=randint(2009,2018), totalout=randint(1,6)*0.5, totalin=randint(1,9)*0.5)
+			m = Mobility(mobilitytype='RESE', partner=randint(386,794), level='Academic staff', session=randint(2009,2018), totalout=randint(1,6)*0.5, totalin=randint(1,9)*0.5)
 			db.session.add(m)
 		db.session.commit()
 
