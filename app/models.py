@@ -198,7 +198,7 @@ class Partner(db.Model):
 					("Universidade Federal de Mato Grosso", "Universidade Federal de Mato Grosso", "HEI", "BR", "Mato Grosso", "65", datetime.today()),\
 					("Universidade Federal da Grande Dourados", "Universidade Federal da Grande Dourados", "HEI", "BR", "Grande Dourados", "27", datetime.today()),\
 					("Unicamp", "Unicamp", "HEI", "BR", "Rio de Janiero", "54", datetime.today()),\
-					("Universidade Federal de Santa Catarina , Universidade Estadual do Norte Fluminense ", "Universidade Federal de Santa Catarina , Universidade Estadual do Norte Fluminense ", "HEI", "BR", "Florianópolis", "79", datetime.today()),\
+					("Universidade Federal de Santa Catarina", "Universidade Federal de Santa Catarina", "HEI", "BR", "Florianópolis", "79", datetime.today()),\
 					("UNESP Rio Claro", "UNESP Rio Claro", "NGO", "BR", "Florianópolis", "11", datetime.today()),\
 					("University of Toronto", "University of Toronto", "HEI", "CA", "Toronto", "25", datetime.today()),\
 					("Trent University", "Trent University", "HEI", "CA", "Trent", "68", datetime.today()),\
@@ -216,7 +216,7 @@ class Partner(db.Model):
 					("Universität Basel", "Universität Basel", "HEI", "CH", "Basel", "62", datetime.today()),\
 					("Fundacion Chile", "Fundacion Chile", "HEI", "CL", "Santiago", "27", datetime.today()),\
 					("Pontificia Universidad Catolica de Chile", "Pontificia Universidad Catolica de Chile", "HEI", "CL", "Santiago", "5", datetime.today()),\
-					("The National Commission for Scientific and Technological Research (CONICYT)", "The National Commission for Scientific and Technological Research (CONICYT)", "RES", "CL", "Santiago", "101", datetime.today()),\
+					("National Commission for Scientific and Technological Research (CONICYT)", "National Commission for Scientific and Technological Research (CONICYT)", "RES", "CL", "Santiago", "101", datetime.today()),\
 					("Huawei Technologies", "Huawei Technologies", "RES", "CN", "Peking", "55", datetime.today()),\
 					("Dalian University of Technology", "Dalian University of Technology", "HEI", "CN", "Dalian", "33", datetime.today()),\
 					("Shenzhen University", "Shenzhen University", "HEI", "CN", "Shenzhen", "93", datetime.today()),\
@@ -238,7 +238,7 @@ class Partner(db.Model):
 					("Shanghai University of Finance and Economics ", "Shanghai University of Finance and Economics ", "HEI", "CN", "Shanghai", "9", datetime.today()),\
 					("Shanghai Jiao Tong University", "Shanghai Jiao Tong University", "HEI", "CN", "Shanghai", "104", datetime.today()),\
 					("Huazhong University of Science and Technology", "Huazhong University of Science and Technology", "HEI", "CN", "Huazhong", "105", datetime.today()),\
-					("Fudan University, Heidelberg University, Shanghai Jiao Tong University", "Fudan University, Heidelberg University, Shanghai Jiao Tong University", "HEI", "CN", "Fudan", "51", datetime.today()),\
+					("Fudan University", "Fudan University", "HEI", "CN", "Fudan", "51", datetime.today()),\
 					("Liaoning Shihua University, Fushin", "Liaoning Shihua University, Fushin", "HEI", "CN", "Fushin", "38", datetime.today()),\
 					("Tianjin University", "Tianjin University", "HEI", "CN", "Tianjin", "42", datetime.today()),\
 					("Harbin Engineering University", "Harbin Engineering University", "HEI", "CN", "Harbin", "50", datetime.today()),\
@@ -270,7 +270,7 @@ class Partner(db.Model):
 					("Georg-August-Universität Göttingen", "Georg-August-Universität Göttingen", "HEI", "DE", "Gottingen", "62", datetime.today()),\
 					("Technical University of Munich", "Technical University of Munich", "HEI", "DE", "Munich", "103", datetime.today()),\
 					("National Centre for Biological Sciences, KTH Royal Institute of Technology", "National Centre for Biological Sciences, KTH Royal Institute of Technology", "HEI", "DE", "Cologne", "99", datetime.today()),\
-					("Leiden University, University of Goettingen, Karolinska Institutet, Trinity College Dublin, University of Barcelona", "Leiden University, University of Goettingen, Karolinska Institutet, Trinity College Dublin, University of Barcelona", "HEI", "NL", "Leiden", "93", datetime.today()),\
+					("Leiden University", "Leiden University", "HEI", "NL", "Leiden", "93", datetime.today()),\
 					("Ludwig-Maximillians University Munich", "Ludwig-Maximillians University Munich", "HEI", "DE", "Munich", "14", datetime.today()),\
 					("Saarland University", "Saarland University", "HEI", "DE", "Saarbrücken", "82", datetime.today()),\
 					("Trier University", "Trier University", "HEI", "DE", "Trier", "3", datetime.today()),\
@@ -337,11 +337,11 @@ class Partner(db.Model):
 					("Lahti University of Applied Sciences", "Lahti University of Applied Sciences", "HEI", "FI", "Lahti", "66", datetime.today()),\
 					("Saimaa University of Applied Sciences", "Saimaa University of Applied Sciences", "HEI", "FI", "Saimaa", "40", datetime.today()),\
 					("Institut Pasteur", "Institut Pasteur", "HEI", "FR", "Paris", "46", datetime.today()),\
-					("Universite Joseph fourier Grenoble, Universite Francois Rabelais, Universite Sorbonne Nouvelle Paris 111, Universite de Provence Aix-Marseille 1, Universite Pierre et Marie Curie Paris VI, Universite Denis Diderot Paris VII", "Universite Joseph fourier Grenoble, Universite Francois Rabelais, Universite Sorbonne Nouvelle Paris 111, Universite de Provence Aix-Marseille 1, Universite Pierre et Marie Curie Paris VI, Universite Denis Diderot Paris VII", "HEI", "FR", "Grenoble", "94", datetime.today()),\
+					("Universite Joseph fourier Grenoble", "Universite Joseph fourier Grenoble", "HEI", "FR", "Grenoble", "94", datetime.today()),\
 					("Ecole Nationale Supérieure des Mines de St Etienne", "Ecole Nationale Supérieure des Mines de St Etienne", "HEI", "FR", "St Etienne", "51", datetime.today()),\
-					("Université de Franche-Comté, Besancon", "Université de Franche-Comté, Besancon", "HEI", "FR", "Besancon", "14", datetime.today()),\
-					("Université de Bourgogne, Dijon", "Université de Bourgogne, Dijon", "HEI", "FR", "Dijon", "26", datetime.today()),\
-					("Université de Bretagne Occidentale, Brest", "Université de Bretagne Occidentale, Brest", "HEI", "FR", "Brest", "102", datetime.today()),\
+					("Université de Franche-Comté", "Université de Franche-Comté, Besancon", "HEI", "FR", "Besancon", "14", datetime.today()),\
+					("Université de Bourgogne", "Université de Bourgogne, Dijon", "HEI", "FR", "Dijon", "26", datetime.today()),\
+					("Université de Bretagne Occidentale", "Université de Bretagne Occidentale, Brest", "HEI", "FR", "Brest", "102", datetime.today()),\
 					("Ecole Nationale des Chartes", "Ecole Nationale des Chartes", "HEI", "FR", "Paris", "45", datetime.today()),\
 					("EIVP Paris", "EIVP Paris", "HEI", "FR", "Paris", "68", datetime.today()),\
 					("ENSC Lille", "ENSC Lille", "HEI", "FR", "Lille", "10", datetime.today()),\
@@ -371,7 +371,7 @@ class Partner(db.Model):
 					("Université Paris 1 - Panthéon Sorbonne", "Université Paris 1 - Panthéon Sorbonne", "HEI", "FR", "Paris", "68", datetime.today()),\
 					("Ecole Nationale Supérieure du Paysage, Versailles", "Ecole Nationale Supérieure du Paysage, Versailles", "HEI", "FR", "Versailles", "11", datetime.today()),\
 					("Universite Paris", "Universite Paris", "HEI", "FR", "Paris", "89", datetime.today()),\
-					("Ecole Nationale Supérieure des Arts Decoratifs (ENSAD) Paris", "Ecole Nationale Supérieure des Arts Decoratifs (ENSAD) Paris", "HEI", "FR", "Paris", "38", datetime.today()),\
+					("Ecole Nationale Supérieure des Arts Decoratifs (ENSAD)", "Ecole Nationale Supérieure des Arts Decoratifs (ENSAD) Paris", "HEI", "FR", "Paris", "38", datetime.today()),\
 					("Haute école des arts du Rhin", "Haute école des arts du Rhin", "HEI", "FR", "Rhin", "12", datetime.today()),\
 					("CUFR Jean-François Champollion", "CUFR Jean-François Champollion", "NGO", "FR", "Albi,", "20", datetime.today()),\
 					("Euromed Marseille Ecole De Management", "Euromed Marseille Ecole De Management", "HEI", "FR", "Marseille", "60", datetime.today()),\
@@ -383,8 +383,8 @@ class Partner(db.Model):
 					("Arcadia University", "Arcadia University", "HEI", "GB", "London", "46", datetime.today()),\
 					("Aristotle University of Thessaloniki", "Aristotle University of Thessaloniki", "HEI", "GR", "Athens", "67", datetime.today()),\
 					("City University of Hong Kong", "City University of Hong Kong", "HEI", "HK", "Hong Kong", "31", datetime.today()),\
-					("Government of Hong Kong Special Administrative Region of the PRC", "Government of Hong Kong Special Administrative Region of the PRC", "GOV", "HK", "Hong Kong", "48", datetime.today()),\
-					("Kadoorie Farm and Botanic Graden Corporation", "Kadoorie Farm and Botanic Graden Corporation", "NGO", "HK", "Hong Kong", "85", datetime.today()),\
+					("Government of Hong Kong", "Government of Hong Kong Special Administrative Region of the PRC", "GOV", "HK", "Hong Kong", "48", datetime.today()),\
+					("Kadoorie Farm and Botanic Garden Corporation", "Kadoorie Farm and Botanic Garden Corporation", "NGO", "HK", "Hong Kong", "85", datetime.today()),\
 					("Brown University", "Brown University", "HEI", "HK", "Hong Kong", "71", datetime.today()),\
 					("Pazmany Peter Catholic University", "Pazmany Peter Catholic University", "HEI", "HU", "Budapest", "22", datetime.today()),\
 					("University of Szeged", "University of Szeged", "HEI", "HU", "Budapest", "12", datetime.today()),\
@@ -393,13 +393,13 @@ class Partner(db.Model):
 					("University College Dublin", "University College Dublin", "HEI", "IE", "Dublin", "11", datetime.today()),\
 					("University College Cork", "University College Cork", "HEI", "IE", "Cork", "52", datetime.today()),\
 					("University College Dublin", "University College Dublin", "HEI", "IE", "Dublin", "35", datetime.today()),\
-					("Hebrew University of Jerusalem, Hebrew University Medical Centre", "Hebrew University of Jerusalem, Hebrew University Medical Centre", "HEI", "IL", "Jerusalem", "4", datetime.today()),\
+					("Hebrew University Medical Centre", "Hebrew University of Jerusalem, Hebrew University Medical Centre", "HEI", "IL", "Jerusalem", "4", datetime.today()),\
 					("The National Centre for Biological Sciences (NCBS)", "The National Centre for Biological Sciences (NCBS)", "NGO", "IN", "Mumbai", "57", datetime.today()),\
 					("Indian Institute of Technology Madras", "Indian Institute of Technology Madras", "HEI", "IN", "Mumbai", "102", datetime.today()),\
 					("Indian Institute of Technology, Bombay", "Indian Institute of Technology, Bombay", "HEI", "IN", "Mumbai", "42", datetime.today()),\
 					("Commonwealth Veterinary Association", "Commonwealth Veterinary Association", "NGO", "IN", "Mumbai", "84", datetime.today()),\
 					("Indian Council of Agricultural Research", "Indian Council of Agricultural Research", "RES", "IN", "Mumbai", "37", datetime.today()),\
-					("ESSO-National Institute of Ocean Technology, Ministry of Earth Sciences, Govt. of India", "ESSO-National Institute of Ocean Technology, Ministry of Earth Sciences, Govt. of India", "GOV", "IN", "Mumbai", "42", datetime.today()),\
+					("ESSO-National Institute of Ocean Technology", "National Institute of Ocean Technology, Min. of Earth Sciences, Govt. of India", "GOV", "IN", "Mumbai", "42", datetime.today()),\
 					("Anna University", "Anna University", "HEI", "IN", "Mumbai", "92", datetime.today()),\
 					("Indian Institute of Ahmedabad", "Indian Institute of Ahmedabad", "HEI", "IN", "Mumbai", "52", datetime.today()),\
 					("Tata Institute of Social Science", "Tata Institute of Social Science", "HEI", "IN", "Mumbai", "81", datetime.today()),\
@@ -418,8 +418,8 @@ class Partner(db.Model):
 					("PES University ", "PES University ", "HEI", "IN", "Mumbai", "50", datetime.today()),\
 					("University of Delhi", "University of Delhi", "HEI", "IN", "Delhi", "55", datetime.today()),\
 					("Christian Medical College Vellore", "Christian Medical College Vellore", "HEI", "IN", "Delhi", "98", datetime.today()),\
-					("Veterinary Council of India, Animal Welfare Board of India, Kerala Veterinary & Animal Sciences University", "Veterinary Council of India, Animal Welfare Board of India, Kerala Veterinary & Animal Sciences University", "HEI", "IN", "Delhi", "38", datetime.today()),\
-					("Indian Council for Medical Research, The Institute for Research in Reproduction", "Indian Council for Medical Research, The Institute for Research in Reproduction", "RES", "IN", "Delhi", "41", datetime.today()),\
+					("Veterinary Council of India", "Veterinary Council of India", "HEI", "IN", "Delhi", "38", datetime.today()),\
+					("The Institute for Research in Reproduction", "Indian Institute for Research in Reproduction", "RES", "IN", "Delhi", "41", datetime.today()),\
 					("Srishti School of Art Design and Technology", "Srishti School of Art Design and Technology", "NGO", "IN", "Delhi", "35", datetime.today()),\
 					("United Theological College", "United Theological College", "HEI", "IN", "Delhi", "94", datetime.today()),\
 					("University of Iceland", "University of Iceland", "HEI", "IS", "Reykjavik", "53", datetime.today()),\
@@ -495,7 +495,7 @@ class Partner(db.Model):
 					("ICLARM (Worldfish)", "ICLARM (Worldfish)", "NGO", "MY", "ICLARM", "31", datetime.today()),\
 					("International Medical University", "International Medical University", "HEI", "MY", "University", "42", datetime.today()),\
 					("Universiti Tun Abdul Razak", "Universiti Tun Abdul Razak", "HEI", "MY", "Vknrazkver", "34", datetime.today()),\
-					("University of the Autonomous Regions of the Caribbean Coast of Nicaragua", "University of the Autonomous Regions of the Caribbean Coast of Nicaragua", "HEI", "NI", "Florianópolis", "48", datetime.today()),\
+					("University of the Caribbean Coast of Nicaragua", "University of the Caribbean Coast of Nicaragua", "HEI", "NI", "Florianópolis", "48", datetime.today()),\
 					("Groningen University", "Groningen University", "HEI", "NL", "Groningen", "104", datetime.today()),\
 					("Nijmegen Radboud University", "Nijmegen Radboud University", "HEI", "NL", "University", "71", datetime.today()),\
 					("University of Amsterdam", "University of Amsterdam", "HEI", "NL", "Amsterdam", "48", datetime.today()),\
@@ -563,7 +563,7 @@ class Partner(db.Model):
 					("University of the People", "University of the People", "HEI", "US", "Venpeopleever", "71", datetime.today()),\
 					("University of Texas at Austin", "University of Texas at Austin", "HEI", "US", "Texas at Austin", "75", datetime.today()),\
 					("Perkins School for the Blind", "Perkins School for the Blind", "NGO", "US", "School for the Blind", "48", datetime.today()),\
-					("University of Western Carolina , Duke University Press, St Joseph's University, Philadelphia", "University of Western Carolina , Duke University Press, St Joseph's University, Philadelphia", "HEI", "US", "Naerofesorlbe", "20", datetime.today()),\
+					("University of Western Carolina", "University of Western Carolina", "HEI", "US", "Naerofesorlbe", "20", datetime.today()),\
 					("Georgia State University", "Georgia State University", "HEI", "US", "University", "72", datetime.today()),\
 					("Howard University, University of Texas", "Howard University, University of Texas", "HEI", "US", "University of Texas", "59", datetime.today()),\
 					("Harvard University", "Harvard University", "HEI", "US", "Boston", "50", datetime.today()),\
