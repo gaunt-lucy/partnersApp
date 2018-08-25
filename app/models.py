@@ -223,10 +223,10 @@ class Partner(db.Model):
 					("China Beijing Environmental Exchange", "China Beijing Environmental Exchange", "NGO", "CN", "Beijing", "2", datetime.today()),\
 					("Donghua University", "Donghua University", "HEI", "CN", "Shanghai", "44", datetime.today()),\
 					("National Supercomputer Centre Guangzhou", "National Supercomputer Centre Guangzhou", "NGO", "CN", "Guangzhou", "43", datetime.today()),\
-					("Nanjing University of Aeronautics and Astronautics", "Nanjing University of Aeronautics and Astronautics", "HEI", "CN", "Nanjing", "103", datetime.today()),\
+					("Nanjing University of Aeronautics and Astronautics", "Nanjing University of Aeronautics and Astronautics", "HEI", "CN", "Nanjing", "104", datetime.today()),\
 					("Peking University", "Peking University", "HEI", "CN", "Peking", "101", datetime.today()),\
 					("Peking University", "Peking University", "HEI", "CN", "Peking", "58", datetime.today()),\
-					("Peking University", "Peking University", "HEI", "CN", "Peking", "103", datetime.today()),\
+					("Peking University", "Peking University", "HEI", "CN", "Peking", "104", datetime.today()),\
 					("Shanghai Jiao Tong University", "Shanghai Jiao Tong University", "HEI", "CN", "Shanghai", "9", datetime.today()),\
 					("Jilin University", "Jilin University", "HEI", "CN", "Jilin", "57", datetime.today()),\
 					("October Literature Institute of Beijing Publishing Group", "October Literature Institute of Beijing Publishing Group", "NGO", "CN", "Beijing", "6", datetime.today()),\
@@ -268,7 +268,7 @@ class Partner(db.Model):
 					("Academy of Arts, Architecture & Design in Prague", "Academy of Arts, Architecture & Design in Prague", "HEI", "CZ", "Prague", "67", datetime.today()),\
 					("Johannes Gutenberg Universitaet, Mainz", "Johannes Gutenberg Universitaet, Mainz", "HEI", "DE", "Mainz", "93", datetime.today()),\
 					("Georg-August-Universität Göttingen", "Georg-August-Universität Göttingen", "HEI", "DE", "Gottingen", "62", datetime.today()),\
-					("Technical University of Munich", "Technical University of Munich", "HEI", "DE", "Munich", "103", datetime.today()),\
+					("Technical University of Munich", "Technical University of Munich", "HEI", "DE", "Munich", "104", datetime.today()),\
 					("National Centre for Biological Sciences, KTH Royal Institute of Technology", "National Centre for Biological Sciences, KTH Royal Institute of Technology", "HEI", "DE", "Cologne", "99", datetime.today()),\
 					("Leiden University", "Leiden University", "HEI", "NL", "Leiden", "93", datetime.today()),\
 					("Ludwig-Maximillians University Munich", "Ludwig-Maximillians University Munich", "HEI", "DE", "Munich", "14", datetime.today()),\
@@ -308,7 +308,7 @@ class Partner(db.Model):
 					("Ministry of Electricity and Renewabel Energy", "Ministry of Electricity and Renewabel Energy", "NGO", "EC", "Azogues", "29", datetime.today()),\
 					("Estonian Academy of Arts", "Estonian Academy of Arts", "HEI", "EE", "Tartu", "56", datetime.today()),\
 					("Tallinn University", "Tallinn University", "HEI", "EE", "Tallinn", "22", datetime.today()),\
-					("Sociedad Para El Impulso del Talento", "Sociedad Para El Impulso del Talento", "NGO", "ES", "Seville", "103", datetime.today()),\
+					("Sociedad Para El Impulso del Talento", "Sociedad Para El Impulso del Talento", "NGO", "ES", "Seville", "104", datetime.today()),\
 					("Granada University", "Granada University", "HEI", "ES", "Granada", "17", datetime.today()),\
 					("CEU", "CEU", "NGO", "ES", "Seville", "48", datetime.today()),\
 					("Alcala University", "Alcala University", "HEI", "ES", "Alcala", "5", datetime.today()),\
@@ -317,7 +317,7 @@ class Partner(db.Model):
 					("University Pompeu Fabra", "University Pompeu Fabra", "HEI", "ES", "Madrid", "83", datetime.today()),\
 					("Barcelona ESADE", "Barcelona ESADE", "HEI", "ES", "Barcelona", "26", datetime.today()),\
 					("UP Catalunya", "UP Catalunya", "HEI", "ES", "Barcelona", "50", datetime.today()),\
-					("Valladolid University", "Valladolid University", "HEI", "ES", "Valladolid", "103", datetime.today()),\
+					("Valladolid University", "Valladolid University", "HEI", "ES", "Valladolid", "104", datetime.today()),\
 					("Universidad Pontificia Comillas de Madrid", "Universidad Pontificia Comillas de Madrid", "HEI", "ES", "Comillas de Madrid", "58", datetime.today()),\
 					("Alcala University", "Alcala University", "HEI", "ES", "Alcala", "65", datetime.today()),\
 					("Alicante University", "Alicante University", "HEI", "ES", "Alicante", "90", datetime.today()),\
