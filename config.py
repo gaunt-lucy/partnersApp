@@ -6,6 +6,6 @@ class Config(object): #config class defines configuration settings for the appli
 	SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'app.db')
 	SQLALCHEMY_TRACK_MODIFICATIONS = False
 	RESULTS_PER_PAGE = 3
-	if 'DYNO' in os.environ:
-	    app.logger.addHandler(logging.StreamHandler(sys.stdout))
-	    app.logger.setLevel(logging.ERROR)
+	# if 'DYNO' in os.environ:
+	#     app.logger.addHandler(logging.StreamHandler(sys.stdout))
+	#     app.logger.setLevel(logging.INFO)
