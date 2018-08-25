@@ -298,7 +298,7 @@ class Partner(db.Model):
 					("Academy of Fine Art, Munich", "Academy of Fine Art, Munich", "HEI", "DE", "Munich", "44", datetime.today()),\
 					("Academy of Fine Art, ABK, Stuttgart", "Academy of Fine Art, ABK, Stuttgart", "HEI", "DE", "Stuttgart", "21", datetime.today()),\
 					("Jacobs University Bremen", "Jacobs University Bremen", "HEI", "DE", "Bremen", "94", datetime.today()),\
-					("Università Ca' Foscari Venezia", "Università Ca' Foscari Venezia", "HEI", "Italy", "Venice", "95", datetime.today()),\
+					("Università Ca' Foscari Venezia", "Università Ca' Foscari Venezia", "HEI", "IT", "Venice", "95", datetime.today()),\
 					("Staatliche Akademie der Bildenden Künste", "Staatliche Akademie der Bildenden Künste", "NGO", "DE", "Berlin", "100", datetime.today()),\
 					("Copenhagen Business School", "Copenhagen Business School", "HEI", "DK", "Copenhagen", "8", datetime.today()),\
 					("University of Copenhagen", "University of Copenhagen", "HEI", "DK", "Copenhagen", "32", datetime.today()),\
