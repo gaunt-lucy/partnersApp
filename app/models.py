@@ -30,15 +30,16 @@ class User(UserMixin, db.Model):
 	def create_userid(self, fname, sname):
 		self.userid = (sname+fname[0]).lower()
 
+	##code attributed to Miguel Grinberg, 'Flask Web Development', 2014
 	def get_reset_password_token(self, expires_in=600):
 		return jwt.encode(
 			{'reset_password': self.id, 'exp': time() + expires_in},
 			app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
 
-	@staticmethod
+	##code attributed to Miguel Grinberg, 'Flask Web Development', 2014
 	def verify_reset_password_token(token):
 		try:
-			id = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])['reset_password']
+			id = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])['reset_password'] 
 		except:
 			return
 		return User.query.get(id)
@@ -148,10 +149,13 @@ class User(UserMixin, db.Model):
 				("Aida","Ivankovic","aivankovic2r@unseen.ac.uk")]
 	
 		for u in users:
-			user = User(fname=u[0], sname=u[1], email=u[2])
-			user.set_password('cat')
-			user.create_userid(u[0], u[1])
-			db.session.add(user)
+			user = User.query.filter_by(email=u[2]).first()
+			if user == None:
+				user = User(fname=u[0], sname=u[1], email=u[2])
+				user.set_password('cat')
+				user.create_userid(u[0], u[1])
+				db.session.add(user)
+				
 		db.session.commit()
 
 
@@ -656,7 +660,6 @@ class Visit(db.Model):
 
 	def __repr__(self):
 		return '<Visit report no: {}>'.format(self.id)
-
 
 class Report(db.Model):
 	id = db.Column(db.Integer, primary_key=True)

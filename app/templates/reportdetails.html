@@ -57,7 +57,7 @@
 				  	{% for r in reports %}
 				    <tr>
 						<th scope="row">{{ r.id }}</th>
-						<td>{{ r.author }}</td>
+						<td>{{ r.sname }}, {{ r.fname }}</td>
 						<td><a href="{{ url_for('viewreport', id=r.id) }}">View report</td>
 				    </tr>
 				   {% endfor %}

@@ -1,0 +1,380 @@
+commit d67408bc86f2cdcb96131eb1dc56887f6861a26f
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Sat Aug 25 17:28:21 2018 +0100
+
+    
+including case insensitve query in search func
+
+
+
+commit cf3b62495bb1b2339e9ec30407d74eaa2ed6f987
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Sat Aug 25 17:16:13 2018 +0100
+
+    
+check unique username
+
+
+
+commit ceb9258109fca41cf5dd359292e5a704c047ffc3
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Sat Aug 25 16:36:59 2018 +0100
+
+    
+update requirements.txt
+
+
+
+commit b46931681d977abe83fa3b009e027afbfe5bc84e
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Sat Aug 25 16:33:40 2018 +0100
+
+    
+add welcome email for user registration
+
+
+
+commit 77f4f980c79d73c39a96eb4f8dfa3c4584df044a
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Sat Aug 25 16:13:38 2018 +0100
+
+    
+add email support and reset password function
+
+
+
+commit c7eff347bfc7f091a81d2f86f53bd24e12d709a1
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Sat Aug 25 14:00:15 2018 +0100
+
+    
+update deploy tasks
+
+
+
+commit 151106be338d22d82a6cfd06a359051989d8f6a4
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Sat Aug 25 13:43:20 2018 +0100
+
+    
+add user profile view
+
+
+
+commit eefc98ae336a113b893b1c69f4af96558e525747
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Sat Aug 25 13:33:24 2018 +0100
+
+    
+deploy tasks edit
+
+
+
+commit 5e37b4d36c91aa44c1bc56b5ba6b0af3f2a50304
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Sat Aug 25 13:21:13 2018 +0100
+
+    
+adding data to db
+
+
+
+commit 9998916ef500e02814ea9885076a6db0ccd4a04f
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Sat Aug 25 13:18:01 2018 +0100
+
+    
+deploy updates
+
+
+
+commit 07e93d0b0f83780f1c388e3973cb82a9b2446ca0
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Sat Aug 25 13:15:48 2018 +0100
+
+    
+modify deploy tasks
+
+
+
+commit 94138f76fee59b50ae3e57351e8cb43fe02a022f
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Sat Aug 25 13:12:34 2018 +0100
+
+    
+update deployment tasks
+
+commit 1c574089cb07a2090df511a660bc8530e090da65
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Sat Aug 25 12:26:30 2018 +0100
+
+    
+edit logging settings
+
+
+
+commit aebd64e86f9eeb07a1a82c4d629641042d2278fd
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Sat Aug 25 11:41:46 2018 +0100
+
+    
+prepare to deploy
+
+
+
+commit e557ca9d1582de8c30cf1930dd1547e6741d7ac1
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Fri Aug 24 19:20:44 2018 +0100
+
+    
+added browse by country
+
+
+
+commit 81c36104715e07186ad2723d5e7b05bea95ee5a4
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Wed Aug 22 00:47:25 2018 +0100
+
+    
+add charts and country summary
+
+
+
+commit 97c5b3b76612bbdb5261ea4d04c439b22a201d87
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Sun Aug 19 20:41:58 2018 +0100
+
+    
+Update prior to first deploy
+
+
+
+commit 2a16d41ccb72ddd4ea1fd587d28a6468eef5f8d9
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Tue Aug 14 20:41:46 2018 +0100
+
+    
+various updates
+
+
+
+commit 85af5ac8da73f4e9830821bef1ec767f037b1fe6
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Mon Aug 6 21:27:08 2018 +0100
+
+    
+Edit functions and styling
+
+
+
+commit cf735fc544676113efcd2f83ce91f73713f768bb
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Sat Aug 4 20:58:41 2018 +0100
+
+    
+completed search function and added CSS to landing page
+
+
+
+commit 9b46d4057999deb862a2dab66db4a06d1f7e66c2
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Tue Jul 31 22:29:50 2018 +0100
+
+    
+update add visit+report
+
+
+
+commit 8f342169bf694701b6f3720e0c88d5bfcb390da3
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Mon Jul 30 22:49:22 2018 +0100
+
+    
+add search function
+
+
+
+commit 185589048685d3ff51dbd4622e86b3bee64bb90c
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Mon Jul 23 20:44:54 2018 +0100
+
+    
+add to tests
+
+
+
+commit 833245703924ed94c751d1c8ba411a6226b7e819
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Mon Jul 16 21:35:31 2018 +0100
+
+    
+add visit details page
+
+
+
+commit 03fc36909c6f2c8cbdf58f4f9ff82f0135236fa9
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Mon Jul 16 20:49:09 2018 +0100
+
+    
+added visit report function
+
+
+
+commit a7a7d5ce3bf86c0bb02b9e4294c13d1a9ff51ab6
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Thu Jul 5 17:39:10 2018 +0100
+
+    
+Add dynamic routing for 'Partner' page
+
+
+
+commit 2dd34e28032b9345a084631177a31895eb225950
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Thu Jul 5 12:06:56 2018 +0100
+
+    
+building user forms
+
+
+
+commit ca2aca1daa7317ba9d5925720e1f45e9f14d6c80
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Wed Jul 4 17:11:46 2018 +0100
+
+    
+partnership view holding template
+
+
+
+commit cbf2f2059460a2d11d7aa3746720046928e3f55a
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Tue Jul 3 14:59:49 2018 +0100
+
+    
+user login and database migrations added
+
+
+
+commit ba527819e2a16bdb737e4e2b609af886f45012f6
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Tue Jul 3 10:44:32 2018 +0100
+
+    
+dev db implementation
+
+
+
+commit bd4b5e726e7f11dd97ca55f1c4a64e755e5200c5
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Mon Jul 2 11:46:43 2018 +0100
+
+    
+create config file
+
+
+
+commit 9280fa7512907fc42d44d1bbdffa769ab5393a13
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Mon Jul 2 11:18:08 2018 +0100
+
+    
+create base template for html views
+
+
+
+commit 864800732d5f6fe6ce538d159a2f48a5faa15740
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Mon Jul 2 10:53:53 2018 +0100
+
+    
+creating index template and testing objects
+
+
+
+commit d0318d204b1eefbc97e08bd3ab59fa06b9ac6a9f
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Mon Jul 2 10:27:22 2018 +0100
+
+    
+setup venv, install flask, init app
+
+
+
+commit 04482cf9fbd57dc4d0a3db8c1896ed21c1b2437d
+
+Author: Lucy <gaunt.lucy@gmail.com>
+
+Date:   Mon Jul 2 09:50:24 2018 +0100
+
+    
+Initial commit

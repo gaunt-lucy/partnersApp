@@ -29,7 +29,7 @@
             }
 
 		</style>
-
+		<!-- Javascript provided by Google Charts API -->
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	</head>
 
@@ -56,6 +56,7 @@
 			<div class="col-md-4">
             <h2>Mobility data</h2>
             <div id="chart_div"  style="width: 600px; height: 400px;"></div>
+            <!-- this chart javascript outline provided by Google Charts -->
             <script type='text/javascript'>//<![CDATA[ 
  
 				google.load('visualization', '1', {packages: ['corechart', 'bar']});
@@ -64,7 +65,7 @@
 				function drawBasic() {
 				 
 				var data = google.visualization.arrayToDataTable([
-				        ['Currency', 'Inbound','Outbound'],
+				        ['Year', 'Inbound','Outbound'],
 				        ['{{labels[0]}}', {{data[0]}}, {{data[1]}}],
 				        ['{{labels[1]}}', {{data[2]}}, {{data[3]}}],
 				        ['{{labels[2]}}', {{data[4]}}, {{data[5]}}],

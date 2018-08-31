@@ -13,7 +13,7 @@ from random import randint
 #flash imported to flash messages
 #redirect imported to facilitate user redirects given certain conditions
 
-from app.forms import RequestResetPasswordForm, ResetPasswordForm, EditPartnerForm, BrowseForm, SearchForm, AddVisit, \
+from app.forms import RequestResetPasswordForm, ResetPasswordForm, EditPartnerForm, SearchForm, AddVisit, \
 					LoginForm, RegistrationForm, NewPartnerForm, AddAgreementForm, EnterMobility, AddVisitReport#import the form classes
 from app.models import User, Partner, Agreement, Visit, Report, Country, OrgType, AgreeType, Mobility
 from app.email import email_password_reset, welcome_new_user
@@ -403,7 +403,7 @@ def addreport(id):
 
 	partner = Partner.query.filter_by(id=visit.partner).first()
 
-	author = current_user.sname+', '+current_user.fname
+	author = current_user.id
 
 	if form.validate_on_submit():
 		report = Report(content=form.report.data, visit_id=id, author=author)
@@ -450,7 +450,8 @@ def editpartner(id):
 @login_required
 def reportdetails(id):
 
-	reports = Report.query.filter_by(visit_id=id).all()
+	reports = db.session.query(Report.id.label("id"), Report.content.label("content"), \
+		Report.author, User.fname.label("fname"), User.sname.label("sname")).join(User).join(Visit).filter_by(id=id).all()
 
 	visit = Visit.query.filter_by(id=id).first()
 
@@ -462,7 +463,10 @@ def reportdetails(id):
 @login_required
 def viewreport(id):
 
-	report = Report.query.filter_by(id=id).first()
+	report = db.session.query(Report.id.label("id"), Report.content.label("content"), \
+	Report.author, Report.visit_id.label("visit_id"), User.fname.label("fname"), User.sname.label("sname")).filter_by(id=id).join(User).first()
+
+	#report = Report.query.filter_by(id=id).first()
 
 	visit = Visit.query.filter_by(id=report.visit_id).first()
 
