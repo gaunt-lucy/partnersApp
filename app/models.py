@@ -258,11 +258,11 @@ class Partner(db.Model):
 					("Fudan University", "Fudan University", "HEI", "CN", "Fudan", "48", datetime.today()),\
 					("Chinese Academy of Governance", "Chinese Academy of Governance", "GOV", "CN", "Beijing", "52", datetime.today()),\
 					("Donghua University", "Donghua University", "HEI", "CN", "Shanghai", "60", datetime.today()),\
-					("China Graduate School of Theology", "China Graduate School of Theology", "HEI", "CN", "Shanghai", "105", datetime.today()),\
+					("China Graduate School of Theology", "China Graduate School of Theology", "HEI", "CN", "Shanghai", "101", datetime.today()),\
 					("Shandong University", "Shandong University", "HEI", "CN", "Shandong", "9", datetime.today()),\
 					("Shanghai University of Finance and Economics ", "Shanghai University of Finance and Economics ", "HEI", "CN", "Shanghai", "9", datetime.today()),\
 					("Shanghai Jiao Tong University", "Shanghai Jiao Tong University", "HEI", "CN", "Shanghai", "50", datetime.today()),\
-					("Huazhong University of Science and Technology", "Huazhong University of Science and Technology", "HEI", "CN", "Huazhong", "105", datetime.today()),\
+					("Huazhong University of Science and Technology", "Huazhong University of Science and Technology", "HEI", "CN", "Huazhong", "101", datetime.today()),\
 					("Fudan University", "Fudan University", "HEI", "CN", "Fudan", "51", datetime.today()),\
 					("Liaoning Shihua University, Fushin", "Liaoning Shihua University, Fushin", "HEI", "CN", "Fushin", "38", datetime.today()),\
 					("Tianjin University", "Tianjin University", "HEI", "CN", "Tianjin", "42", datetime.today()),\
@@ -366,7 +366,7 @@ class Partner(db.Model):
 					("Ecole Nationale Supérieure des Mines de St Etienne", "Ecole Nationale Supérieure des Mines de St Etienne", "HEI", "FR", "St Etienne", "51", datetime.today()),\
 					("Université de Franche-Comté", "Université de Franche-Comté, Besancon", "HEI", "FR", "Besancon", "14", datetime.today()),\
 					("Université de Bourgogne", "Université de Bourgogne, Dijon", "HEI", "FR", "Dijon", "26", datetime.today()),\
-					("Université de Bretagne Occidentale", "Université de Bretagne Occidentale, Brest", "HEI", "FR", "Brest", "102", datetime.today()),\
+					("Université de Bretagne Occidentale", "Université de Bretagne Occidentale, Brest", "HEI", "FR", "Brest", "101", datetime.today()),\
 					("Ecole Nationale des Chartes", "Ecole Nationale des Chartes", "HEI", "FR", "Paris", "45", datetime.today()),\
 					("EIVP Paris", "EIVP Paris", "HEI", "FR", "Paris", "68", datetime.today()),\
 					("ENSC Lille", "ENSC Lille", "HEI", "FR", "Lille", "10", datetime.today()),\
@@ -420,7 +420,7 @@ class Partner(db.Model):
 					("University College Dublin", "University College Dublin", "HEI", "IE", "Dublin", "35", datetime.today()),\
 					("Hebrew University Medical Centre", "Hebrew University of Jerusalem, Hebrew University Medical Centre", "HEI", "IL", "Jerusalem", "4", datetime.today()),\
 					("The National Centre for Biological Sciences (NCBS)", "The National Centre for Biological Sciences (NCBS)", "NGO", "IN", "Mumbai", "57", datetime.today()),\
-					("Indian Institute of Technology Madras", "Indian Institute of Technology Madras", "HEI", "IN", "Mumbai", "102", datetime.today()),\
+					("Indian Institute of Technology Madras", "Indian Institute of Technology Madras", "HEI", "IN", "Mumbai", "101", datetime.today()),\
 					("Indian Institute of Technology, Bombay", "Indian Institute of Technology, Bombay", "HEI", "IN", "Mumbai", "42", datetime.today()),\
 					("Commonwealth Veterinary Association", "Commonwealth Veterinary Association", "NGO", "IN", "Mumbai", "84", datetime.today()),\
 					("Indian Council of Agricultural Research", "Indian Council of Agricultural Research", "RES", "IN", "Mumbai", "37", datetime.today()),\
@@ -492,7 +492,7 @@ class Partner(db.Model):
 					("Sophia University", "Sophia University", "HEI", "JP", "Sophia", "73", datetime.today()),\
 					("Tskuba University", "Tskuba University", "HEI", "JP", "Tskuba", "62", datetime.today()),\
 					("Yokohama National University", "Yokohama National University", "HEI", "JP", "Yokohama", "48", datetime.today()),\
-					("Kenyan Association of Independent International Schools", "Kenyan Association of Independent International Schools", "NGO", "KE", "Nairobi", "105", datetime.today()),\
+					("Kenyan Association of Independent International Schools", "Kenyan Association of Independent International Schools", "NGO", "KE", "Nairobi", "101", datetime.today()),\
 					("Egerton University ", "Egerton University ", "HEI", "KE", "Nairobi", "60", datetime.today()),\
 					("Hankuk University of Foreign Studies", "Hankuk University of Foreign Studies", "HEI", "KR", "Seoul", "41", datetime.today()),\
 					("Kookmin University", "Kookmin University", "HEI", "KR", "Seoul", "95", datetime.today()),\
@@ -614,7 +614,7 @@ class Partner(db.Model):
 					("Wheaton College", "Wheaton College", "HEI", "US", "Wheaton", "14", datetime.today()),\
 					("Rhode Island School of Design", "Rhode Island School of Design", "HEI", "US", "School of Design", "46", datetime.today()),\
 					("School of the Museum of Fine Arts, Boston", "School of the Museum of Fine Arts, Boston", "NGO", "US", "School", "7", datetime.today()),\
-					("Maryland Institute College of Art", "Maryland Institute College of Art", "HEI", "US", "College of Art", "102", datetime.today()),\
+					("Maryland Institute College of Art", "Maryland Institute College of Art", "HEI", "US", "College of Art", "101", datetime.today()),\
 					("Babson College", "Babson College", "HEI", "US", "Babson", "71", datetime.today()),\
 					("Binghampton University", "Binghampton University", "HEI", "US", "Binghampton", "41", datetime.today()),\
 					("Emory University", "Emory University", "HEI", "US", "Emory", "87", datetime.today()),\
