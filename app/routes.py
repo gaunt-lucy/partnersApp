@@ -14,8 +14,8 @@ from random import randint
 #redirect imported to facilitate user redirects given certain conditions
 
 from app.forms import RequestResetPasswordForm, ResetPasswordForm, EditPartnerForm, SearchForm, AddVisit, \
-					LoginForm, RegistrationForm, NewPartnerForm, AddAgreementForm, EnterMobility, AddVisitReport#import the form classes
-from app.models import User, Partner, Agreement, Visit, Report, Country, OrgType, AgreeType, Mobility
+					LoginForm, RegistrationForm, NewPartnerForm, AddAgreementForm, EnterMobility, AddVisitReport, EditUserDetailsForm#import the form classes
+from app.models import User, Partner, Agreement, Visit, Report, Country, OrgType, AgreeType, Mobility, AcademicYear
 from app.email import email_password_reset, welcome_new_user
 
 @app.route('/')#using python deocorators to create function callback to URL route
@@ -124,11 +124,93 @@ def resetpassword(token):
         return redirect(url_for('login'))
     return render_template('reset-password.html', form=form)
 
+@app.route('/change-password/', methods=['GET', 'POST'])
+def changepassword():
+    if current_user.is_authenticated:
+    	user = current_user
+    else:
+        return redirect(url_for('landing'))
+
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash('Your password has been reset.')
+        return redirect(url_for('profile'))
+    return render_template('reset-password.html', form=form)
+
+
 @app.route('/profile')
 def profile():
 	user = current_user
 
 	return render_template('profile.html', user=user)
+
+@app.route('/edituser/', methods=['GET', 'POST'])
+@login_required
+def edituser():
+
+	user = current_user
+
+	form = EditUserDetailsForm()
+
+	if form.validate_on_submit():
+		if user.email == form.email.data:
+			user.fname = form.fname.data
+			user.sname = form.sname.data
+		else:
+			u = User.query.filter_by(email=form.email.data).all()
+			if user is None:
+				user.fname = form.fname.data
+				user.sname = form.sname.data
+				user.email = form.email.data
+			else:
+				flash('That email address is already registered. Please enter a unique email address')
+				return redirect(url_for('edituser'))
+
+		db.session.add(user)
+		db.session.commit()
+		flash ('Your details have been updated.')
+		return redirect(url_for('profile'))
+
+	form.fname.data = user.fname
+	form.sname.data = user.sname
+	form.email.data = user.email
+
+	return render_template('edituser.html', form=form)
+
+@app.route('/admin/edituser/<id>', methods=['GET', 'POST'])
+@login_required
+def adminedituser(id):
+
+	user = User.query.filter_by(id=current_user.id).first()
+
+	if user.is_admin() == True:
+
+		users = User.query.all()
+
+		user = User.query.filter_by(id=id).first()
+
+		form = EditUserDetailsForm()
+
+		if form.validate_on_submit():
+			user.fname = form.fname.data
+			user.sname = form.sname.data
+			user.email = form.email.data
+			db.session.add(user)
+			db.session.commit()
+			flash ('User details have been updated')
+			return redirect(url_for('manageusers'))
+
+		form.fname.data = user.fname
+		form.sname.data = user.sname
+		form.email.data = user.email
+
+		return render_template('edituser.html', form=form)
+
+	else:
+		return redirect(url_for('oops'))
+
 
 @app.route('/newpartner', methods=['GET', 'POST'])
 @login_required
@@ -275,12 +357,15 @@ def addmobility(id):
 	##if/else for choices
 	agreements = Agreement.query.all()
 	mobtypes = AgreeType.query.all()
+	ayrs = AcademicYear.query.order_by(AcademicYear.year).all()
 	agreementoptions = [(a.id, (str(a.atype)+': '+str(a.start_date.year)+'-'+str(a.end_date.year))) for a in agreements]
 	mobilityoptions = [(m.code, m.name) for m in mobtypes]
+	years = [(str(y.year), y.descr) for y in ayrs]
 
 	form = EnterMobility()
 	#form.agreement.choices = agreementoptions
 	form.mobilitytype.choices = mobilityoptions
+	form.session.choices = years
 
 	if form.validate_on_submit():
 		mobility = Mobility(mobilitytype=form.mobilitytype.data, partner=partner.id, level=form.level.data,\
@@ -305,6 +390,18 @@ def mobilitydata(id):
 	agreetypes = AgreeType.query.all()
 
 	return render_template('mobilitydata.html', partner=partner, agreetypes=agreetypes, mobilities=mobilities)
+
+
+@app.route('/mobility/<iso>')
+@login_required
+def mobilitycountry(iso):
+	country = Country.query.filter_by(iso=iso).first_or_404()
+	
+	mobilities = db.session.query(Mobility.id, Mobility.mobilitytype, Partner.name.label('partner'), Mobility.level, Mobility.session, Mobility.totalin, Mobility.totalout).join(Partner).join(Country).filter_by(iso=iso).order_by(Mobility.session).all()
+
+	balances = db.session.query(Mobility.mobilitytype.label("type"), func.sum(Mobility.totalin).label("totalin"), func.sum(Mobility.totalout).label("totalout")).group_by(Mobility.mobilitytype).join(Partner).join(Country).filter_by(iso=iso).all()
+
+	return render_template('mobilitycountry.html', mobilities=mobilities, balances=balances, country=country)
 
 @app.route('/addvisit/<id>', methods=['GET', 'POST'])
 @login_required
@@ -494,3 +591,34 @@ def partners(country):
 	partners = Partner.query.filter_by(country=country).all()
 	country = Country.query.filter_by(iso=country).first_or_404()
 	return render_template('partners.html', partners=partners, country=country)
+
+@app.route('/admin/manage-users')
+@login_required
+def manageusers():
+	user = User.query.filter_by(id=current_user.id).first()
+
+	if user.is_admin() == True:
+
+		users = User.query.all()
+
+		return render_template('manageusers.html', users=users)
+
+	else:
+		return redirect(url_for('oops'))
+
+
+@app.route('/admin/manage-users/delete/<id>')
+@login_required
+def deleteuser(id):
+	user = User.query.filter_by(id=id).first()
+	db.session.delete(user)
+	db.session.commit()
+
+	users = User.query.order_by(User.sname).all()
+	flash("User has been removed.")
+
+	return redirect(url_for('manageusers'))
+
+@app.route('/oops')
+def oops():
+	return render_template('oops.html')

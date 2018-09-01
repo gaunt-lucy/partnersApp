@@ -42,8 +42,11 @@
 							<p><b>Name:</b> {{ user.fname }} {{ user.sname }}</p>
 							<p><b>Userid:</b> {{ user.userid }}</p>
 							<p><b>Email:</b> {{ user.email }}</p>
-							<p><a class="btn btn-primary btn-small" href="#" role="button">Edit details &raquo;</a>
-			   	<a class="btn btn-primary btn-small" href="#" role="button">Change password &raquo;</a></p>
+							{% if user.is_admin() %}
+							<p><b>Role:</b> {{ user.role }}</p>
+							{% endif %}
+							<p><a class="btn btn-primary btn-small" href="{{ url_for('edituser') }}" role="button">Edit details &raquo;</a>
+			   	<a class="btn btn-primary btn-small" href="{{ url_for('changepassword') }}" role="button">Change password &raquo;</a></p>
 						</td>
 			        </tr>
 			   	</table>

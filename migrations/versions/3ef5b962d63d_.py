@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: e44eb63bda32
+Revision ID: 3ef5b962d63d
 Revises: 
-Create Date: 2018-08-12 17:27:29.595663
+Create Date: 2018-09-01 14:21:23.836114
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e44eb63bda32'
+revision = '3ef5b962d63d'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -39,6 +39,7 @@ def upgrade():
     sa.Column('fname', sa.String(length=64), nullable=True),
     sa.Column('sname', sa.String(length=64), nullable=True),
     sa.Column('email', sa.String(length=120), nullable=True),
+    sa.Column('role', sa.String(), nullable=True),
     sa.Column('passwordhash', sa.String(length=128), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
@@ -48,8 +49,8 @@ def upgrade():
     op.create_index(op.f('ix_user_userid'), 'user', ['userid'], unique=True)
     op.create_table('partner',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=80), nullable=True),
-    sa.Column('offname', sa.String(length=80), nullable=True),
+    sa.Column('name', sa.String(length=200), nullable=True),
+    sa.Column('offname', sa.String(length=200), nullable=True),
     sa.Column('ptype', sa.String(length=128), nullable=True),
     sa.Column('city', sa.String(length=128), nullable=True),
     sa.Column('country', sa.String(length=128), nullable=True),
@@ -58,6 +59,7 @@ def upgrade():
     sa.Column('created_date', sa.DateTime(), nullable=True),
     sa.Column('last_updated', sa.Date(), nullable=True),
     sa.Column('updated_by', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['country'], ['country.iso'], ),
     sa.ForeignKeyConstraint(['owner'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

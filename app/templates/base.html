@@ -29,7 +29,12 @@
                     <li><a href="{{ url_for('login') }}">Login</a></li>
                     {% else %}
                     
-                    <li><a href="{{ url_for('search', userid=current_user.userid) }}">Search</a></li>
+                    <li><a href="{{ url_for('search') }}">Search</a></li>
+                    <li><a href="{{ url_for('browsecountry') }}">Browse</a></li>
+                    <li><a href="{{ url_for('newpartner') }}">Add partner</a></li>
+                    {%if current_user.is_admin() %}
+                    <li><a href="{{ url_for('manageusers') }}">Admin tools</a></li>
+                    {% endif %}
                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
                     <li><a href="{{ url_for('profile') }}">Logged in as {{ current_user.sname }}, {{ current_user.fname }}</a></li>
                     {% endif %}

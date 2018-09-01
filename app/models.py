@@ -13,7 +13,7 @@ class User(UserMixin, db.Model):
 	fname = db.Column(db.String(64), index=True)
 	sname = db.Column(db.String(64), index=True)
 	email = db.Column(db.String(120), index=True, unique=True)
-	#role = db.Column(db.Integer, db.ForeignKey('role.id'))
+	role = db.Column(db.String)
 	passwordhash = db.Column(db.String(128))
 	collabs = db.relationship('Partner', backref='col_owner', lazy='dynamic')
 	reports = db.relationship('Report', backref='report_author', lazy='dynamic')
@@ -29,6 +29,16 @@ class User(UserMixin, db.Model):
 
 	def create_userid(self, fname, sname):
 		self.userid = (sname+fname[0]).lower()
+
+	def set_admin(self):
+		self.role = 'Admin'
+		db.session.commit()
+
+	def is_admin(self):
+		if self.role == 'Admin':
+			return True
+		else:
+			return False
 
 	##code attributed to Miguel Grinberg, 'Flask Web Development', 2014
 	def get_reset_password_token(self, expires_in=600):
@@ -684,13 +694,13 @@ class Mobility(db.Model):
 	@staticmethod
 	def insert_mobs():
 		for i in range (0,500):
-			m = Mobility(mobilitytype='STUX', partner=randint(386,794), level='Undergraduate', session=randint(2009,2018), totalout=randint(1,25)*0.5, totalin=randint(1,19)*0.5)
+			m = Mobility(mobilitytype='STUX', partner=randint(1,409), level='Undergraduate', session=randint(2009,2018), totalout=randint(1,25)*0.5, totalin=randint(1,19)*0.5)
 			db.session.add(m)
 		for i in range (0,200):
-			m = Mobility(mobilitytype='STUX', partner=randint(386,794), level='Postgraduate Taught', session=randint(2009,2018), totalout=randint(1,8)*0.5, totalin=randint(1,8)*0.5)
+			m = Mobility(mobilitytype='STUX', partner=randint(1,409), level='Postgraduate Taught', session=randint(2009,2018), totalout=randint(1,8)*0.5, totalin=randint(1,8)*0.5)
 			db.session.add(m)
 		for i in range (0,350):
-			m = Mobility(mobilitytype='RESE', partner=randint(386,794), level='Academic staff', session=randint(2009,2018), totalout=randint(1,6)*0.5, totalin=randint(1,9)*0.5)
+			m = Mobility(mobilitytype='RESE', partner=randint(1,409), level='Academic staff', session=randint(2009,2018), totalout=randint(1,6)*0.5, totalin=randint(1,9)*0.5)
 			db.session.add(m)
 		db.session.commit()
 
@@ -788,4 +798,22 @@ class AgreeType(db.Model):
 				agreetype = AgreeType(code=t[0])
 			agreetype.name = t[1]
 			db.session.add(agreetype)
+		db.session.commit()
+
+class AcademicYear(db.Model):
+	year = db.Column(db.Integer, primary_key=True)
+	#desc = db.Column(db.Integer)
+	descr = db.Column(db.String)
+
+	def add_years():
+		start_year = 2000
+		end_year = (datetime.today().year)+1
+
+		while start_year != end_year:
+			year = AcademicYear.query.filter_by(year=start_year)
+			if year == None:
+				ayr = AcademicYear(year=start_year, descr=str(str(start_year)+'/'+str(start_year+1)))
+				db.session.add(ayr)
+			start_year = start_year+1
+
 		db.session.commit()

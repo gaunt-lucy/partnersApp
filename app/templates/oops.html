@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Add report{% endblock %}
+
+
+{% block app_content %}
+
+	<head>
+		<style type="text/css">
+			#container {
+				background: rgba(255, 255, 255, 0.9);
+				padding-bottom: 20px;
+				padding-left: 40px;
+			}
+
+			#results {
+				background: rgba(255, 255, 255, 0.9);
+				padding-bottom: 20px;
+			}
+
+			body {
+				height: 100%;
+			    background-position: center;
+			    background-repeat: no-repeat;
+			    background-size: cover;
+			}
+
+
+		</style>
+	</head>
+
+	<body>
+		<div class="container-fluid" id="container">
+			<title> Oops!</title>
+				<h2>Sorry, doesn't look like you have the right permissions to go there. </h2>
+				<br>
+				<p><a class="btn btn-primary btn-small" href="{{ url_for('index') }}" role="button">&laquo; Return to the home page</a></p>
+	       	</div>
+    	</div>
+{% endblock %}
+

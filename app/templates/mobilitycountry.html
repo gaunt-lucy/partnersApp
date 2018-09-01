@@ -34,16 +34,16 @@
 	<body>
 		
 		<div class="container-fluid" id="container">
-			<h1>Mobility Data for {{ partner.name }}</h1>
+			<h1>Mobility Data for {{ country.name }}</h1>
 
 			{% if mobilities %}
-
         	<h3>Mobility details</h3>
             <table class="table table-striped">
 				<thead>
 				<tr>
 					<th scope="col">#</th>
 					<th scope="col">Academic Year</th>
+					<th scope="col">Partner</th>
 			      	<th scope="col">Mobility Type</th>
 			      	<th scope="col">Level</th>
 			      	<th scope="col">Total FTE Inbound</th>
@@ -55,6 +55,7 @@
 			    <tr>
 					<th scope="row">{{ m.id }}</th>
 					<td>{{ m.session }}</td>
+					<td>{{ m.partner }}</td>
 			    	<td>{{ m.mobilitytype }}</td>
 			    	<td>{{ m.level }}</td>
 					<td>{{ m.totalin }}</td>
@@ -63,12 +64,32 @@
 			    {% endfor %}
 				</tbody>
 			</table>
-
+			{% if balances %}
+			<h3> Mobility totals by type </h3>
+            <table class="table table-striped">
+				<thead>
+				<tr>
+			      	<th scope="col">Mobility Type</th>
+			      	<th scope="col">Total FTE Inbound</th>
+			      	<th scope="col">Total FTE Outbound</th>
+			    </tr>
+				</thead>
+				<tbody>
+			  	{% for b in balances %}
+			    <tr>
+					<th scope="row">{{ b.type }}</th>
+					<td>{{ b.totalin }}</td>
+			    	<td>{{ b.totalout }}</td>
+				</tr>
+			    {% endfor %}
+			    {% endif %}
+				</tbody>
+			</table>
 			{% else %}
-				<h3><p><i>There are no mobilities recorded for this partner yet.</i> <a class="btn btn-primary btn-small" href="{{ url_for('addmobility', id=partner.id) }}" role="button">Add mobility data &raquo;</a></p></h3>
+				<h3><p><i>There are no mobilities recorded for this partner yet.</i></p></h3>
 			     <br>
 			{% endif %}
-			<p><a class="btn btn-primary btn-small" href="{{ url_for('partner', id=partner.id)}}" role="button">&laquo; Return to partner </a></p>
+			<p><a class="btn btn-primary btn-small" href="{{ url_for('country', iso=country.iso)}}" role="button">&laquo; Return to country summary </a></p>
 			</div>
 	</body>
 
