@@ -56,9 +56,9 @@ class User(UserMixin, db.Model):
 
 	def adminuser():
 		user = User.query.filter_by(email="lucygaunt@ed.ac.uk")
-		u = User(fname="Lucy", sname="Gaunt", role="Admin", email="lucygaunt@ed.ac.uk")
+		u = User(fname="Lucy", sname="Duff", role="Admin", email="lucyduff@ed.ac.uk")
 		u.set_password('cat')
-		u.create_userid("Lucy","Gaunt")
+		u.create_userid("Lucy","Duff")
 		db.session.add(u)
 		db.session.commit()
 
