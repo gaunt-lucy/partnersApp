@@ -248,10 +248,10 @@ class Partner(db.Model):
 					("China Beijing Environmental Exchange", "China Beijing Environmental Exchange", "NGO", "CN", "Beijing", "2", datetime.today()),\
 					("Donghua University", "Donghua University", "HEI", "CN", "Shanghai", "44", datetime.today()),\
 					("National Supercomputer Centre Guangzhou", "National Supercomputer Centre Guangzhou", "NGO", "CN", "Guangzhou", "43", datetime.today()),\
-					("Nanjing University of Aeronautics and Astronautics", "Nanjing University of Aeronautics and Astronautics", "HEI", "CN", "Nanjing", "104", datetime.today()),\
+					("Nanjing University of Aeronautics and Astronautics", "Nanjing University of Aeronautics and Astronautics", "HEI", "CN", "Nanjing", "50", datetime.today()),\
 					("Peking University", "Peking University", "HEI", "CN", "Peking", "101", datetime.today()),\
 					("Peking University", "Peking University", "HEI", "CN", "Peking", "58", datetime.today()),\
-					("Peking University", "Peking University", "HEI", "CN", "Peking", "104", datetime.today()),\
+					("Peking University", "Peking University", "HEI", "CN", "Peking", "50", datetime.today()),\
 					("Shanghai Jiao Tong University", "Shanghai Jiao Tong University", "HEI", "CN", "Shanghai", "9", datetime.today()),\
 					("Jilin University", "Jilin University", "HEI", "CN", "Jilin", "57", datetime.today()),\
 					("October Literature Institute of Beijing Publishing Group", "October Literature Institute of Beijing Publishing Group", "NGO", "CN", "Beijing", "6", datetime.today()),\
@@ -261,7 +261,7 @@ class Partner(db.Model):
 					("China Graduate School of Theology", "China Graduate School of Theology", "HEI", "CN", "Shanghai", "105", datetime.today()),\
 					("Shandong University", "Shandong University", "HEI", "CN", "Shandong", "9", datetime.today()),\
 					("Shanghai University of Finance and Economics ", "Shanghai University of Finance and Economics ", "HEI", "CN", "Shanghai", "9", datetime.today()),\
-					("Shanghai Jiao Tong University", "Shanghai Jiao Tong University", "HEI", "CN", "Shanghai", "104", datetime.today()),\
+					("Shanghai Jiao Tong University", "Shanghai Jiao Tong University", "HEI", "CN", "Shanghai", "50", datetime.today()),\
 					("Huazhong University of Science and Technology", "Huazhong University of Science and Technology", "HEI", "CN", "Huazhong", "105", datetime.today()),\
 					("Fudan University", "Fudan University", "HEI", "CN", "Fudan", "51", datetime.today()),\
 					("Liaoning Shihua University, Fushin", "Liaoning Shihua University, Fushin", "HEI", "CN", "Fushin", "38", datetime.today()),\
@@ -293,7 +293,7 @@ class Partner(db.Model):
 					("Academy of Arts, Architecture & Design in Prague", "Academy of Arts, Architecture & Design in Prague", "HEI", "CZ", "Prague", "67", datetime.today()),\
 					("Johannes Gutenberg Universitaet, Mainz", "Johannes Gutenberg Universitaet, Mainz", "HEI", "DE", "Mainz", "93", datetime.today()),\
 					("Georg-August-Universität Göttingen", "Georg-August-Universität Göttingen", "HEI", "DE", "Gottingen", "62", datetime.today()),\
-					("Technical University of Munich", "Technical University of Munich", "HEI", "DE", "Munich", "104", datetime.today()),\
+					("Technical University of Munich", "Technical University of Munich", "HEI", "DE", "Munich", "50", datetime.today()),\
 					("National Centre for Biological Sciences, KTH Royal Institute of Technology", "National Centre for Biological Sciences, KTH Royal Institute of Technology", "HEI", "DE", "Cologne", "99", datetime.today()),\
 					("Leiden University", "Leiden University", "HEI", "NL", "Leiden", "93", datetime.today()),\
 					("Ludwig-Maximillians University Munich", "Ludwig-Maximillians University Munich", "HEI", "DE", "Munich", "14", datetime.today()),\
@@ -333,16 +333,16 @@ class Partner(db.Model):
 					("Ministry of Electricity and Renewabel Energy", "Ministry of Electricity and Renewabel Energy", "NGO", "EC", "Azogues", "29", datetime.today()),\
 					("Estonian Academy of Arts", "Estonian Academy of Arts", "HEI", "EE", "Tartu", "56", datetime.today()),\
 					("Tallinn University", "Tallinn University", "HEI", "EE", "Tallinn", "22", datetime.today()),\
-					("Sociedad Para El Impulso del Talento", "Sociedad Para El Impulso del Talento", "NGO", "ES", "Seville", "104", datetime.today()),\
+					("Sociedad Para El Impulso del Talento", "Sociedad Para El Impulso del Talento", "NGO", "ES", "Seville", "50", datetime.today()),\
 					("Granada University", "Granada University", "HEI", "ES", "Granada", "17", datetime.today()),\
 					("CEU", "CEU", "NGO", "ES", "Seville", "48", datetime.today()),\
 					("Alcala University", "Alcala University", "HEI", "ES", "Alcala", "5", datetime.today()),\
 					("Granada University", "Granada University", "HEI", "ES", "Granada", "96", datetime.today()),\
-					("Extremadura University", "Extremadura University", "HEI", "ES", "Extremadura", "104", datetime.today()),\
+					("Extremadura University", "Extremadura University", "HEI", "ES", "Extremadura", "50", datetime.today()),\
 					("University Pompeu Fabra", "University Pompeu Fabra", "HEI", "ES", "Madrid", "83", datetime.today()),\
 					("Barcelona ESADE", "Barcelona ESADE", "HEI", "ES", "Barcelona", "26", datetime.today()),\
 					("UP Catalunya", "UP Catalunya", "HEI", "ES", "Barcelona", "50", datetime.today()),\
-					("Valladolid University", "Valladolid University", "HEI", "ES", "Valladolid", "104", datetime.today()),\
+					("Valladolid University", "Valladolid University", "HEI", "ES", "Valladolid", "50", datetime.today()),\
 					("Universidad Pontificia Comillas de Madrid", "Universidad Pontificia Comillas de Madrid", "HEI", "ES", "Comillas de Madrid", "58", datetime.today()),\
 					("Alcala University", "Alcala University", "HEI", "ES", "Alcala", "65", datetime.today()),\
 					("Alicante University", "Alicante University", "HEI", "ES", "Alicante", "90", datetime.today()),\
@@ -372,7 +372,7 @@ class Partner(db.Model):
 					("ENSC Lille", "ENSC Lille", "HEI", "FR", "Lille", "10", datetime.today()),\
 					("ESSEC Business School, Paris", "ESSEC Business School, Paris", "HEI", "FR", "Paris", "52", datetime.today()),\
 					("Université Pierre Mendes, Grenoble II", "Université Pierre Mendes, Grenoble II", "HEI", "FR", "Grenoble", "65", datetime.today()),\
-					("Université Stendhal, Grenoble III", "Université Stendhal, Grenoble III", "HEI", "FR", "Grenoble", "104", datetime.today()),\
+					("Université Stendhal, Grenoble III", "Université Stendhal, Grenoble III", "HEI", "FR", "Grenoble", "50", datetime.today()),\
 					("HEC Paris", "HEC Paris", "HEI", "FR", "HEC", "11", datetime.today()),\
 					("IEP Grenoble", "IEP Grenoble", "HEI", "FR", "Grenoble", "93", datetime.today()),\
 					("IEP Lyon", "IEP Lyon", "HEI", "FR", "Lyon", "53", datetime.today()),\
@@ -449,7 +449,7 @@ class Partner(db.Model):
 					("United Theological College", "United Theological College", "HEI", "IN", "Delhi", "94", datetime.today()),\
 					("University of Iceland", "University of Iceland", "HEI", "IS", "Reykjavik", "53", datetime.today()),\
 					("Iceland Academy of the Arts", "Iceland Academy of the Arts", "HEI", "IS", "Reykjavik", "97", datetime.today()),\
-					("Università degli Studi di Cagliari", "Università degli Studi di Cagliari", "HEI", "IT", "Cagliari", "104", datetime.today()),\
+					("Università degli Studi di Cagliari", "Università degli Studi di Cagliari", "HEI", "IT", "Cagliari", "50", datetime.today()),\
 					("University of Naples", "University of Naples", "HEI", "IT", "Naples", "15", datetime.today()),\
 					("Bologna University", "Bologna University", "HEI", "IT", "Bologna", "17", datetime.today()),\
 					("Milan University", "Milan University", "HEI", "IT", "Milan", "87", datetime.today()),\
@@ -521,7 +521,7 @@ class Partner(db.Model):
 					("International Medical University", "International Medical University", "HEI", "MY", "University", "42", datetime.today()),\
 					("Universiti Tun Abdul Razak", "Universiti Tun Abdul Razak", "HEI", "MY", "Vknrazkver", "34", datetime.today()),\
 					("University of the Caribbean Coast of Nicaragua", "University of the Caribbean Coast of Nicaragua", "HEI", "NI", "Florianópolis", "48", datetime.today()),\
-					("Groningen University", "Groningen University", "HEI", "NL", "Groningen", "104", datetime.today()),\
+					("Groningen University", "Groningen University", "HEI", "NL", "Groningen", "50", datetime.today()),\
 					("Nijmegen Radboud University", "Nijmegen Radboud University", "HEI", "NL", "University", "71", datetime.today()),\
 					("University of Amsterdam", "University of Amsterdam", "HEI", "NL", "Amsterdam", "48", datetime.today()),\
 					("Leiden University", "Leiden University", "HEI", "NL", "Leiden", "52", datetime.today()),\
@@ -621,7 +621,7 @@ class Partner(db.Model):
 					("University of Louisville", "University of Louisville", "HEI", "US", "Louisville", "70", datetime.today()),\
 					("University of Miami", "University of Miami", "HEI", "US", "Miami", "54", datetime.today()),\
 					("University of Richmond", "University of Richmond", "HEI", "US", "Richmond", "20", datetime.today()),\
-					("University of South Carolina", "University of South Carolina", "HEI", "US", "Vancaroiver", "104", datetime.today()),\
+					("University of South Carolina", "University of South Carolina", "HEI", "US", "Vancaroiver", "50", datetime.today()),\
 					("University of Chicago", "University of Chicago", "HEI", "US", "Chicago", "100", datetime.today()),\
 					("California Institute of Technology", "California Institute of Technology", "HEI", "US", "Iologyaeifo", "54", datetime.today()),\
 					("University of Conneticut", "University of Conneticut", "HEI", "US", "Conneticut", "8", datetime.today()),\
