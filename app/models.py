@@ -54,6 +54,14 @@ class User(UserMixin, db.Model):
 			return
 		return User.query.get(id)
 
+	def adminuser():
+		user = User.query.filter_by(email="lucygaunt@ed.ac.uk")
+		u = User(fname="Lucy", sname="Gaunt", role="Admin", email="lucygaunt@ed.ac.uk")
+		u.set_password('cat')
+		u.create_userid("Lucy","Gaunt")
+		db.session.add(u)
+		db.session.commit()
+
 	@staticmethod	
 	def bulk_add_users():
 		users = [ ("Thibaut","Kemmer","tkemmer0@accuweather.com"),\
@@ -694,13 +702,13 @@ class Mobility(db.Model):
 	@staticmethod
 	def insert_mobs():
 		for i in range (0,500):
-			m = Mobility(mobilitytype='STUX', partner=randint(1,409), level='Undergraduate', session=randint(2009,2018), totalout=randint(1,25)*0.5, totalin=randint(1,19)*0.5)
+			m = Mobility(mobilitytype='STUX', partner=randint(115,523), level='Undergraduate', session=randint(2009,2018), totalout=randint(1,25)*0.5, totalin=randint(1,19)*0.5)
 			db.session.add(m)
 		for i in range (0,200):
-			m = Mobility(mobilitytype='STUX', partner=randint(1,409), level='Postgraduate Taught', session=randint(2009,2018), totalout=randint(1,8)*0.5, totalin=randint(1,8)*0.5)
+			m = Mobility(mobilitytype='STUX', partner=randint(115,523), level='Postgraduate Taught', session=randint(2009,2018), totalout=randint(1,8)*0.5, totalin=randint(1,8)*0.5)
 			db.session.add(m)
 		for i in range (0,350):
-			m = Mobility(mobilitytype='RESE', partner=randint(1,409), level='Academic staff', session=randint(2009,2018), totalout=randint(1,6)*0.5, totalin=randint(1,9)*0.5)
+			m = Mobility(mobilitytype='RESE', partner=randint(115,523), level='Academic staff', session=randint(2009,2018), totalout=randint(1,6)*0.5, totalin=randint(1,9)*0.5)
 			db.session.add(m)
 		db.session.commit()
 
