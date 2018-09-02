@@ -62,7 +62,6 @@ def logout():
 	logout_user()
 	return redirect(url_for('index'))
 
-@staticmethod
 def checkuniqueuser(userid):
 	check = User.query.filter_by(userid=userid).first()
 	if check == None:
