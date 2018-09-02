@@ -276,9 +276,10 @@ def country(iso):
 	country = Country.query.filter_by(iso=iso).first()
 
 	partnertotal = len(partners)
-	partners = Partner.query.filter_by(country=iso).order_by(Partner.last_updated.desc()).limit(5).all()
+	partners = Partner.query.filter_by(country=iso).order_by(Partner.last_updated.desc()).limit(5).all() #descending order by doesn't work in live
 
-	visits = db.session.query(Partner.name, Visit.vtype, Visit.start_date, Visit.end_date).join(Visit).join(Country).filter_by(iso=iso).limit(5).all()
+	visits = db.session.query(Partner.name, Visit.vtype, Visit.start_date, Visit.end_date).\
+	join(Visit).join(Country).filter_by(iso=iso).order_by(Visit.start_date.desc()).limit(5).all()
 
 	wiki = wikipedia.page(country.name)
 	#summary = wikipedia.summary(country.name)
@@ -599,7 +600,7 @@ def manageusers():
 
 	if user.is_admin() == True:
 
-		users = User.query.all()
+		users = User.query.order_by(User.sname).all()
 
 		return render_template('manageusers.html', users=users)
 
