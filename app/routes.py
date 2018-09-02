@@ -193,11 +193,29 @@ def adminedituser(id):
 		form = EditUserDetailsForm()
 
 		if form.validate_on_submit():
-			user.fname = form.fname.data
-			user.sname = form.sname.data
-			user.email = form.email.data
-			db.session.add(user)
-			db.session.commit()
+
+			if user.email == form.email.data:
+				user.fname = form.fname.data
+				user.sname = form.sname.data
+				db.session.add(user)
+				db.session.commit()
+				flash ('User details have been updated')
+				return redirect(url_for('manageusers'))
+
+			else:
+				u = User.query.filter_by(email=form.email.data).all()
+				if user is None:
+					user.fname = form.fname.data
+					user.sname = form.sname.data
+					user.email = form.email.data
+					db.session.add(user)
+					db.session.commit()
+					
+				else:
+					flash('That email address is already registered. Please enter a unique email address')
+					return redirect(url_for('adminedituser', id=id))
+
+
 			flash ('User details have been updated')
 			return redirect(url_for('manageusers'))
 

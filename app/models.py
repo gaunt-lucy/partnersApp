@@ -814,14 +814,15 @@ class AcademicYear(db.Model):
 	descr = db.Column(db.String)
 
 	def add_years():
-		start_year = 2000
-		end_year = (datetime.today().year)+1
+		year = 2000
+		this = datetime.today().year+2
 
-		while start_year != end_year:
-			year = AcademicYear.query.filter_by(year=start_year)
+		ayrs = [(str(year+i), str(str(year+i)+'/'+str(year+i+1))) for i in range (0,this-year)]
+
+		for a in ayrs:
+			year = AcademicYear.query.filter_by(year=a[0]).first()
 			if year == None:
-				ayr = AcademicYear(year=start_year, descr=str(str(start_year)+'/'+str(start_year+1)))
+				ayr = AcademicYear(year=a[0], descr=a[1])
 				db.session.add(ayr)
-			start_year = start_year+1
 
 		db.session.commit()
